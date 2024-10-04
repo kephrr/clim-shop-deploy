@@ -376,6 +376,7 @@ body main .payment .summary button {
   border: none;
   font-size: 1.2rem;
 }
+
 body main .payment .summary .pay-mode img {
   width: 70px;
   height: 70px;
@@ -398,6 +399,15 @@ body #card-details p {
 body #card-details p span {
   color: rgb(1, 241, 1);
   font-weight: 600;
+}
+@media screen and (max-width: 1024px){
+  body main .payment .summary .pay-mode{
+    display: none;
+  }
+  body footer {
+    height: auto;
+    margin-top: 15vh;
+  }
 }
 
 @media screen and (max-width: 968px) {
