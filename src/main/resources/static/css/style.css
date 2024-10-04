@@ -347,6 +347,8 @@ body main .cart .cart-content .li .card .card-content .card-actions a {
   text-decoration: none;
 }
 body main .payment {
+  display: flex;
+  margin-bottom: 40px;
   flex: 1;
 }
 body main .payment .summary {
