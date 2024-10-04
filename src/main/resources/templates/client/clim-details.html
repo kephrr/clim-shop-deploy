@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+>
+<div layout:fragment="contentForView" class="template-content">
+    <main>
+        <div class="aside cart">
+            <div class="banner">
+                <h2>Details du produit</h2>
+            </div>
+            <div class="cart-content" id="product-cart">
+                <div class="li">
+                    <div class="card">
+                        <img id="img-details"
+                             th:src="@{${climDetails.image}}" alt="">
+                        <div id="card-details">
+                            <p id="card-details-title"> <strong th:text="${climDetails.libelle}"> </strong></p>
+                            <p>Categorie : <span th:text="${climDetails.categorie}"></span></p>
+                            <p th:text="'Prix : '+${climDetails.prix}"> <span>FCFA</span></p>
+                            <p th:text="'Prix (promotion incluse) : '+${climDetails.prixFinal}"> <span>FCFA</span></p>
+                            <p th:text="'Surface de refroidissement : '+${climDetails.surface}+' M²'"><span>M²</span></p>
+                            <p th:text="'Capacité de refroidissement : '+${climDetails.capacite}+' BTU/H'"> <span>BTU/H</span></p>
+                            <p >Marque : <span th:text="${climDetails.marque}">LG</span></p>
+                            <p>Etat : <span th:text="${climDetails.etat}"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form class="aside payment"
+              th:method="post"
+              th:action="@{/client/panier/add}"
+              th:object="${climPanierDto}">
+            <div class="summary">
+                <h2>Résumé du produit</h2>
+                <label for="libelle" >Libelle </label>
+                <input readonly="readonly" th:field="*{libelle}" th:value="${climDetails.libelle}" type="text" id="libelle">
+
+                <label for="prix">Prix </label>
+                <input readonly="readonly" th:field="*{prix}" value="" type="text" name="prix" id="prix">
+
+                <label for="quantite">Quantité</label>
+                <input required onchange="calcMontant()" th:field="*{quantite}" type="number" name="quantite" id="quantite">
+
+                <label for="montant">Montant total </label>
+                <input readonly="readonly" th:field="*{montant}" type="text" name="montant" id="montant">
+                <input th:field="*{id}" th:value="${climDetails.id}" type="text" id="id">
+                <style>
+                    #id{
+                        display: none;
+                    }
+                </style>
+                <button type="submit">Ajouter au panier</button>
+            </div >
+        </form>
+    </main>
+</div>
+<script>
+    calcMontant();
+</script>
+</html>

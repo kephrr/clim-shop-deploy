@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" th:href="@{/css/admin/style.css}">
+</head>
+<body>
+    <div class="container">
+        <div class="sideBar">
+            <img th:src="@{/img/private.png}" alt="Utilisateur">
+            <ul class="sideOptions">
+                <li class="sideOp">
+                    <a th:href="@{/admin/clients}">
+                        <img th:src="@{/img/client.png}" alt="" srcset="">
+                        Clients
+                    </a>
+                </li>
+                <li class="sideOp">
+                    <a th:href="@{/admin/commandes}">
+                        <img th:src="@{/img/panier-dachat-rapide.png}" alt="" srcset="">
+                        Commandes
+                    </a>
+                </li>
+                <li class="sideOp">
+                    <a th:href="@{/admin/clims}">
+                        <img th:src="@{/img/climatiseur.png}" alt="" srcset="">
+                        Clims
+                    </a>
+                </li>
+            </ul>
+            <a th:href="@{/logout}">
+                <button>Déconnexion</button>
+            </a>        
+        </div>
+        <div layout:fragment="contentForView" class="rightSide">
+            MAIN
+        </div>
+    </div>
+</body>
+</html>

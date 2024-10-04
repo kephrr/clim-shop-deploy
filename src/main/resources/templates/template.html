@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clim SHOP</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/main.js}"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-item">
+            <h1>Clim <span>Shop</span></h1>
+        </div>
+        <form class="nav-item"
+              th:method="post"
+              th:action="@{/client/home/search}"
+              th:object="${search}"
+        >
+            <input th:field="*{keyword}" type="text">
+            <button type="submit">Rechercher</button>
+        </form>
+        <div class="nav-item"  id="last">
+            <a th:href="@{/client/home}">
+                <img th:src="@{/img/maison.png}" alt="acceuil" class="icon">
+            </a>
+            <a th:href="@{/client/panier}">
+                <img th:src="@{/img/panier-dachat-rapide (1).png}" alt="panier" class="icon">
+            </a>
+            <a th:href="@{/client/commandes}">
+                <img th:src="@{/img/livraison-de-la-commande.png}" alt="panier" class="icon">
+            </a>
+            <a th:href="@{/client/account}">
+                <img th:src="@{/img/utilisateur.png}" alt="utilisateur" class="icon">
+            </a>
+        </div>
+    </div>
+    <section layout:fragment="contentForView" class="template-content">
+    </section>
+
+    <footer>
+        <div class="infos">
+            <ul>
+                <h2>Liens utiles</h2>
+                <div class="bar"></div>
+                <li>Conditions générales de ventes</li>
+                <li>Conditions générales de ventes des chèques</li>
+                <li>Conditions d'utilisatinos</li>
+                <li>Nos garanties</li>
+                <li>Guide électroménager</li>
+                <li>A propos</li>
+                <li>Nous contacter</li>
+                <li>Nos marques</li>
+            </ul>
+        </div>
+
+        <div class="infos">
+            <ul>
+                <h2>Contact</h2>
+                <div class="bar"></div>
+                <li>Service client : +221 78 000 00 00 ou 77 000 00 00</li>
+                <li>Email : mon-adresse@gmail.com</li>
+                <li>Conditions Le respect de votre vie privée et de vos donnés est notre priorité.</li>
+                <li>Suivez-nous sur les réseaux sociaux</li>
+            </ul>
+            <div class="socials">
+                <a href="">
+                    <img th:src="@{/img/tiktok-logo-icon-social-media-icon-free-png.png}" alt="tiktok">
+                </a>
+                <a href="">
+                    <img th:src="@{/img/Instagram_icon.png}" alt="insta">
+                </a>
+                <a href="">
+                    <img th:src="@{/img/Youtube_logo.png}" alt="youtube">
+                </a>
+                <a href="">
+                    <img th:src="@{/img/Facebook_Logo_2023.png}" alt="facebook">
+                </a>
+                <a href="">
+                    <img th:src="@{/img/LinkedIn_logo_initials.png}" alt="linkedin">
+                </a>
+            </div>
+        </div>
+
+        <div class="infos">
+            <ul>
+                <h2>Activités récentes</h2>
+                <div class="bar"></div>
+                <li>Conditions générales de ventes</li>
+                <li>Conditions générales de ventes des chèques</li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
