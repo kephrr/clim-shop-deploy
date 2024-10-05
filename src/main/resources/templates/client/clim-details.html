@@ -31,9 +31,9 @@
         </div>
         <form class="aside payment"
               th:method="post"
-              th:action="@{/client/panier/add}"
+              th:action="@{/panier/add}"
               th:object="${climPanierDto}">
-            <div class="summary">
+            <div class="summary" id="addClim">
                 <h2>Résumé du produit</h2>
                 <label for="libelle" >Libelle </label>
                 <input readonly="readonly" th:field="*{libelle}" th:value="${climDetails.libelle}" type="text" id="libelle">

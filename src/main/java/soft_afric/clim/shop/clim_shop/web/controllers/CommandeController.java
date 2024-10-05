@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import soft_afric.clim.shop.clim_shop.web.dto.request.PanierRequestDto;
 
 public interface CommandeController {
-    @PostMapping("/commander")
+    @PostMapping("/panier/commander")
     String Commander(Model model,
                      @ModelAttribute("panier") PanierRequestDto panier);
-
-    @GetMapping("/client/commandes")
-    String Commandes(Model model);
 }

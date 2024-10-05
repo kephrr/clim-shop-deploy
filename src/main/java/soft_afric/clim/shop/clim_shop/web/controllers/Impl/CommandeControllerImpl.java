@@ -7,16 +7,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import soft_afric.clim.shop.clim_shop.data.entities.Adresse;
 import soft_afric.clim.shop.clim_shop.data.entities.Client;
 import soft_afric.clim.shop.clim_shop.data.entities.Commande;
 import soft_afric.clim.shop.clim_shop.data.entities.LigneCommande;
 import soft_afric.clim.shop.clim_shop.data.enums.EtatCommande;
 import soft_afric.clim.shop.clim_shop.data.enums.ModePaiement;
+import soft_afric.clim.shop.clim_shop.security.services.SecurityService;
 import soft_afric.clim.shop.clim_shop.services.ClientService;
 import soft_afric.clim.shop.clim_shop.services.ClimService;
 import soft_afric.clim.shop.clim_shop.services.CommandeService;
 import soft_afric.clim.shop.clim_shop.services.LigneCommandeService;
 import soft_afric.clim.shop.clim_shop.web.controllers.CommandeController;
+import soft_afric.clim.shop.clim_shop.web.dto.request.ClientRequestDto;
 import soft_afric.clim.shop.clim_shop.web.dto.request.ClimPanierDto;
 import soft_afric.clim.shop.clim_shop.web.dto.request.PanierRequestDto;
 import soft_afric.clim.shop.clim_shop.web.dto.request.RechercheDto;
@@ -35,14 +38,25 @@ import java.util.List;
 public class CommandeControllerImpl implements CommandeController {
     private final CommandeService commandeService;
     private final ClientService clientService;
+    private final SecurityService securityService;
     private final ClimService climService;
     private final LigneCommandeService ligneCommandeService;
     @Override
     public String Commander(Model model, PanierRequestDto panier) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        Client client = clientService.findByUsername(currentUserName);
-
+        Client client = clientService.findByUsername(panier.getClient().getNomComplet());
+        if(client==null) {
+                String[] adresses = panier.getClient().getAdresse().split(" ");
+                client = Client.builder()
+                        .nomComplet(panier.getClient().getNomComplet())
+                        .tel(panier.getClient().getTel())
+                        .adresse(new Adresse(adresses[0], adresses[1], adresses[2]))
+                        .build();
+                client.setLogin(client.getNomComplet());
+                client.setPassword(client.getTel());
+                // securityService.addUser(client.getLogin(), client.getPassword());
+                clientService.save(client);
+                securityService.addRoleToUser(client.getLogin(), "Client");
+        }
         Commande commande = new Commande();
         commande.setEtatCommande(EtatCommande.Facturer);
         commande.setClient(client);
@@ -67,8 +81,8 @@ public class CommandeControllerImpl implements CommandeController {
                             .quantite(ligne.getQuantite())
                             .montant(ligne.getMontant())
                             .build();
-            montant += l.getMontant();
             l.setCommande(commande);
+            montant += l.getMontant();
             lignes.add(l);
         }
         commande.setMontant(montant);
@@ -76,21 +90,11 @@ public class CommandeControllerImpl implements CommandeController {
         for (LigneCommande l : lignes) {
             ligneCommandeService.save(l);
         }
-
-        model.addAttribute("commande", panier.toString());
-        return "redirect:client/commandes";
-    }
-
-    @Override
-    public String Commandes(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        Client client = clientService.findByUsername(currentUserName);
-        List<Commande> commandesClient = client.getCommandes();
+        List<Commande> commandesClient = commandeService.findAll(client);
         List<CommandeDto> commandes = new ArrayList<>(commandesClient.stream().map(CommandeDto::toDto).toList());
-        // Collections.reverse(commandes);
         model.addAttribute("commandes", commandes);
-        model.addAttribute("msg", "Voici vos commandes !!");
+        model.addAttribute("commande", panier.toString());
+        model.addAttribute("msg", "Voici votre commande!!");
         setSearchBarDto(model);
         return "client/commandes";
     }

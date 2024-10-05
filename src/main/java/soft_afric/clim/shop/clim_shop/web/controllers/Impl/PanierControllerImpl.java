@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import soft_afric.clim.shop.clim_shop.data.entities.Adresse;
+import soft_afric.clim.shop.clim_shop.data.entities.Client;
 import soft_afric.clim.shop.clim_shop.data.entities.Clim;
 import soft_afric.clim.shop.clim_shop.services.ClientService;
 import soft_afric.clim.shop.clim_shop.services.ClimService;
@@ -23,11 +25,11 @@ import java.util.ArrayList;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/client/panier")
+@RequestMapping("/panier")
 @SessionAttributes({"panier"})
 public class PanierControllerImpl implements PanierController {
     private final ClimService climService;
-    private final ClientService clientService;
+    // private final ClientService clientService;
     @Override
     public String addClimToPanier(Model model, ClimPanierDto article, PanierRequestDto panier) {
         Clim product = climService.show(article.getId()).orElseThrow(
@@ -85,12 +87,14 @@ public class PanierControllerImpl implements PanierController {
     }
     @ModelAttribute("panier")
     public PanierRequestDto panier(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
         return  new PanierRequestDto(
                 new ArrayList<>(),
                 0.0,
-                ClientDto.toDto(clientService.findByUsername(currentUserName)),
+                ClientDto.toDto(Client.builder()
+                        .nomComplet("")
+                        .tel("")
+                        .adresse(new Adresse("Dakar","quartier","000"))
+                        .build()),
                 0,
                 0
         );

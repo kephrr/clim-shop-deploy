@@ -19,4 +19,7 @@ public interface ClientController {
 
     @GetMapping("/signup/form")
     String signupForm(Model model);
+
+    @GetMapping("/commandes")
+    String Commandes(Model model);
 }

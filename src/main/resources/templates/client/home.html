@@ -47,7 +47,7 @@
 
             <form class="filter-form"
                   th:method="post"
-                  th:action="@{/client/home/filter}"
+                  th:action="@{/home/filter}"
                   th:object="${filter}"
                   >
                 <div>
@@ -88,10 +88,10 @@
                             </div>
                         </div>
                         <div class="actions">
-                            <a th:href="@{/client/details/{id}(id = ${clim.id})}">
+                            <a th:href="@{/details/{id}(id = ${clim.id})}">
                                 <button class="details">Details</button>
                             </a>
-                            <a th:href="@{/client/panier/add/{id}(id = ${clim.id})}">
+                            <a th:href="@{/panier/add/{id}(id = ${clim.id})}">
                                 <button class="plus">+</button>
                             </a>
                         </div>
@@ -116,10 +116,10 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <a th:href="@{/client/details/{id}(id = ${clim.id})}">
+                        <a th:href="@{/details/{id}(id = ${clim.id})}">
                             <button class="details">Details</button>
                         </a>
-                        <a th:href="@{/client/panier/add/{id}(id = ${clim.id})}">
+                        <a th:href="@{/panier/add/{id}(id = ${clim.id})}">
                             <button class="plus">+</button>
                         </a>
                     </div>

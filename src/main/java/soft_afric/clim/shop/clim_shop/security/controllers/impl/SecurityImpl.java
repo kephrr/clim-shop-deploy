@@ -1,13 +1,13 @@
 package soft_afric.clim.shop.clim_shop.security.controllers.impl;
 
-import jakarta.servlet.http.HttpSession;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import soft_afric.clim.shop.clim_shop.security.controllers.Security;
 import soft_afric.clim.shop.clim_shop.security.data.entities.AppUser;
 import soft_afric.clim.shop.clim_shop.security.services.SecurityService;
-import soft_afric.clim.shop.clim_shop.services.ClientService;
+
 
 @Controller
 @RequiredArgsConstructor

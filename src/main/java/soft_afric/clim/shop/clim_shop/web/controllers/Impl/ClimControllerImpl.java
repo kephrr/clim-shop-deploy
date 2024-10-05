@@ -8,9 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import soft_afric.clim.shop.clim_shop.data.entities.Categorie;
-import soft_afric.clim.shop.clim_shop.data.entities.Clim;
-import soft_afric.clim.shop.clim_shop.data.entities.Marque;
+import soft_afric.clim.shop.clim_shop.data.entities.*;
+import soft_afric.clim.shop.clim_shop.security.services.SecurityService;
 import soft_afric.clim.shop.clim_shop.services.CategorieService;
 import soft_afric.clim.shop.clim_shop.services.ClientService;
 import soft_afric.clim.shop.clim_shop.services.ClimService;
@@ -31,14 +30,11 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/client")
 @SessionAttributes({"panier"})
 public class ClimControllerImpl implements ClimController {
     private final ClimService climService;
     private final CategorieService categorieService;
     private final MarqueService marqueService;
-    private final ClientService clientService;
-
 
     @Override
     public String homePage(Model model) {
@@ -102,14 +98,14 @@ public class ClimControllerImpl implements ClimController {
 
     @ModelAttribute("panier")
     public PanierRequestDto panier(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        return  new PanierRequestDto(
-                new ArrayList<>(),
-                0.0,
-                ClientDto.toDto(clientService.findByUsername(currentUserName)),
-                0,
-                0
-        );
+        return new PanierRequestDto(
+                    new ArrayList<>(),
+                    0.0,
+                    ClientDto.toDto(Client.builder()
+                            .nomComplet("")
+                            .tel("")
+                            .adresse(new Adresse("Dakar","quartier","000"))
+                            .build()),
+                    0, 0);
     }
 }

@@ -15,28 +15,29 @@
         </div>
         <form class="nav-item"
               th:method="post"
-              th:action="@{/client/home/search}"
+              th:action="@{/home/search}"
               th:object="${search}"
         >
             <input th:field="*{keyword}" type="text">
             <button type="submit">Rechercher</button>
         </form>
         <div class="nav-item"  id="last">
-            <a th:href="@{/client/home}">
+            <a th:href="@{/home}">
                 <img th:src="@{/img/maison.png}" alt="acceuil" class="icon">
             </a>
-            <a th:href="@{/client/panier}">
+            <a th:href="@{/panier}">
                 <img th:src="@{/img/panier-dachat-rapide (1).png}" alt="panier" class="icon">
             </a>
-            <a th:href="@{/client/commandes}">
+            <a th:href="@{/commandes}">
                 <img th:src="@{/img/livraison-de-la-commande.png}" alt="panier" class="icon">
             </a>
-            <a th:href="@{/client/account}">
+            <a th:href="@{/account}">
                 <img th:src="@{/img/utilisateur.png}" alt="utilisateur" class="icon">
             </a>
         </div>
     </div>
     <section layout:fragment="contentForView" class="template-content">
+
     </section>
 
     <footer>

@@ -35,8 +35,8 @@
                             <p class="card-content-title" th:text="${ligne.quantite}+'x '+${ligne.libelle}"></p>
                             <p th:text="'Montant : '+${ligne.montant}"><span>FCFA</span></p>
                             <div class="card-actions">
-                                <a th:href="@{/client/details/{id}(id = ${ligne.id})}">Details</a>
-                                <a th:href="@{/client/panier/remove/{id}(id = ${ligne.id})}" id="red" >Retirer</a>
+                                <a th:href="@{/details/{id}(id = ${ligne.id})}">Details</a>
+                                <a th:href="@{/panier/remove/{id}(id = ${ligne.id})}" id="red" >Retirer</a>
                             </div>
                         </div>
                     </div>
@@ -44,21 +44,23 @@
             </div>
         </div>
         <form class="aside payment"
-              th:action="@{/commander}"
-              th:method="post">
+              th:action="@{/panier/commander}"
+              th:method="post"
+                th:object="${panier}"
+        >
             <div class="summary" id="summary">
                 <h2>Résumé de la commande</h2>
                 <div class="cmd-item">
-                    <p>Client :</p>
-                    <p th:text="' '+${panier.client.nomComplet}"></p>
+                    <label for="nom">Client</label>
+                    <input id="nom" type="text" th:field="*{panier.client.nomComplet}"></input>
                 </div>
                 <div class="cmd-item">
-                    <p>Telephone :</p>
-                    <p th:text="' '+${panier.client.tel}"></p>
+                    <label for="tel">Telephone </label>
+                    <input id="tel" required type="number" th:field="*{panier.client.tel}"></input>
                 </div>
                 <div class="cmd-item">
-                    <p>Adresse :</p>
-                    <p th:text="' '+${panier.client.adresse}"></p>
+                    <label for="adress">Adresse </label>
+                    <input id="adress" required type="text" th:field="*{panier.client.adresse}"></input>
                 </div>
                 <div class="cmd-item">
                     <p>Montant à payer :</p>

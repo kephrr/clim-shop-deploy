@@ -360,6 +360,30 @@ body main .payment .summary {
   padding: 10px 10px;
   line-height: 0.5rem;
 }
+
+body main .payment .summary .cmd-item{
+  display: flex;
+  flex-direction: column;
+}
+body main .payment .summary input {
+  font-size: 1.1rem;
+  padding: .3rem 0;
+  border: solid 3px rgba(184,229,245,0.78);
+  background-color: rgba(184,229,245,0.28);
+  color: #1E1E1E;
+}
+body main .payment .summary input:focus{
+  border: solid 3px #055AFE;
+  outline: none;
+}
+#montant:hover, #prix:hover, #libelle:hover{
+  cursor: not-allowed;
+}
+body main .payment .summary label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 20px 0 10px;
+}
 body main .payment .summary div {
   display: flex;
 }
@@ -531,7 +555,7 @@ body #card-details p span {
   }
   body footer {
     height: auto;
-    margin-top: 1vh;
+    margin-top: 3vh;
     display: flex;
     justify-content: space-around;
   }
@@ -642,7 +666,6 @@ body #card-details p span {
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    height: 40vh;
   }
   body main .payment .summary div {
     display: flex;

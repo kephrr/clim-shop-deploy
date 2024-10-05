@@ -48,4 +48,8 @@ public class CommandeServiceImpl implements CommandeService {
         return commandeRepository.findById(dataID);
     }
 
+    @Override
+    public List<Commande> findAll(Client client) {
+        return commandeRepository.findAllByClient(client);
+    }
 }

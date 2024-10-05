@@ -12,11 +12,11 @@ import lombok.*;
 @Getter
 @Setter
 public class Adresse {
-    private String quartier;
     private String ville;
+    private String quartier;
     private String numVilla;
     @Override
     public String  toString(){
-        return quartier+ " | "+ ville +" | "+numVilla;
+        return ville+" "+quartier+" "+numVilla;
     }
 }
