@@ -370,7 +370,12 @@ body main .payment .summary .cmd-item{
   display: flex;
   flex-direction: column;
 }
-body main .payment .summary input {
+
+body main .payment .summary #modPaiement{
+  margin-bottom: 1rem;
+}
+
+body main .payment .summary input, body main .payment .summary #modPaiement{
   font-size: 1.1rem;
   padding: .3rem 0;
   border: solid 3px rgba(184,229,245,0.78);
@@ -756,65 +761,8 @@ body #card-details p span {
 }
 
 /* Tablette 1024px
-@media screen and (max-width: 798px) {
-   Navbar
-
-  body .navbar {
-    height: 40px;
-  }
-  body .navbar .nav-item h1 {
-    display: none;
-  }
-  body .navbar form.nav-item{
-    display : none
-  }
-
-  Hero banner
-
-  body .template-content .big-title{
-    height: 100px;
-  }
-  body .template-content .big-title .contain {
-    width: 90px;
-  }
-  body .template-content .big-title .contain p{
-    margin: 1rem;
-  }
-  body .template-content .big-title .contain .sub-title{
-    font-size: 16px;
-  }
-
-  body .template-content .section .call-to-action {
-    width: 95vw;
-  }
-  body .template-content .section .call-to-action .item {
-    width: 28vw;
-  }
-  body .template-content .section .call-to-action .item img {
-    height: 55px;
-  }
-  body .template-content .section .call-to-action .item .item-text {
-    line-height: 1rem;
-    font-size: 12px;
-  }
-  body .template-content .section .call-to-action .item .item-text .call-title {
-    font-size: 14px;
-  }
-  body .template-content .section .call-to-action .separate-bar {
-    width: 1px;
-    height: 90px;
-  }
-
-  body footer {
-    height: auto;
-    margin-top: 5vh;
-  }
-}
-*/
-/*# sourceMappingURL=style.css.map */
-
 /* Responsive */
-/* Telephone 1024px */
+/* Telephone 425px */
 @media screen and (max-width: 425px) {
   body .template-content .big-title{
     height: 30vh;
