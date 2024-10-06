@@ -27,14 +27,19 @@ body .navbar .nav-item {
   display: flex;
   align-items: center;
 }
-body .navbar .nav-item h1 {
+
+body .navbar .nav-item .a {
+  text-decoration: none;
+  color: white;
+}
+body .navbar .nav-item .a h1 {
   font-weight: normal;
 }
-body .navbar .nav-item h1:hover {
+body .navbar .nav-item .a h1:hover {
   cursor: pointer;
 }
-body .navbar .nav-item span {
-  color: #FFFFFF;
+body .navbar .nav-item .a h1 span {
+  color: black;
   font-weight: bold;
 }
 body .navbar .nav-item input {

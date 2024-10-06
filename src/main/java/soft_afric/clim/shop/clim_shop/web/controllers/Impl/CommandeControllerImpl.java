@@ -3,6 +3,7 @@ package soft_afric.clim.shop.clim_shop.web.controllers.Impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -41,6 +42,7 @@ public class CommandeControllerImpl implements CommandeController {
     private final SecurityService securityService;
     private final ClimService climService;
     private final LigneCommandeService ligneCommandeService;
+    private  final PasswordEncoder passwordEncoder;
     @Override
     public String Commander(Model model, PanierRequestDto panier) {
         Client client = clientService.findByUsername(panier.getClient().getNomComplet());
@@ -52,7 +54,7 @@ public class CommandeControllerImpl implements CommandeController {
                         .adresse(new Adresse(adresses[0], adresses[1], adresses[2]))
                         .build();
                 client.setLogin(client.getNomComplet());
-                client.setPassword(client.getTel());
+                client.setPassword(passwordEncoder.encode(client.getTel()));
                 // securityService.addUser(client.getLogin(), client.getPassword());
                 clientService.save(client);
                 securityService.addRoleToUser(client.getLogin(), "Client");
@@ -87,6 +89,7 @@ public class CommandeControllerImpl implements CommandeController {
         }
         commande.setMontant(montant);
         commandeService.save(commande);
+        commande.setLigneCommandes(lignes);
         for (LigneCommande l : lignes) {
             ligneCommandeService.save(l);
         }
@@ -96,7 +99,7 @@ public class CommandeControllerImpl implements CommandeController {
         model.addAttribute("commande", panier.toString());
         model.addAttribute("msg", "Voici votre commande!!");
         setSearchBarDto(model);
-        return "client/commandes";
+        return "public/commandes";
     }
 
     public void setSearchBarDto(Model model){

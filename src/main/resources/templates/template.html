@@ -11,7 +11,9 @@
 <body>
     <div class="navbar">
         <div class="nav-item">
-            <h1>Clim <span>Shop</span></h1>
+            <a class="a" th:href="@{/home}">
+                <h1>Clim <span>Shop</span></h1>
+            </a>
         </div>
         <form class="nav-item"
               th:method="post"
@@ -31,7 +33,7 @@
             <a th:href="@{/commandes}">
                 <img th:src="@{/img/livraison-de-la-commande.png}" alt="panier" class="icon">
             </a>
-            <a th:href="@{/account}">
+            <a th:href="@{/client/account}">
                 <img th:src="@{/img/utilisateur.png}" alt="utilisateur" class="icon">
             </a>
         </div>

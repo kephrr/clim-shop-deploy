@@ -61,7 +61,7 @@ public class ClientControllerImpl implements ClientController {
         model.addAttribute("commandes", commandes);
         model.addAttribute("msg", "Voici vos commandes !!");
         setSearchBarDto(model);
-        return "client/commandes";
+        return "public/commandes";
     }
 
     public void setSearchBarDto(Model model){

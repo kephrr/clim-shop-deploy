@@ -79,7 +79,7 @@ public class PanierControllerImpl implements PanierController {
         model.addAttribute("lignes", panier.getArticles());
         model.addAttribute("client", panier.getClient());
         setSearchBarDto(model);
-        return "client/shopping-cart";
+        return "public/shopping-cart";
     }
 
     public void setSearchBarDto(Model model){

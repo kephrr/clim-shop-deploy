@@ -52,22 +52,22 @@
                 <h2>Résumé de la commande</h2>
                 <div class="cmd-item">
                     <label for="nom">Client</label>
-                    <input id="nom" type="text" th:field="*{panier.client.nomComplet}"></input>
+                    <input id="nom" type="text" th:field="*{client.nomComplet}"></input>
                 </div>
                 <div class="cmd-item">
                     <label for="tel">Telephone </label>
-                    <input id="tel" required type="number" th:field="*{panier.client.tel}"></input>
+                    <input id="tel" required type="number" th:field="*{client.tel}"></input>
                 </div>
                 <div class="cmd-item">
                     <label for="adress">Adresse </label>
-                    <input id="adress" required type="text" th:field="*{panier.client.adresse}"></input>
+                    <input id="adress" required type="text" th:field="*{client.adresse}"></input>
                 </div>
                 <div class="cmd-item">
                     <p>Montant à payer :</p>
                     <p th:text="${panier.total}"> 300000 <span>FCFA</span></p>
                 </div>
                 <h3>Nous acceptons</h3>
-                <select th:field="*{panier.modePaiement}" name="modePaiement" id="modPaiement">
+                <select th:field="*{modePaiement}" name="modePaiement" id="modPaiement">
                     <option value="0">Liquide</option>
                     <option value="1">Orange Money</option>
                     <option value="2">Wave</option>

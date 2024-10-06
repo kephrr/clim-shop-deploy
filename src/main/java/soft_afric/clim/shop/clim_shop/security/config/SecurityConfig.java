@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .loginPage("/login")
                 .permitAll()
             ).authorizeHttpRequests(auth->auth
-                        .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 // .requestMatchers("/register/**", "/logout").permitAll()
                 .requestMatchers("/admin/**").hasAnyAuthority("Admin")
                 .requestMatchers("/client/**").hasAnyAuthority("Client")

@@ -42,7 +42,7 @@ public class ClimControllerImpl implements ClimController {
         firstPageData(model, allClims);
         model.addAttribute("filter", new FilterDto());
         setSearchBarDto(model);
-        return "client/home";
+        return "public/home";
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ClimControllerImpl implements ClimController {
         model.addAttribute("climPanierDto", climPanierDto);
         model.addAttribute("climDetails", climDetails);
         setSearchBarDto(model);
-        return "client/clim-details";
+        return "public/clim-details";
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ClimControllerImpl implements ClimController {
         model.addAttribute("filter", filterDto);
         firstPageData(model, allClims);
         setSearchBarDto(model);
-        return "client/home";
+        return "public/home";
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ClimControllerImpl implements ClimController {
         model.addAttribute("filter", new FilterDto());
         firstPageData(model, allClims);
         model.addAttribute("search", rechercheDto);
-        return "client/home";
+        return "public/home";
     }
 
     public void firstPageData(Model model, List<ClimDto> allClims) {
