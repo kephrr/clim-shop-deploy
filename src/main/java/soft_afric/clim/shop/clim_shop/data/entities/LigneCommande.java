@@ -23,6 +23,6 @@ public class LigneCommande extends AbstractEntity{
     private Commande commande;
     @Override
     public String  toString(){
-        return quantite+ " * "+ clim.getLibelle() +" ("+prix+")"+" Total : "+montant;
+        return quantite+ " * "+ clim.getLibelle() +" ("+prix+"F)"+" Total : "+montant+"F";
     }
 }

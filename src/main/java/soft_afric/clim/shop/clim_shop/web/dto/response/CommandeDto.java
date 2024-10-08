@@ -21,6 +21,7 @@ import java.util.List;
 @Setter
 @Builder
 public class CommandeDto {
+    private Long id;
     private String client;
     private String adresse;
     private String date;
@@ -35,6 +36,7 @@ public class CommandeDto {
             ligneCommandes.add(ligne.toString());
         }
         return CommandeDto.builder()
+                .id(c.getId())
                 .client(c.getClient().getNomComplet())
                 .adresse(c.getClient().getAdresse().toString())
                 .date(c.getDateCommmande().toString())

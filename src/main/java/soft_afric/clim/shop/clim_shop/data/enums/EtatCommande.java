@@ -9,6 +9,7 @@ public enum EtatCommande {
     Encour(0),
     Terminer(1),
     Facturer(2),
-    Payer(3);
+    Payer(3),
+    Annuler(4);
     private final Integer index;
 }

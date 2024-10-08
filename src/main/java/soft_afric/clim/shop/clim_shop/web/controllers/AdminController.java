@@ -30,6 +30,7 @@ public interface AdminController {
     String updateClim(Model model,
                       @ModelAttribute ClimCreateDto climCreateDto);
 
+    // GESTION DES CLIENTS
     // Voir tous les clients
     @GetMapping("/clients")
     String allClients(Model model);
@@ -38,12 +39,21 @@ public interface AdminController {
     @PostMapping("/clients")
     String saveClient(Model model);
 
-
-    // Voir tous les clients
+    // GESTION DES COMMANDES
+    // Voir toutes les dommandes
     @GetMapping("/commandes")
     String allCommandes(Model model);
 
-    // Modifier un client
-    @PostMapping("/commandes")
-    String saveCommande(Model model);
+    // valider une commande
+    @GetMapping("/commandes/validate/{id}")
+    String validateCommande(Model model, @PathVariable Long id);
+
+    // supprimer une commande
+    @GetMapping("/commandes/delete/{id}")
+    String deleteCommande(Model model, @PathVariable Long id);
+
+
+    // Annuler une commande
+    @GetMapping("/commandes/disable/{id}")
+    String disableCommande(Model model, @PathVariable Long id);
 }
