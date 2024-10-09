@@ -52,8 +52,4 @@ public interface AdminController {
     @GetMapping("/commandes/delete/{id}")
     String deleteCommande(Model model, @PathVariable Long id);
 
-
-    // Annuler une commande
-    @GetMapping("/commandes/disable/{id}")
-    String disableCommande(Model model, @PathVariable Long id);
 }

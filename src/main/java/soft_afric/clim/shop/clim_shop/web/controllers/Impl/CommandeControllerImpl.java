@@ -76,6 +76,9 @@ public class CommandeControllerImpl implements CommandeController {
 
         List<LigneCommande> lignes = new ArrayList<>();
         int montant = 0;
+        if(panier.getFrais()){
+            montant += 35000;
+        }
         for(ClimPanierDto ligne : panier.getArticles()){
             LigneCommande l = LigneCommande.builder()
                             .clim(climService.show(ligne.getId()).orElseThrow(()->new RuntimeException("Clim"+ligne.getId()+" not found in the service")))

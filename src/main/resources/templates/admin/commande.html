@@ -23,19 +23,12 @@
                     <p th:text="'Montant total : '+${c.montant}+' FCFA'">Montant total : 650.000</p>
                     <p th:text="'Mode de paiement : '+${c.modePaiement}">Mode de paiement : 0range Money</p>
                     <div class="buttons">
-                        <a th:href="@{/admin/commandes/validate/{id}(id = ${c.id})}"
-                           th:if="${c.etatCommande!='Terminer'}">
-                            <button class="green">
+                        <a th:href="@{/admin/commandes/validate/{id}(id = ${c.id})}">
+                            <button th:if="${c.etatCommande!='Terminer'}" class="green">
                                 Marquer comme effectuée
                             </button>
                         </a>
-                        <a th:href="@{/admin/clims/disable/{id}(id = ${c.id})}"
-                           th:if="${c.etatCommande!='Terminer'}">
-                            <button class="orange">
-                                Annuler
-                            </button>
-                        </a>
-                        <a th:href="@{/admin/commandes/validate/{id}(id = ${c.id})}">
+                        <a th:href="@{/admin/commandes/delete/{id}(id = ${c.id})}">
                             <button class="red">
                                 Supprimer
                             </button>

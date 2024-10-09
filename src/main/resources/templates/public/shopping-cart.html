@@ -63,6 +63,10 @@
                     <input id="adress" required type="text" th:field="*{client.adresse}"></input>
                 </div>
                 <div class="cmd-item">
+                    <p>Frais d'installation : 35.000 FCFA</p>
+                    <input type="checkbox" th:field="*{frais}" th:value="${panier.frais}"></input>
+                </div>
+                <div class="cmd-item">
                     <p>Montant à payer :</p>
                     <p th:text="${panier.total}"> 300000 <span>FCFA</span></p>
                 </div>

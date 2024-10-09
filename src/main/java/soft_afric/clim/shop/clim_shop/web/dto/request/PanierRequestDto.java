@@ -14,6 +14,7 @@ public class PanierRequestDto {
     private List<ClimPanierDto> articles;
     private Double total = 0.0;
     private ClientDto client;
+    private Boolean frais;
     private int modePaiement;
     private int nbre=0;
     public void addClimToPanier(ClimPanierDto article){

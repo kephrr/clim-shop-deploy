@@ -118,14 +118,6 @@ public class AdminControllerImpl implements AdminController {
         return "redirect:/admin/commandes";
     }
 
-    @Override
-    public String disableCommande(Model model, Long id) {
-        Commande cmd = commandeService.show(id).orElseThrow(()-> new RuntimeException("Commande "+id+" introuvable"));
-        cmd.setEtatCommande(EtatCommande.Annuler);
-        commandeService.save(cmd);
-        return "redirect:/admin/commandes";
-    }
-
     public void setSelectForClim(Model model) {
         List<MarqueDto> marques = marqueService.findAll().stream().map(MarqueDto::toDto).toList();
         List<CategorieDto> categories = categorieService.findAll().stream().map(CategorieDto::toDto).toList();

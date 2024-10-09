@@ -236,7 +236,7 @@ body .list-alone {
 body footer {
   background-color: #2E2D2D;
   height: 50vh;
-  margin-top: 20vh;
+  margin-top: 25vh;
   display: flex;
   justify-content: space-evenly;
 }
@@ -246,7 +246,6 @@ body footer .infos {
   color: #FFFFFF;
 }
 body footer .infos ul {
-  list-style-type: none;
   list-style: none;
 }
 body footer .infos ul h2 {
@@ -374,7 +373,10 @@ body main .payment .summary .cmd-item{
 body main .payment .summary #modPaiement{
   margin-bottom: 1rem;
 }
-
+body main .payment .summary input[type="checkbox"]{
+  width: 1rem;
+  height: 1rem;
+}
 body main .payment .summary input, body main .payment .summary #modPaiement{
   font-size: 1.1rem;
   padding: .3rem 0;
