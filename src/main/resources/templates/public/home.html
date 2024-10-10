@@ -11,13 +11,27 @@
                 <p class="sub-title">Acheter et faites vous livrer un de nos climatiseurs en quelques clics dès maintenant</p>
             </div>
         </div>
+
+        <div class="slider">
+            <div class="slider-content">
+                <img th:src="@{/img/img0.jpeg}" alt="Image 1">
+                <img th:src="@{/img/img1.jpeg}" alt="Image 2">
+                <img th:src="@{/img/img2.jpeg}" alt="Image 3">
+                <img th:src="@{/img/img3.jpg}" alt="Image 4">
+                <img th:src="@{/img/img0.jpeg}" alt="Image 5">
+                <img th:src="@{/img/img1.jpeg}" alt="Image 6">
+                <img th:src="@{/img/img2.jpeg}" alt="Image 7">
+                <img th:src="@{/img/img3.jpg}" alt="Image 8">
+            </div>
+        </div>
+
         <div class="section">
             <div class="call-to-action">
                 <div class="item">
                     <img th:src="@{/img/boite.png}" alt="">
                     <div class="item-text">
-                        <p class="call-title">Livraison à domicile</p>
-                        <p class="call-sub">Dakar et régions</p>
+                        <p class="call-title">Livraison & installation à domicile</p>
+                        <!--- <p class="call-sub">Dakar et régions</p> -->
                     </div>
                 </div>
                 <div class="separate-bar"></div>
@@ -38,11 +52,13 @@
                 </div>
             </div>
         </div>
+
         <div class="separator">
             <div class="separator-item">
                 <p>Affiner ma recherche</p>
             </div>
         </div>
+
         <div class="filter-section">
 
             <form class="filter-form"
@@ -99,11 +115,13 @@
                 </div>
             </div>
         </div>
+
         <div class="separator">
             <div class="separtor-item">
                 <p class="text">Promotions</p>
             </div>
         </div>
+
         <div class="clim-list list-alone">
                 <div th:each="clim:${climsPromoted}" class="clim-item">
                     <img th:src="@{${clim.image}}" alt="clim">
@@ -124,6 +142,26 @@
                         </a>
                     </div>
                 </div>
+        </div>
+
+        <div class="separator">
+            <div class="separator-item">
+                <p>Nos marques</p>
+            </div>
+        </div>
+
+
+        <div class="slider">
+            <div class="slider-content">
+                <img th:src="@{/img/img0.jpeg}" alt="Image 1">
+                <img th:src="@{/img/img1.jpeg}" alt="Image 2">
+                <img th:src="@{/img/img2.jpeg}" alt="Image 3">
+                <img th:src="@{/img/img3.jpg}" alt="Image 4">
+                <img th:src="@{/img/img0.jpeg}" alt="Image 5">
+                <img th:src="@{/img/img1.jpeg}" alt="Image 6">
+                <img th:src="@{/img/img2.jpeg}" alt="Image 7">
+                <img th:src="@{/img/img3.jpg}" alt="Image 8">
+            </div>
         </div>
     </div>
 </html>

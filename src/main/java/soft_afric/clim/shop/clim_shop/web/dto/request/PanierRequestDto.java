@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 public class PanierRequestDto {
     private List<ClimPanierDto> articles;
-    private Double total = 0.0;
+    private int total = 0;
     private ClientDto client;
     private Boolean frais;
     private int modePaiement;
@@ -43,7 +43,8 @@ public class PanierRequestDto {
     }
 
     public void resetTotal(){
-        Double count = 0.0;
+        int count = 0;
+        if (frais) count = 25000;
         for (ClimPanierDto article : articles) {
             count = count + article.getMontant();
         }

@@ -100,13 +100,13 @@ public class ClimControllerImpl implements ClimController {
     public PanierRequestDto panier(){
         return new PanierRequestDto(
                     new ArrayList<>(),
-                    0.0,
+                    0,
                     ClientDto.toDto(Client.builder()
                             .nomComplet("")
                             .tel("")
                             .adresse(new Adresse("Dakar","quartier","000"))
                             .build()),
-                    true,
+                false,
                     0, 0);
     }
 }

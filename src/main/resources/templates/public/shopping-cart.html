@@ -63,12 +63,16 @@
                     <input id="adress" required type="text" th:field="*{client.adresse}"></input>
                 </div>
                 <div class="cmd-item">
-                    <p>Frais d'installation : 35.000 FCFA</p>
-                    <input type="checkbox" th:field="*{frais}" th:value="${panier.frais}"></input>
+                    <p>Ne pas inclure les frais d'installation (35.000 FCFA)</p>
+                    <input onclick="calcMontantInstall()" id="checkFrais" type="checkbox"
+                           th:field="*{frais}"
+                           th:value="${panier.frais}"></input>
                 </div>
                 <div class="cmd-item">
-                    <p>Montant à payer :</p>
-                    <p th:text="${panier.total}"> 300000 <span>FCFA</span></p>
+                    <p>Montant à payer <span> (FCFA)</span> :</p>
+                    <input readonly type="number" id="pMontant"
+                           th:value="${panier.total}">
+                    </input>
                 </div>
                 <h3>Nous acceptons</h3>
                 <select th:field="*{modePaiement}" name="modePaiement" id="modPaiement">
