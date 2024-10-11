@@ -89,7 +89,7 @@ public class PanierControllerImpl implements PanierController {
     public PanierRequestDto panier(){
         return  new PanierRequestDto(
                 new ArrayList<>(),
-                0,
+                35000,
                 ClientDto.toDto(Client.builder()
                         .nomComplet("")
                         .tel("")
