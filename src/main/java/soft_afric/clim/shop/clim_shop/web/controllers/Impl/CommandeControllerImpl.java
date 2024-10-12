@@ -28,10 +28,7 @@ import soft_afric.clim.shop.clim_shop.web.dto.response.CommandeDto;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -45,7 +42,9 @@ public class CommandeControllerImpl implements CommandeController {
     private  final PasswordEncoder passwordEncoder;
     @Override
     public String Commander(Model model, PanierRequestDto panier) {
-        Client client = clientService.findByUsername(panier.getClient().getNomComplet());
+
+        Client client = clientService.findByNumTel(panier.getClient().getTel())
+                .orElse(clientService.findByUsername(panier.getClient().getNomComplet()));
         if(client==null) {
                 String[] adresses = panier.getClient().getAdresse().split(" ");
                 client = Client.builder()
@@ -98,6 +97,7 @@ public class CommandeControllerImpl implements CommandeController {
         }
         List<Commande> commandesClient = commandeService.findAll(client);
         List<CommandeDto> commandes = new ArrayList<>(commandesClient.stream().map(CommandeDto::toDto).toList());
+
         model.addAttribute("commandes", commandes);
         model.addAttribute("commande", panier.toString());
         model.addAttribute("msg", "Voici votre commande!!");

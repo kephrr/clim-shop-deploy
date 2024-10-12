@@ -22,4 +22,7 @@ public interface ClientController {
 
     @GetMapping("/commandes")
     String Commandes(Model model);
+
+    @GetMapping("/commentaires")
+    String Commentaires(Model model);
 }

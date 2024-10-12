@@ -69,6 +69,11 @@ public class ClientControllerImpl implements ClientController {
         return "public/commandes";
     }
 
+    @Override
+    public String Commentaires(Model model) {
+        return "client/comments";
+    }
+
     public void setSearchBarDto(Model model){
         model.addAttribute("search", new RechercheDto());
     }

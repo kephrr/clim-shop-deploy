@@ -13,7 +13,7 @@ function selectAll(){
     }else{
         inputAll.value = "X"
     }
-    var selectRadios = document.querySelectorAll('.select');
+    const selectRadios = document.querySelectorAll('.select');
     console.log(selectRadios);
     selectRadios.forEach(function(radio) {
         radio.checked = !radio.checked;
@@ -43,4 +43,27 @@ function calcMontantInstall(){
     }else{
         montant.value = prix + 35000
     }
+}
+
+function handleLikeDislike(){
+    const likeBtnAll = document.querySelectorAll(".likebtn");
+    const dislikeBtnAll = document.querySelectorAll(".dislikebtn");
+
+    likeBtnAll.forEach((likeBtn) => {
+        likeBtn.addEventListener("mouseover", () =>{
+            likeBtn.src = '/img/likew.png';
+        })
+        likeBtn.addEventListener("mouseleave", () =>{
+            likeBtn.src = '/img/like.png';
+        })
+    })
+
+    dislikeBtnAll.forEach((dislikeBtn) => {
+        dislikeBtn.addEventListener("mouseover", () =>{
+            dislikeBtn.src = '../../static/img/dislikew.png';
+        })
+        dislikeBtn.addEventListener("mouseleave", () =>{
+            dislikeBtn.src = '../../static/img/dislike.png';
+        })
+    })
 }

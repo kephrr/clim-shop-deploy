@@ -39,4 +39,9 @@ public class ClientServiceImpl implements ClientService {
     public Client findByUsername(String username) {
         return clientRepository.findClientByNomCompletAndIsActivedTrue(username);
     }
+
+    @Override
+    public Optional<Client> findByNumTel(String numTel) {
+        return clientRepository.findByTelAndIsActivedTrue(numTel);
+    }
 }

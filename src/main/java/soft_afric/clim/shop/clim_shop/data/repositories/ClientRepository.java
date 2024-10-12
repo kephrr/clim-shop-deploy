@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import soft_afric.clim.shop.clim_shop.data.entities.Client;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface ClientRepository extends JpaRepository<Client,Long> {
@@ -13,4 +14,5 @@ public interface ClientRepository extends JpaRepository<Client,Long> {
     Page<Client> findAllByIsActivedTrue(Pageable pageable);
     List<Client> findByIsActivedTrue();
     Client findClientByNomCompletAndIsActivedTrue(String nomComplet);
+    Optional<Client> findByTelAndIsActivedTrue(String tel);
 }
