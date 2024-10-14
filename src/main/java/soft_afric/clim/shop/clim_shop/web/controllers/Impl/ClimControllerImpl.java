@@ -11,19 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import soft_afric.clim.shop.clim_shop.data.entities.*;
 import soft_afric.clim.shop.clim_shop.security.services.SecurityService;
-import soft_afric.clim.shop.clim_shop.services.CategorieService;
-import soft_afric.clim.shop.clim_shop.services.ClientService;
-import soft_afric.clim.shop.clim_shop.services.ClimService;
-import soft_afric.clim.shop.clim_shop.services.MarqueService;
+import soft_afric.clim.shop.clim_shop.services.*;
 import soft_afric.clim.shop.clim_shop.web.controllers.ClimController;
 import soft_afric.clim.shop.clim_shop.web.dto.request.ClimPanierDto;
 import soft_afric.clim.shop.clim_shop.web.dto.request.FilterDto;
 import soft_afric.clim.shop.clim_shop.web.dto.request.PanierRequestDto;
 import soft_afric.clim.shop.clim_shop.web.dto.request.RechercheDto;
-import soft_afric.clim.shop.clim_shop.web.dto.response.CategorieDto;
-import soft_afric.clim.shop.clim_shop.web.dto.response.ClientDto;
-import soft_afric.clim.shop.clim_shop.web.dto.response.ClimDto;
-import soft_afric.clim.shop.clim_shop.web.dto.response.MarqueDto;
+import soft_afric.clim.shop.clim_shop.web.dto.response.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +27,21 @@ import java.util.List;
 @RequiredArgsConstructor
 @SessionAttributes({"panier"})
 public class ClimControllerImpl implements ClimController {
+    private final CommentaireService commentaireService;
     private final ClimService climService;
     private final CategorieService categorieService;
     private final MarqueService marqueService;
 
     @Override
     public String homePage(Model model) {
-        List<ClimDto> allClims = climService.findAll().stream().map(ClimDto::toCardDto).toList();
+        List<ClimDto> allClims = climService.findAll()
+                .stream().
+                map(ClimDto::toCardDto).toList();
+        List<CommentaireDto> commentaires = commentaireService.findAll()
+                .stream()
+                .map(CommentaireDto::toDto).toList();
         firstPageData(model, allClims);
+        model.addAttribute("comments", commentaires);
         model.addAttribute("filter", new FilterDto());
         setSearchBarDto(model);
         return "public/home";
@@ -57,6 +58,7 @@ public class ClimControllerImpl implements ClimController {
         model.addAttribute("climPanierDto", climPanierDto);
         model.addAttribute("climDetails", climDetails);
         setSearchBarDto(model);
+        model.addAttribute("user",getCurrentUsername());
         return "public/clim-details";
     }
 
@@ -69,6 +71,7 @@ public class ClimControllerImpl implements ClimController {
                 .stream().map(ClimDto::toCardDto).toList();
         model.addAttribute("filter", filterDto);
         firstPageData(model, allClims);
+        model.addAttribute("user",getCurrentUsername());
         setSearchBarDto(model);
         return "public/home";
     }
@@ -77,6 +80,7 @@ public class ClimControllerImpl implements ClimController {
     public String homeFilterClims(Model model, RechercheDto rechercheDto) {
         List<ClimDto> allClims = climService.findAllBySearchedKEyword(rechercheDto.getKeyword()).stream().map(ClimDto::toCardDto).toList();
 
+        model.addAttribute("user",getCurrentUsername());
         model.addAttribute("filter", new FilterDto());
         firstPageData(model, allClims);
         model.addAttribute("search", rechercheDto);

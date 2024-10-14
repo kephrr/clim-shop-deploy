@@ -11,18 +11,6 @@
                 <p class="sub-title">Acheter et faites vous livrer un de nos climatiseurs en quelques clics dès maintenant</p>
             </div>
         </div>
-        <!-- <div class="slider">
-            <div class="slider-content">
-                <img th:src="@{/img/img0.jpeg}" alt="Image 1">
-                <img th:src="@{/img/img1.jpeg}" alt="Image 2">
-                <img th:src="@{/img/img2.jpeg}" alt="Image 3">
-                <img th:src="@{/img/img3.jpg}" alt="Image 4">
-                <img th:src="@{/img/img0.jpeg}" alt="Image 5">
-                <img th:src="@{/img/img1.jpeg}" alt="Image 6">
-                <img th:src="@{/img/img2.jpeg}" alt="Image 7">
-                <img th:src="@{/img/img3.jpg}" alt="Image 8">
-            </div>
-        </div> -->
 
         <div class="section">
             <div class="call-to-action">
@@ -53,7 +41,7 @@
         </div>
 
         <div class="center">
-            <div class="CommentsAct whatsApp">
+            <div class="CommentsAct whatsApp" id="whatsApp">
                 <a href="https://wa.me/221784776687">
                     <img th:src="@{/img/WhatsApp.png}" alt="Whatsapp"><p>Nous contacter</p>
                 </a>
@@ -130,25 +118,25 @@
         </div>
 
         <div class="clim-list list-alone">
-                <div th:each="clim:${climsPromoted}" class="clim-item">
-                    <img th:src="@{${clim.image}}" alt="clim">
-                    <div>
-                        <p th:text="${clim.libelle}" class="clim-lib"></p>
-                        <p th:text="${clim.marque}"></p>
-                        <div class="price">
-                            <p th:text="${clim.prix}+' FCFA '"></p>
-                            <span th:text="${clim.promotion}"></span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <a th:href="@{/details/{id}(id = ${clim.id})}">
-                            <button class="details">Details</button>
-                        </a>
-                        <a th:href="@{/panier/add/{id}(id = ${clim.id})}">
-                            <button class="plus">+</button>
-                        </a>
+            <div th:each="clim:${climsPromoted}" class="clim-item">
+                <img th:src="@{${clim.image}}" alt="clim">
+                <div>
+                    <p th:text="${clim.libelle}" class="clim-lib"></p>
+                    <p th:text="${clim.marque}"></p>
+                    <div class="price">
+                        <p th:text="${clim.prix}+' FCFA '"></p>
+                        <span th:text="${clim.promotion}"></span>
                     </div>
                 </div>
+                <div class="actions">
+                    <a th:href="@{/details/{id}(id = ${clim.id})}">
+                        <button class="details">Details</button>
+                    </a>
+                    <a th:href="@{/panier/add/{id}(id = ${clim.id})}">
+                        <button class="plus">+</button>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="separator">
@@ -158,15 +146,24 @@
         </div>
 
         <div class="center">
-            <!--
-            <div class="slider">
-                <div class="slider-content">
+            <div class="marques">
+                <div class="marque">
                     <img th:src="@{/img/lenovo.png}" alt="Lenovo">
+                </div>
+                <div class="marque">
                     <img th:src="@{/img/lg.png}" alt="LG">
+                </div>
+                <div class="marque">
                     <img th:src="@{/img/samsung.png}" alt="Samsung">
                 </div>
+                <div class="marque">
+                    <img th:src="@{/img/toshiba.png}" alt="Samsung">
+                </div>
+                <div class="marque">
+                    <img th:src="@{/img/panasonic.png}" alt="Samsung">
+                </div>
             </div>
-            -->
+
         </div>
 
         <div class="separator">
@@ -176,88 +173,30 @@
         </div>
         <div class="center">
             <div class="comments">
-                <div class="comment">
+                <div th:each="com:${comments}"
+                        class="comment">
                     <div class="head">
                         <img class="comProfile" th:src="@{/img/utilisateur (1).png}" alt="profile">
-                        <p class="nomUser">Therry Cousyn</p>
+                        <p th:text="${com.client}" class="nomUser">Therry Cousyn</p>
                     </div>
                     <div class="bar"></div>
                     <div class="commentContent">
-                        <p class="comDate">19 Mars 2024</p>
-                        <p class="comTitle">Tout s'est très bien passé</p>
-                        <p class="comText">Tout s'est très bien passé, seul petit bémol, dommage que le service Livraison ne puisse pas donner une heure plus précise que de 8h à 18h</p>
-                        <p class="comDateExp"><strong>Date de l'expérience :</strong> 27 septembre 2024</p>
+                        <p th:text="${com.date}" class="comDate">19 Mars 2024</p>
+                        <p th:text="${com.title}" class="comTitle">Tout s'est très bien passé</p>
+                        <p th:text="${com.content}" class="comText">Tout s'est très bien passé, seul petit bémol, dommage que le service Livraison ne puisse pas donner une heure plus précise que de 8h à 18h</p>
                     </div>
                     <div class="bar"></div>
                     <div class="comActions">
                         <div class="actionLeft">
-                            <button class="comAction like">
+                            <button class="comAction like" th:text="'Like '+${com.likes}">
                                 <!-- <img class="likebtn" th:src="@{/img/like.png}" alt=""> -->
                                 Utile</button>
-                            <button class="comAction dislike">
+                            <button class="comAction dislike" th:text="'DisLike '+${com.dislikes}">
                                 <!-- <img class="dislikebtn" th:src="@{/img/dislike.png}" alt=""> -->
                                 Inutile</button>
                         </div>
                         <div>
-                            <button class="comAction share">
-                                <img th:src="@{/img/partager.png}" alt="" srcset="">
-                                Partager</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="comment">
-                    <div class="head">
-                        <img class="comProfile" th:src="@{/img/utilisateur (1).png}" alt="profile">
-                        <p class="nomUser">Therry Cousyn</p>
-                    </div>
-                    <div class="bar"></div>
-                    <div class="commentContent">
-                        <p class="comDate">19 Mars 2024</p>
-                        <p class="comTitle">Tout s'est très bien passé</p>
-                        <p class="comText">Tout s'est très bien passé, seul petit bémol, dommage que le service Livraison ne puisse pas donner une heure plus précise que de 8h à 18h</p>
-                        <p class="comDateExp"><strong>Date de l'expérience :</strong> 27 septembre 2024</p>
-                    </div>
-                    <div class="bar"></div>
-                    <div class="comActions">
-                        <div class="actionLeft">
-                            <button class="comAction like">
-                                <!-- <img class="likebtn" th:src="@{/img/like.png}" alt=""> -->
-                                Utile</button>
-                            <button class="comAction dislike">
-                                <!-- <img class="dislikebtn" th:src="@{/img/dislike.png}" alt=""> -->
-                                Inutile</button>
-                        </div>
-                        <div>
-                            <button class="comAction share">
-                                <img th:src="@{/img/partager.png}" alt="" srcset="">
-                                Partager</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="comment">
-                    <div class="head">
-                        <img class="comProfile" th:src="@{/img/utilisateur (1).png}" alt="profile">
-                        <p class="nomUser">Therry Cousyn</p>
-                    </div>
-                    <div class="bar"></div>
-                    <div class="commentContent">
-                        <p class="comDate">19 Mars 2024</p>
-                        <p class="comTitle">Tout s'est très bien passé</p>
-                        <p class="comText">Tout s'est très bien passé, seul petit bémol, dommage que le service Livraison ne puisse pas donner une heure plus précise que de 8h à 18h</p>
-                        <p class="comDateExp"><strong>Date de l'expérience :</strong> 27 septembre 2024</p>
-                    </div>
-                    <div class="bar"></div>
-                    <div class="comActions">
-                        <div class="actionLeft">
-                            <button class="comAction like">
-                                <!-- <img class="likebtn" th:src="@{/img/like.png}" alt=""> -->
-                                Utile</button>
-                            <button class="comAction dislike">
-                                <!-- <img class="dislikebtn" th:src="@{/img/dislike.png}" alt=""> -->
-                                Inutile</button>
-                        </div>
-                        <div>
-                            <button class="comAction share">
+                            <button class="comAction share" th:text="'Share '+${com.shares}">
                                 <img th:src="@{/img/partager.png}" alt="" srcset="">
                                 Partager</button>
                         </div>

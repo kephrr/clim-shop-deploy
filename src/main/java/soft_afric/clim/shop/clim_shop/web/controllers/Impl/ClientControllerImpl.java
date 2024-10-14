@@ -2,6 +2,7 @@ package soft_afric.clim.shop.clim_shop.web.controllers.Impl;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -66,6 +67,7 @@ public class ClientControllerImpl implements ClientController {
         model.addAttribute("commandes", reverseList(commandes));
         model.addAttribute("msg", "Voici vos commandes !!");
         setSearchBarDto(model);
+        model.addAttribute("user",getCurrentUsername());
         return "public/commandes";
     }
 
@@ -93,5 +95,13 @@ public class ClientControllerImpl implements ClientController {
                             return lst;
                         }
                 ));
+    }
+
+    public String getCurrentUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            return authentication.getName();
+        }
+        return null;
     }
 }

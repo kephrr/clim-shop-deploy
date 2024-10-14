@@ -1,6 +1,7 @@
 package soft_afric.clim.shop.clim_shop.web.controllers.Impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,7 +43,6 @@ public class CommandeControllerImpl implements CommandeController {
     private  final PasswordEncoder passwordEncoder;
     @Override
     public String Commander(Model model, PanierRequestDto panier) {
-
         Client client = clientService.findByNumTel(panier.getClient().getTel())
                 .orElse(clientService.findByUsername(panier.getClient().getNomComplet()));
         if(client==null) {
@@ -102,10 +102,19 @@ public class CommandeControllerImpl implements CommandeController {
         model.addAttribute("commande", panier.toString());
         model.addAttribute("msg", "Voici votre commande!!");
         setSearchBarDto(model);
+        model.addAttribute("user",getCurrentUsername());
         return "public/commandes";
     }
 
     public void setSearchBarDto(Model model){
         model.addAttribute("search", new RechercheDto());
+    }
+
+    public String getCurrentUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            return authentication.getName();
+        }
+        return null;
     }
 }

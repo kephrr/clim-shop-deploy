@@ -25,6 +25,10 @@ public class Client extends AppUser {
     private Adresse adresse;
     @OneToMany(mappedBy = "client")
     private List<Commande> commandes;
+    @OneToMany(mappedBy = "client")
+    private List<Action> actions;
+    @OneToMany(mappedBy = "client")
+    private List<Commentaire> commentaires;
 
     @Override
     public String toString(){

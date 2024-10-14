@@ -1,6 +1,7 @@
 package soft_afric.clim.shop.clim_shop.web.controllers.Impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -78,6 +79,7 @@ public class PanierControllerImpl implements PanierController {
         model.addAttribute("panier", panier);
         model.addAttribute("lignes", panier.getArticles());
         model.addAttribute("client", panier.getClient());
+        model.addAttribute("user",getCurrentUsername());
         setSearchBarDto(model);
         return "public/shopping-cart";
     }
@@ -99,5 +101,12 @@ public class PanierControllerImpl implements PanierController {
                 0,
                 0
         );
+    }
+    public String getCurrentUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            return authentication.getName();
+        }
+        return null;
     }
 }
