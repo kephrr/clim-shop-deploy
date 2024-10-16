@@ -6,20 +6,6 @@ function calcMontant(){
     inputMontant.value = inputQte.value*inputPrix.value;
 }
 
-function selectAll(){
-    const inputAll =document.querySelector("#all");
-    if(inputAll.value==="X"){
-        inputAll.value = "O"
-    }else{
-        inputAll.value = "X"
-    }
-    const selectRadios = document.querySelectorAll('.select');
-    console.log(selectRadios);
-    selectRadios.forEach(function(radio) {
-        radio.checked = !radio.checked;
-    });
-}
-
 function returnBtnHandler(){
     const btn = document.querySelector("#return");
     const img = document.querySelector("#returnImg");
@@ -37,11 +23,11 @@ function returnBtnHandler(){
 function calcMontantInstall(){
     const montant =document.querySelector("#pMontant");
     const check = document.querySelector("#checkFrais");
-    let prix = parseInt(montant.value);
+    let price = parseInt(montant.value);
     if (check.checked){
-        montant.value = prix -35000
+        montant.value = price - 35000
     }else{
-        montant.value = prix + 35000
+        montant.value = price + 35000
     }
 }
 
@@ -67,3 +53,22 @@ function handleLikeDislike(){
         })
     })
 }
+
+
+function handleGuideCard() {
+    const cards = document.querySelectorAll(".guide");
+    console.log(cards)
+    cards.forEach((c) => {
+        c.addEventListener('click', () => {
+            console.log('click')
+            c.children[1].classList.toggle('none');
+            c.children[1].classList.toggle('show');
+        });
+    });
+}
+
+window.onload = function() {
+    console.log("La page est entièrement chargée (via un script externe) !");
+    handleGuideCard();
+};
+

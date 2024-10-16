@@ -668,15 +668,61 @@ body .comments .comment .comActions .comAction img{
     width: 90%;
     height: auto;
 }
-@media screen and (min-width: 1024px) {
-  .marques{
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  }
-  .marque{
-    max-width: 10vw;
-    max-height: 10vw;
-  }
+/* GUIDE DE L'ELECTROMENAGER */
+.g{
+  font-weight: bold;
 }
+.guide-container{
+  width: 50vw;
+  background-color: whitesmoke;
+  border: 1px solid gainsboro;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.guide{
+  padding: 20px;
+  transition: all ease .3s;
+  border-top: 1px solid gainsboro;
+}
+.guide:hover{
+  background-color: gainsboro;
+  cursor: pointer;
+}
+.head{
+  display: flex;
+  justify-content: space-between;
+}
+.head p{
+  font-size: 1rem;
+}
+.content p,.content ul,.content li{
+  transition: all ease 1s;
+}
+
+.none *{
+  display: none;
+}
+
+#top{
+  border-top: none;
+}
+#bot{
+  border-bottom: none;
+}
+
+.transition {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+.transition.show {
+  max-height: 1000px; /* Ajustez selon vos besoins */
+  opacity: 1;
+}
+
+
 @media screen and (max-width: 768px) {
   .comment{
     width: 80vw;
@@ -688,6 +734,9 @@ body .comments .comment .comActions .comAction img{
 
   .whatsApp a p{
     width: max-content;
+  }
+  .guide-container {
+    width: 90vw;
   }
 }
 
@@ -970,6 +1019,18 @@ body .comments .comment .comActions .comAction img{
 /*# sourceMappingURL=style.css.map */
 
 @media screen and (max-width: 1024px) {
+  .marques{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+  .marque{
+    max-width: 10vw;
+    max-height: 10vw;
+  }
+
+  .guide-container {
+    width: 80vw;
+  }
+
   body .template-content .big-title{
     height: 30vh;
   }
@@ -1040,6 +1101,10 @@ body .comments .comment .comActions .comAction img{
 /* Responsive */
 /* Telephone 425px */
 @media screen and (max-width: 425px) {
+  .guide-container {
+    width: 90vw;
+  }
+
   body .template-content .big-title{
     height: 30vh;
   }

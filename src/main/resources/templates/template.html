@@ -20,7 +20,7 @@
               th:action="@{/home/search}"
               th:object="${search}"
         >
-            <input th:field="*{keyword}" type="text">
+            <input placeholder="Rechercher sur tout le site" th:field="*{keyword}" type="text">
             <button type="submit">Rechercher</button>
         </form>
         <div class="nav-item"  id="last">
