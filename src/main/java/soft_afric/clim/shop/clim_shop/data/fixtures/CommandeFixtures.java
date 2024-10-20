@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import soft_afric.clim.shop.clim_shop.data.entities.Adresse;
 import soft_afric.clim.shop.clim_shop.data.entities.Client;
 import soft_afric.clim.shop.clim_shop.data.entities.Commande;
 import soft_afric.clim.shop.clim_shop.data.entities.LigneCommande;
@@ -13,9 +12,8 @@ import soft_afric.clim.shop.clim_shop.data.enums.ModePaiement;
 import soft_afric.clim.shop.clim_shop.data.repositories.*;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 //@Component
 @Order(6)
@@ -30,6 +28,8 @@ public class CommandeFixtures implements CommandLineRunner {
         for (int i=0;i<4;i++){
             Client client = clientRepository.getReferenceById(4L);
             Commande commande = new Commande();
+            commande.setIsActived(true);
+
             commande.setClient(client);
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -37,10 +37,18 @@ public class CommandeFixtures implements CommandLineRunner {
             String dateString = formatter.format(date);
             Date parsedDate = formatter.parse(dateString);
 
-            commande.setEtatCommande(i%2==0? EtatCommande.Encour: EtatCommande.Terminer);
+            commande.setDateLivraison(i%2==0? null: parsedDate);
+            commande.setEtatCommande(i%2==0? EtatCommande.Encour: EtatCommande.Livree);
+
             commande.setDateCommmande(parsedDate);
-            commande.setIsActived(true);
+            commande.setDatePaiement(i%3==0?parsedDate:null);
+            commande.setRefPaiement(i%3==0?"AB5647":"");
             commande.setModePaiement(ModePaiement.values()[i%3==0?1:i%2==0?0:1]);
+
+            commande.setDateInstallation(i%3==0?parsedDate:null);
+            commande.setInstalled(i%3==0);
+            commande.setAccInstallation(i%3==0?6500:0);
+
             int montant = 0;
 
             commande.setClient(client);
@@ -54,11 +62,13 @@ public class CommandeFixtures implements CommandLineRunner {
                 montant+=ligneCommande.getMontant();
                 ligneCommande.setClim(climRepository.getReferenceById((long)j));
                 ligneCommande.setCommande(commande);
-
-                ligneCommande.setCommande(commande);
                 ligneCommandeRepository.save(ligneCommande);
             }
+
             commande.setMontant(montant);
+            commande.setLivraison(4000);
+            commande.setInstallation(20000);
+            commande.setMontantFinal(montant + commande.getLivraison() + commande.getInstallation());
 
             commandeRepository.save(commande);
             //clientRepository.save(client);

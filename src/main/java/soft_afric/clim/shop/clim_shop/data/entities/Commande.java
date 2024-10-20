@@ -17,15 +17,37 @@ import java.util.List;
 @Builder
 @Table(name="commande")
 public class Commande extends AbstractEntity{
+    private String refPaiement;
+    private  int montant;
+    private  int livraison;
+    // private  int fraisLivraison;
+    private int accInstallation;
+    private  int installation;
+    private  int montantFinal;
     private ModePaiement modePaiement;
-    @Enumerated(value = EnumType.STRING)
-    private EtatCommande etatCommande;
+    private boolean isInstalled;
     @ManyToOne
     Client client;
+
+    @Enumerated(value = EnumType.STRING)
+    private EtatCommande etatCommande;
+
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateCommmande;
-    private  int montant;
+
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date datePaiement;
+
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateLivraison;
+
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateInstallation;
+
     @OneToMany(mappedBy = "commande")
     private List<LigneCommande> ligneCommandes;
 }

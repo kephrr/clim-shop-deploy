@@ -50,6 +50,11 @@ public class CommandeServiceImpl implements CommandeService {
 
     @Override
     public List<Commande> findAll(Client client) {
-        return commandeRepository.findAllByClient(client);
+        return commandeRepository.findAllByClientAndIsActivedTrue(client);
+    }
+
+    @Override
+    public List<Commande> findAll(EtatCommande etat) {
+        return commandeRepository.findAllByEtatCommandeAndIsActivedTrue(etat);
     }
 }

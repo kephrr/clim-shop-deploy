@@ -7,9 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum EtatCommande {
     Encour(0),
-    Terminer(1),
-    Facturer(2),
-    Payer(3),
-    Annuler(4);
+    Livree(1),
+    Archiver(2),
+    Annuler(3);
     private final Integer index;
 }

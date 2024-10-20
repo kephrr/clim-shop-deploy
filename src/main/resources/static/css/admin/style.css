@@ -160,6 +160,32 @@ button:hover {
   padding: 10px;
   overflow-y: scroll;
 }
+.container .rightSide .rightContent .items #filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all ease 0.5s;
+  flex: 1;
+  margin: 20px;
+  padding: 10px;
+  overflow:initial ;
+  width: 80%;
+}
+.container .rightSide .rightContent .items form#filter .form-row{
+  flex-direction: row;
+  gap: 20px;
+  display: flex;
+  height: 7vh;
+  width: 100%;
+}
+.container .rightSide .rightContent .items form#filter .form-row select {
+  flex: 4;
+  height: 100%;
+}
+.container .rightSide .rightContent .items form#filter .form-row button {
+  flex: 1;
+  height: 100%;
+}
 .container .rightSide .rightContent form h1 {
   text-align: center;
 }

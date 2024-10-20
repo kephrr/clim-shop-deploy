@@ -12,12 +12,11 @@ import soft_afric.clim.shop.clim_shop.services.*;
 import soft_afric.clim.shop.clim_shop.web.controllers.AdminController;
 import soft_afric.clim.shop.clim_shop.web.dto.request.ClientRequestDto;
 import soft_afric.clim.shop.clim_shop.web.dto.request.ClimCreateDto;
+import soft_afric.clim.shop.clim_shop.web.dto.request.FilterDto;
 import soft_afric.clim.shop.clim_shop.web.dto.response.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -97,15 +96,29 @@ public class AdminControllerImpl implements AdminController {
 
     @Override
     public String allCommandes(Model model) {
-        List<CommandeDto> commandes = commandeService.findAll().stream().map(CommandeDto::toDto).toList();
-        model.addAttribute("commandes", commandes);
+        List<CommandeDto> commandes = commandeService.findAll().stream().map(CommandeDto::toAdminDto).toList();
+        model.addAttribute("commandes", reverseList(commandes));
+        model.addAttribute("filter", new FilterDto());
         return "admin/commande";
+    }
+
+    @Override
+    public String CommandesFilterState(Model model, FilterDto filterDto) {
+        Long index = filterDto.getId();
+        if(index!=-1){
+            EtatCommande etat = EtatCommande.values()[filterDto.getId().intValue()];
+            List<CommandeDto> commandes = commandeService.findAll(etat).stream().map(CommandeDto::toAdminDto).toList();
+            model.addAttribute("commandes", reverseList(commandes));
+            model.addAttribute("filter", new FilterDto());
+            return "admin/commande";
+        }
+        return "redirect:/admin/commandes";
     }
 
     @Override
     public String validateCommande(Model model, Long id) {
         Commande cmd = commandeService.show(id).orElseThrow(()-> new RuntimeException("Commande "+id+" introuvable"));
-        cmd.setEtatCommande(EtatCommande.Terminer);
+        cmd.setEtatCommande(EtatCommande.Livree);
         commandeService.save(cmd);
         return "redirect:/admin/commandes";
     }
@@ -126,5 +139,17 @@ public class AdminControllerImpl implements AdminController {
         model.addAttribute("marques", marques);
         model.addAttribute("categories", categories);
         model.addAttribute("etats", etats);
+    }
+
+
+    public List<CommandeDto> reverseList(List<CommandeDto> list) {
+        return list.stream()
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toList(),
+                        lst -> {
+                            Collections.reverse(lst);
+                            return lst;
+                        }
+                ));
     }
 }

@@ -59,7 +59,7 @@ public class CommandeControllerImpl implements CommandeController {
                 securityService.addRoleToUser(client.getLogin(), "Client");
         }
         Commande commande = new Commande();
-        commande.setEtatCommande(EtatCommande.Facturer);
+        commande.setEtatCommande(EtatCommande.Encour);
         commande.setClient(client);
         commande.setModePaiement(ModePaiement.values()[panier.getModePaiement()]);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

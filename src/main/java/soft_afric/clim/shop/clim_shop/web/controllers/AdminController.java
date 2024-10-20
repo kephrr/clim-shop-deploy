@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import soft_afric.clim.shop.clim_shop.web.dto.request.ClientRequestDto;
 import soft_afric.clim.shop.clim_shop.web.dto.request.ClimCreateDto;
+import soft_afric.clim.shop.clim_shop.web.dto.request.FilterDto;
 
 public interface AdminController {
     // Voir toutes les clims
@@ -44,11 +45,15 @@ public interface AdminController {
     @GetMapping("/commandes")
     String allCommandes(Model model);
 
-    // valider une commande
+    @PostMapping("/commandes/filter")
+    String CommandesFilterState(Model model,
+                           @ModelAttribute FilterDto filterDto);
+
+    // marquer une commande comme livree
     @GetMapping("/commandes/validate/{id}")
     String validateCommande(Model model, @PathVariable Long id);
 
-    // supprimer une commande
+    // archiver une commande
     @GetMapping("/commandes/delete/{id}")
     String deleteCommande(Model model, @PathVariable Long id);
 

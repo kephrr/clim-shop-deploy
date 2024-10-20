@@ -11,4 +11,5 @@ public class FilterDto {
     private Long categorieID;
     private Long marqueID;
     private int budget;
+    private Long id;
 }

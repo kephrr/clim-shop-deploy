@@ -7,11 +7,33 @@
     <div layout:fragment="contentForView" class="rightSide">
         <div class="rightContent">
             <div class="items" >
+                <form id="filter"
+                      th:action="@{/admin/commandes/filter}"
+                      th:method="post"
+                      th:object="${filter}">
+                    <div class="form-row">
+                        <select th:field="*{id}" required name="">
+                            <option value="-1"> Filtrer par statut</option>
+                            <option value="0">En cours</option>
+                            <option value="1">Livrée</option>
+                            <option value="2">Archivée</option>
+                            <option value="3">Annulée</option>
+                        </select>
+                        <button type="submit">Filtrer</button>
+                    </div>
+                </form>
                 <h1>Toutes les commandes</h1>
+                <!--- Rajouter accessoires  installation oui non 6500 fcfa  |-->
                 <div th:each="c:${commandes}" class="commande">
-                    <p th:text="'Date : '+${c.date}"> 09/03/2005</p>
+                    <p th:text="'Infos du client : '+${c.client}+' '+${c.numClient}"></p>
                     <p th:text="'Adresse : '+${c.adresse}">Adresse : Sicap Baobab</p>
-                    <p th:text="'Statut : '+${c.etatCommande}">Statut : Facturer</p>
+                    <p th:text="'Date de commande : '+${c.date}"> </p>
+                    <p th:text="'Date de paiement : '+${c.datePaiement}"> </p>
+                    <p th:text="'Date de livraison : '+${c.dateLivraison}"> </p>
+                    <p th:text="'Date d\'installation : '+${c.dateInstallation}"> </p>
+                    <p th:text="'Accessoires d\'installation : '+${c.accInstallation}"> </p>
+                    <p th:text="${c.isInstalled}+' à '+${c.installation}+' FCFA'"> </p>
+                    <p th:text="'Statut : '+${c.etatCommande}"></p>
                     <p>
                         <strong>
                             Articles
@@ -20,8 +42,11 @@
                     <div class="ligne" th:each="l:${c.ligneCommandes}">
                         <p th:text="${l}" >1x Clim de ous 20000</p>
                     </div>
-                    <p th:text="'Montant total : '+${c.montant}+' FCFA'">Montant total : 650.000</p>
+                    <p th:text="'Montant de(s) clim(s) : '+${c.montant}+' FCFA'"> </p>
+                    <p th:text="'Frais de livraison : '+${c.livraison}+' FCFA'"> </p>
+                    <p th:text="'Montant total : '+${c.montantFinal}+' FCFA'">Montant total : 650.000</p>
                     <p th:text="'Mode de paiement : '+${c.modePaiement}">Mode de paiement : 0range Money</p>
+                    <p th:text="'Réf de paiement : #'+${c.refPaiement}"> </p>
                     <div class="buttons">
                         <a th:href="@{/admin/commandes/validate/{id}(id = ${c.id})}">
                             <button th:if="${c.etatCommande!='Terminer'}" class="green">
@@ -30,7 +55,7 @@
                         </a>
                         <a th:href="@{/admin/commandes/delete/{id}(id = ${c.id})}">
                             <button class="red">
-                                Supprimer
+                                Archiver
                             </button>
                         </a>
                     </div>
