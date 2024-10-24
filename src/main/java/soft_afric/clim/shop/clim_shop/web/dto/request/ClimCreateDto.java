@@ -27,6 +27,7 @@ public class ClimCreateDto {
     private int etat;
     private Long marque;
     private Long categorie;
+    private Long type;
 
     public static Clim ToEntity(ClimCreateDto dto){
         String promotion = dto.getPromotion();

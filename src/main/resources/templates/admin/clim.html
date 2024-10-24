@@ -9,13 +9,18 @@
             <div class="items" >
                 <h1>Tous les climatiseurs</h1>
                 <div th:each="climDetails:${clims}" class="item">
+                    <img th:src="@{${climDetails.image}}" alt="image" srcset="">
                     <p id="card-details-title"> <strong th:text="${climDetails.libelle}"> </strong></p>
+                    <p>Référence : <span th:text="${climDetails.ref}"></span></p>
                     <p>Categorie : <span th:text="${climDetails.categorie}"></span></p>
-                    <p th:text="'Prix : '+${climDetails.prix}"> <strong>FCFA</strong></p>
-                    <p th:text="'Promotion : '+${climDetails.promotion}"> </p>
+                    <p>Type : <span th:text="${climDetails.type}"></span></p>
                     <p th:text="'Surface de refroidissement : '+${climDetails.surface}+' M²'"><strong>M²</strong></p>
                     <p th:text="'Capacité de refroidissement : '+${climDetails.capacite}+' BTU/H'"> <strong>BTU/H</strong></p>
+                    <p th:text="'Autre caractéristiques: '+${climDetails.specs}+' BTU/H'"> <strong>BTU/H</strong></p>
+                    <p th:text="'Prix : '+${climDetails.prix}"> <strong>FCFA</strong></p>
+                    <p th:text="'Promotion : '+${climDetails.promotion}"> </p>
                     <p >Marque : <strong th:text="${climDetails.marque}">LG</strong></p>
+                    <p>Guarantie : <span th:text="${climDetails.guarantie}"></span></p>
                     <p>Etat : <strong th:text="${climDetails.etat}"></strong></p>
                     <div class="buttons">
                         <a th:href="@{/admin/clims/delete/{id}(id = ${climDetails.id})}">

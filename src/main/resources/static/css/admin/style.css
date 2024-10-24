@@ -136,6 +136,10 @@ button:hover {
   display: flex;
   gap: 20px;
 }
+.container .rightSide .rightContent .items .item img {
+  height: 100px;
+  width: 100px;
+}
 
 .container .rightSide .rightContent .items .item .buttons button {
   margin-top: 5px;

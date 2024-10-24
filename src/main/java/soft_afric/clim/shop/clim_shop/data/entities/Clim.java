@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import soft_afric.clim.shop.clim_shop.data.enums.EtatClim;
 
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,17 +16,28 @@ import soft_afric.clim.shop.clim_shop.data.enums.EtatClim;
 public class Clim extends AbstractEntity{
     @Column(unique = true, nullable = false, length = 100)
     private String libelle;
-    private int prix;
+
+    @Column(unique = true, length = 100)
+    private String reference;
+
+    private String specs;
     private String image;
+    private int prix;
     private int capacite;
     private int qteStock;
+    private int garantie=365;
     private Double surface;
+
     @Column(length = 3)
     private int promotion;
     private EtatClim etat;
+
     @ManyToOne
     private Marque marque;
+
     @ManyToOne
     private Categorie categorie;
 
+    @ManyToOne
+    private Type type;
 }
