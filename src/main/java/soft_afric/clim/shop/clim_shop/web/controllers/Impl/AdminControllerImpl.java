@@ -27,6 +27,12 @@ public class AdminControllerImpl implements AdminController {
     private final CategorieService categorieService;
     private final CommandeService commandeService;
     private final ClientService clientService;
+
+    @Override
+    public String index() {
+        return "admin/dashboard";
+    }
+
     @Override
     public String allClims(Model model) {
         List<ClimDto> clims = climService.findAll().stream().map(ClimDto::toDetailsDto).toList();
@@ -90,6 +96,33 @@ public class AdminControllerImpl implements AdminController {
     }
 
     @Override
+    public String editClient(Model model, Long id) {
+        Client client = clientService.show(id).orElse(null);
+        assert client != null;
+        ClientRequestDto clientEdit = ClientRequestDto.toDto(client);
+        model.addAttribute("clientEdit", clientEdit);
+        return "admin/client-edit";
+    }
+
+    @Override
+    public String updateClient(Model model, @ModelAttribute ClientRequestDto clientRequestDto) {
+        Client client = clientService.findByNumero(clientRequestDto.getNumero()).orElse(null);
+        assert client != null;
+        client.setNomComplet(clientRequestDto.getNomComplet());
+        client.setTel(clientRequestDto.getTel());
+        client.setAdresse(new Adresse(
+                clientRequestDto.getVille(),
+                clientRequestDto.getQuartier(),
+                clientRequestDto.getVilla()
+        ));
+        client.setNumero(clientRequestDto.getNumero());
+        client.setCommentaire(clientRequestDto.getComment());
+        clientService.save(client);
+        model.addAttribute("clientEdit", clientRequestDto);
+        return "admin/client-edit";
+    }
+
+    @Override
     public String saveClient(Model model) {
         return "";
     }
@@ -98,6 +131,17 @@ public class AdminControllerImpl implements AdminController {
     public String allCommandes(Model model) {
         List<CommandeDto> commandes = commandeService.findAll().stream().map(CommandeDto::toAdminDto).toList();
         model.addAttribute("commandes", reverseList(commandes));
+        model.addAttribute("title", "Toutes les commandes");
+        model.addAttribute("filter", new FilterDto());
+        return "admin/commande";
+    }
+
+    @Override
+    public String allCommandes(Model model, Long client) {
+        Client cl = clientService.show(client).orElseThrow(()-> new RuntimeException("Client "+client+" introuvable"));
+        List<CommandeDto> commandes = commandeService.findAll(cl).stream().map(CommandeDto::toAdminDto).toList();
+        model.addAttribute("commandes", reverseList(commandes));
+        model.addAttribute("title", "Commandes de "+cl.getNomComplet());
         model.addAttribute("filter", new FilterDto());
         return "admin/commande";
     }

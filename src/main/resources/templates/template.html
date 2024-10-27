@@ -33,7 +33,7 @@
             <a th:if="${user}!=null" th:href="@{/client/commandes}">
                 <img th:src="@{/img/livraison-de-la-commande.png}" alt="panier" class="icon">
             </a>
-            <a th:href="${user != null} ? @{/client/account} : @{/login}">
+            <a th:href="${user != null} ? @{/client/account}:@{/login}">
                 <img th:src="@{/img/utilisateur.png}" alt="utilisateur" class="icon">
             </a>
         </div>

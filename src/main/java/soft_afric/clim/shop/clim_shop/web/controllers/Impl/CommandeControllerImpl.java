@@ -48,12 +48,14 @@ public class CommandeControllerImpl implements CommandeController {
         if(client==null) {
                 String[] adresses = panier.getClient().getAdresse().split(" ");
                 client = Client.builder()
+                        .numero(clientService.getClientsCount()+1)
                         .nomComplet(panier.getClient().getNomComplet())
                         .tel(panier.getClient().getTel())
                         .adresse(new Adresse(adresses[0], adresses[1], adresses[2]))
                         .build();
                 client.setLogin(client.getNomComplet());
                 client.setPassword(passwordEncoder.encode(client.getTel()));
+
                 // securityService.addUser(client.getLogin(), client.getPassword());
                 clientService.save(client);
                 securityService.addRoleToUser(client.getLogin(), "Client");

@@ -34,7 +34,9 @@ public class ClientControllerImpl implements ClientController {
 
     @Override
     public String account(Model model) {
-        ClientRequestDto client = ClientRequestDto.toDto(getConnectedUser());
+        Client connectedUser = getConnectedUser();
+        if(connectedUser==null) return "redirect:/login";
+        ClientRequestDto client = ClientRequestDto.toDto(connectedUser);
         setSearchBarDto(model);
         model.addAttribute("user", client);
         return "client/account";

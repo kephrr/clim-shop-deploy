@@ -20,16 +20,20 @@ public class ClientRequestDto {
     private  String quartier;
     private  String ville;
     private  String villa;
+    private String comment;
+    private int numero;
 
     public  static ClientRequestDto toDto(Client client){
         return  ClientRequestDto.builder()
                 .id(client.getId())
+                .numero(client.getNumero())
                 .nomComplet(client.getNomComplet())
                 .password(client.getPassword())
                 .tel(client.getTel())
                 .ville(client.getAdresse().getVille())
                 .quartier(client.getAdresse().getQuartier())
                 .villa(client.getAdresse().getNumVilla())
+                .comment(client.getCommentaire())
                 .build();
     }
 

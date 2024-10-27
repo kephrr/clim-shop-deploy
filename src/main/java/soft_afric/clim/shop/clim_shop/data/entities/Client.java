@@ -17,12 +17,14 @@ import java.util.List;
 @Builder
 @DiscriminatorValue(value="client")
 public class Client extends AppUser {
+    private int numero;
     @Column(length = 50)
     private String nomComplet;
     @Column(length = 20)
     private  String tel;
     @Embedded
     private Adresse adresse;
+    private String commentaire;
     @OneToMany(mappedBy = "client")
     private List<Commande> commandes;
     @OneToMany(mappedBy = "client")

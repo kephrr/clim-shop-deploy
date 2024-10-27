@@ -9,16 +9,24 @@
             <div class="items" >
                 <h1>Tous les clients</h1>
                 <div th:each="c:${clients}" class="commande">
+                    <p th:text="'Client N'+${c.numero}"> 09/03/2005</p>
                     <p th:text="'Nom : '+${c.nomComplet}"> 09/03/2005</p>
                     <p th:text="'Num. Tel : '+${c.tel}">Adresse : Sicap Baobab</p>
                     <p th:text="'Adresse : '+${c.adresse}">Statut : Facturer</p>
+                    <p th:text="'Commentaire : '+${c.comment}">Statut : Facturer</p>
+
                     <div class="buttons">
                         <a>
                             <button class="orange">
                                 Interdir l'accès
                             </button>
                         </a>
-                        <a>
+                        <a th:href="@{/admin/clients/edit/{id}(id = ${c.id})}">
+                            <button class="green">
+                                Modifier
+                            </button>
+                        </a>
+                        <a th:href="@{/admin/commandes/{client}(client = ${c.id})}">
                             <button class="green">
                                 Voir les commandes
                             </button>

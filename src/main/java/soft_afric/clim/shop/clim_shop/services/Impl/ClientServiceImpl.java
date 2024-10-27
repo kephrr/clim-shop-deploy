@@ -44,4 +44,14 @@ public class ClientServiceImpl implements ClientService {
     public Optional<Client> findByNumTel(String numTel) {
         return clientRepository.findByTelAndIsActivedTrue(numTel);
     }
+
+    @Override
+    public Optional<Client> findByNumero(int numero) {
+        return clientRepository.findByNumeroAndIsActivedTrue(numero);
+    }
+
+    @Override
+    public int getClientsCount() {
+        return clientRepository.countByIsActived(true);
+    }
 }

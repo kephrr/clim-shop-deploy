@@ -19,12 +19,15 @@
         <p>Etat : <strong th:text="${climDetails.etat}"></strong></p>
       </div>
     </div>
-    <form th:action="@{/admin/edit}"
+    <form th:action="@{/admin/clims/edit}"
           th:method="post"
           th:object="${climEdit}"
     >
       <h1>Modifier ce climatiseur</h1>
       <small style="font-style: italic;">Tous les champs finissant par un (*) sont obligatoires</small>
+      <div class="form-row step1">
+        <input readonly th:field="*{id}" th:value="${climEdit.id}" type="text" >
+      </div>
       <div class="form-row step1">
         <input th:field="*{libelle}" th:value="${climEdit.libelle}" required type="text" placeholder="Libelle (*)">
       </div>

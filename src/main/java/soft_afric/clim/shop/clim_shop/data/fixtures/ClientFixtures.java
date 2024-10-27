@@ -22,6 +22,7 @@ public class ClientFixtures implements CommandLineRunner {
     public void run(String... args) throws Exception {
         for (int i = 0; i <2 ; i++) {
             Client client = new Client();
+            client.setNumero(i+1);
             client.setNomComplet(i%2==0?"Utilisateur":"Abdoulaye SY");
             client.setTel(i%2==0?"776693020":"789990001");
             client.setAdresse(

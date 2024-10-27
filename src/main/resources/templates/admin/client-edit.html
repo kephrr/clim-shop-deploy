@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="sidebar">
+
+    <div layout:fragment="contentForView" class="rightSide">
+        <div class="rightContent">
+            <div class="items" >
+                <h1>Infos actuelles</h1>
+                <div  class="commande">
+                    <p th:text="'Client #'+${clientEdit.numero}"> 09/03/2005</p>
+                    <p th:text="'Nom : '+${clientEdit.nomComplet}"> 09/03/2005</p>
+                    <p th:text="'Num. Tel : '+${clientEdit.tel}">Adresse : Sicap Baobab</p>
+                    <p th:text="'Adresse : '+${clientEdit.quartier}+' '+${clientEdit.ville}+' '+${clientEdit.villa}">Statut : Facturer</p>
+                    <p th:text="'Commentaire : '+${clientEdit.comment}">Statut : Facturer</p>
+                </div>
+            </div>
+
+            <form th:action="@{/admin/clients/edit}"
+                  th:method="post"
+                  th:object="${clientEdit}"
+            >
+                <h1>Modifier ce climatiseur</h1>
+                <small style="font-style: italic;">Tous les champs finissant par un (*) sont obligatoires</small>
+                <div class="form-row step1">
+                    <input readonly th:field="*{numero}" th:value="${clientEdit.numero}" type="text" >
+                </div>
+                <div class="form-row step1">
+                    <input th:field="*{nomComplet}" th:value="${clientEdit.nomComplet}" required type="text"
+                           placeholder="Nom complet (*)">
+                </div>
+                <div class="form-row">
+                    <input th:field="*{tel}" th:value="${clientEdit.tel}" required type="number"
+                           placeholder="Téléphone (*)">
+                </div>
+                <div class="form-row">
+                    <input th:field="*{quartier}" th:value="${clientEdit.quartier}" type="text"
+                           placeholder="Nom du quartier  (*)">
+                </div>
+                <div class="form-row">
+                    <input th:field="*{ville}" th:value="${clientEdit.ville}" required type="text"
+                           placeholder="Nom de al ville">
+                </div>
+                <div class="form-row">
+                    <input th:field="*{villa}" th:value="${clientEdit.villa}" type="text"
+                           placeholder="Numéro de la villa (*)">
+                </div>
+                <div class="form-row">
+                    <input th:field="*{comment}" th:value="${clientEdit.comment}" type="text"
+                           placeholder="Commentaire de l'administrateur">
+                </div>
+                <button type="submit">Sauvegarder</button>
+            </form>
+                <style>
+                    .buttons{
+                        display: flex;
+                        gap: 10px;
+                        transition: all ease-out .3s;
+                    }
+                    .commande{
+                        display: flex;
+                        flex-direction: column;
+                        border: solid 1px #D9D9D9;
+                        background-color: #FFFFFF;
+                        width: 90%;
+                        margin-bottom: 10px;
+                        padding: 15px 0 15px 15px;
+                    }
+                    strong{
+                        font-style: italic;
+                    }
+                    .ligne{
+                        margin-left: 20px;
+                    }
+                    .red{
+                        background-color: red;
+                    }
+                    .green{
+                        background-color: lawngreen;
+                    }
+                    .orange{
+                        background-color: darkorange;
+                    }
+                    button{
+                        font-size: 1rem;
+                        color: white;
+                        padding: 7.5px 15px;
+                        border-radius: 10px;
+                        border: none;
+                    }
+                </style>
+
+        </div>
+    </div>
+</html>

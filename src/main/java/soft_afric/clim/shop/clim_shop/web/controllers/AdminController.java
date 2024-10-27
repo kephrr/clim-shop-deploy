@@ -11,6 +11,9 @@ import soft_afric.clim.shop.clim_shop.web.dto.request.FilterDto;
 
 public interface AdminController {
     // Voir toutes les clims
+    @GetMapping("/")
+    String index();
+    // Voir toutes les clims
     @GetMapping("/clims")
     String allClims(Model model);
 
@@ -27,7 +30,7 @@ public interface AdminController {
     String editClim(Model model, @PathVariable Long id);
 
     // En registrer la modification
-    @GetMapping("/clims/edit")
+    @PostMapping("/clims/edit")
     String updateClim(Model model,
                       @ModelAttribute ClimCreateDto climCreateDto);
 
@@ -35,6 +38,15 @@ public interface AdminController {
     // Voir tous les clients
     @GetMapping("/clients")
     String allClients(Model model);
+
+    // Modifier un client form
+    @GetMapping("/clients/edit/{id}")
+    String editClient(Model model, @PathVariable Long id);
+
+    // Modifier un client form
+    @PostMapping("/clients/edit")
+    String updateClient(Model model,
+                        @ModelAttribute ClientRequestDto clientRequestDto);
 
     // Modifier un client
     @PostMapping("/clients")
@@ -44,6 +56,10 @@ public interface AdminController {
     // Voir toutes les dommandes
     @GetMapping("/commandes")
     String allCommandes(Model model);
+
+    // Voir toutes les dommandes
+    @GetMapping("/commandes/{client}")
+    String allCommandes(Model model, @PathVariable Long client);
 
     @PostMapping("/commandes/filter")
     String CommandesFilterState(Model model,

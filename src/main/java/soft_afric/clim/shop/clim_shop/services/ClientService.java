@@ -7,4 +7,6 @@ import java.util.Optional;
 public interface ClientService extends IService<Client,Long> {
     Client findByUsername(String username);
     Optional<Client> findByNumTel(String numTel);
+    Optional<Client> findByNumero(int numero);
+    int getClientsCount();
 }

@@ -15,4 +15,6 @@ public interface ClientRepository extends JpaRepository<Client,Long> {
     List<Client> findByIsActivedTrue();
     Client findClientByNomCompletAndIsActivedTrue(String nomComplet);
     Optional<Client> findByTelAndIsActivedTrue(String tel);
+    Optional<Client> findByNumeroAndIsActivedTrue(int numero);
+    int countByIsActived(Boolean active);
 }

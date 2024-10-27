@@ -22,7 +22,7 @@
                         <button type="submit">Filtrer</button>
                     </div>
                 </form>
-                <h1>Toutes les commandes</h1>
+                <h1 th:text="${title}">Toutes les commandes</h1>
                 <!--- Rajouter accessoires  installation oui non 6500 fcfa  |-->
                 <div th:each="c:${commandes}" class="commande">
                     <p th:text="'Infos du client : '+${c.client}+' '+${c.numClient}"></p>
