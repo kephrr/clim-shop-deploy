@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="sidebar">
+
+    <div layout:fragment="contentForView" class="rightSide">
+        <div class="rightContent">
+            <div class="items" >
+                <h1>Tous les clients</h1>
+                <div th:each="c:${clients}" class="commande">
+                    <p th:text="'Nom : '+${c.nomComplet}"> 09/03/2005</p>
+                    <p th:text="'Num. Tel : '+${c.tel}">Adresse : Sicap Baobab</p>
+                    <p th:text="'Adresse : '+${c.adresse}">Statut : Facturer</p>
+                    <div class="buttons">
+                        <a>
+                            <button class="orange">
+                                Interdir l'accès
+                            </button>
+                        </a>
+                        <a>
+                            <button class="green">
+                                Voir les commandes
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+                <style>
+                    .buttons{
+                        display: flex;
+                        gap: 10px;
+                        transition: all ease-out .3s;
+                    }
+                    .commande{
+                        display: flex;
+                        flex-direction: column;
+                        border: solid 1px #D9D9D9;
+                        background-color: #FFFFFF;
+                        width: 90%;
+                        margin-bottom: 10px;
+                        padding: 15px 0 15px 15px;
+                    }
+                    strong{
+                        font-style: italic;
+                    }
+                    .ligne{
+                        margin-left: 20px;
+                    }
+                    .red{
+                        background-color: red;
+                    }
+                    .green{
+                        background-color: lawngreen;
+                    }
+                    .orange{
+                        background-color: darkorange;
+                    }
+                    button{
+                        font-size: 1rem;
+                        color: white;
+                        padding: 7.5px 15px;
+                        border-radius: 10px;
+                        border: none;
+                    }
+                </style>
+
+        </div>
+    </div>
+</html>

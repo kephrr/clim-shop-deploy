@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="sidebar">
+
+<div layout:fragment="contentForView" class="rightSide">
+  <div class="rightContent">
+    <div class="items" >
+      <h1>Infos actuelles</h1>
+      <div class="item">
+        <p id="card-details-title"> <strong th:text="${climDetails.libelle}"> </strong></p>
+        <p>Categorie : <span th:text="${climDetails.categorie}"></span></p>
+        <p th:text="'Prix : '+${climDetails.prix}"> <strong>FCFA</strong></p>
+        <p th:text="'Promotion : '+${climDetails.promotion}"> </p>
+        <p th:text="'Surface de refroidissement : '+${climDetails.surface}+' M²'"><strong>M²</strong></p>
+        <p th:text="'Capacité de refroidissement : '+${climDetails.capacite}+' BTU/H'"> <strong>BTU/H</strong></p>
+        <p >Marque : <strong th:text="${climDetails.marque}">LG</strong></p>
+        <p>Etat : <strong th:text="${climDetails.etat}"></strong></p>
+      </div>
+    </div>
+    <form th:action="@{/admin/edit}"
+          th:method="post"
+          th:object="${climEdit}"
+    >
+      <h1>Modifier ce climatiseur</h1>
+      <small style="font-style: italic;">Tous les champs finissant par un (*) sont obligatoires</small>
+      <div class="form-row step1">
+        <input th:field="*{libelle}" th:value="${climEdit.libelle}" required type="text" placeholder="Libelle (*)">
+      </div>
+      <div class="form-row">
+        <input th:field="*{prix}" th:value="${climEdit.prix}" required type="number" placeholder="Prix (*)">
+      </div>
+      <div class="form-row">
+        <input th:field="*{promotion}" th:value="${climEdit.promotion}" type="number" placeholder="Promotion (en %)">
+      </div>
+      <div class="form-row">
+        <input th:field="*{qteStock}" th:value="${climEdit.qteStock}" required type="number" placeholder="Quantite en stock">
+      </div>
+      <div class="form-row">
+        <input th:field="*{surface}" th:value="${climEdit.surface}" type="number" placeholder="Surface de refroidissement (en M²)">
+      </div>
+      <div class="form-row">
+        <input th:field="*{capacite}" th:value="${climEdit.capacite}" type="number" placeholder="Capacité de refroidissement (en BUT/H)">
+      </div>
+      <div class="form-row">
+        <input th:field="*{image}" th:value="${climEdit.image}" type="text" placeholder="Lien vers l'image">
+      </div>
+      <div class="form-row">
+        <select th:field="*{categorie}" th:value="${climEdit.categorie}" required name="">
+          <option value="0"> Selectionner une categorie (*)</option>
+          <option th:each="cat:${categories}"
+                  th:value="${cat.id}"
+                  th:text="${cat.libelle}"
+          >Selectionner une marque</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <select th:field="*{marque}" th:value="${climEdit.marque}" required name="">
+          <option value="0"> Selectionner une marque (*)</option>
+          <option th:each="m:${marques}"
+                  th:value="${m.id}"
+                  th:text="${m.libelle}"
+          >Selectionner une categorie</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <select th:field="*{etat}" th:value="${climEdit.etat}" required name="">
+          <option value="0"> Selectionner un etat (*)</option>
+          <option th:each="etat:${etats}"
+                  th:value="${etat.id}"
+                  th:text="${etat.libelle}"
+          ></option>
+        </select>
+      </div>
+      <button type="submit">Sauvegarder</button>
+    </form>
+  </div>
+</div>
+</html>

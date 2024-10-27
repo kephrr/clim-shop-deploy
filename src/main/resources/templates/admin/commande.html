@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="sidebar">
+
+    <div layout:fragment="contentForView" class="rightSide">
+        <div class="rightContent">
+            <div class="items" >
+                <form id="filter"
+                      th:action="@{/admin/commandes/filter}"
+                      th:method="post"
+                      th:object="${filter}">
+                    <div class="form-row">
+                        <select th:field="*{id}" required name="">
+                            <option value="-1"> Filtrer par statut</option>
+                            <option value="0">En cours</option>
+                            <option value="1">Livrée</option>
+                            <option value="2">Archivée</option>
+                            <option value="3">Annulée</option>
+                        </select>
+                        <button type="submit">Filtrer</button>
+                    </div>
+                </form>
+                <h1>Toutes les commandes</h1>
+                <!--- Rajouter accessoires  installation oui non 6500 fcfa  |-->
+                <div th:each="c:${commandes}" class="commande">
+                    <p th:text="'Infos du client : '+${c.client}+' '+${c.numClient}"></p>
+                    <p th:text="'Adresse : '+${c.adresse}">Adresse : Sicap Baobab</p>
+                    <p th:text="'Date de commande : '+${c.date}"> </p>
+                    <p th:text="'Date de paiement : '+${c.datePaiement}"> </p>
+                    <p th:text="'Date de livraison : '+${c.dateLivraison}"> </p>
+                    <p th:text="'Date d\'installation : '+${c.dateInstallation}"> </p>
+                    <p th:text="'Accessoires d\'installation : '+${c.accInstallation}"> </p>
+                    <p th:text="${c.isInstalled}+' à '+${c.installation}+' FCFA'"> </p>
+                    <p th:text="'Statut : '+${c.etatCommande}"></p>
+                    <p>
+                        <strong>
+                            Articles
+                        </strong>
+                    </p>
+                    <div class="ligne" th:each="l:${c.ligneCommandes}">
+                        <p th:text="${l}" >1x Clim de ous 20000</p>
+                    </div>
+                    <p th:text="'Montant de(s) clim(s) : '+${c.montant}+' FCFA'"> </p>
+                    <p th:text="'Frais de livraison : '+${c.livraison}+' FCFA'"> </p>
+                    <p th:text="'Montant total : '+${c.montantFinal}+' FCFA'">Montant total : 650.000</p>
+                    <p th:text="'Mode de paiement : '+${c.modePaiement}">Mode de paiement : 0range Money</p>
+                    <p th:text="'Réf de paiement : #'+${c.refPaiement}"> </p>
+                    <div class="buttons">
+                        <a th:href="@{/admin/commandes/validate/{id}(id = ${c.id})}">
+                            <button th:if="${c.etatCommande!='Terminer'}" class="green">
+                                Marquer comme effectuée
+                            </button>
+                        </a>
+                        <a th:href="@{/admin/commandes/delete/{id}(id = ${c.id})}">
+                            <button class="red">
+                                Archiver
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <style>
+                .buttons{
+                    display: flex;
+                    gap: 10px;
+                }
+                .commande{
+                    display: flex;
+                    flex-direction: column;
+                    border: solid 1px #D9D9D9;
+                    background-color: #FFFFFF;
+                    width: 90%;
+                    margin-bottom: 10px;
+                    padding: 15px 0 15px 15px;
+                }
+                strong{
+                    font-style: italic;
+                }
+                .ligne{
+                    margin-left: 20px;
+                }
+                .red{
+                    background-color: red;
+                }
+                .green{
+                    background-color: lawngreen;
+                }
+                .orange{
+                    background-color: darkorange;
+                }
+                button{
+                    font-size: 1rem;
+                    color: white;
+                    padding: 7.5px 15px;
+                    border-radius: 10px;
+                    border: none;
+                }
+                .disabled:hover{
+                    cursor: not-allowed;
+                }
+            </style>
+        </div>
+    </div>
+</html>
