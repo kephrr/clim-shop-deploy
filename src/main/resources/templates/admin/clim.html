@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="sidebar">
+
+    <main layout:fragment="contentForView" class="main-content">
+        <section class="page active">
+            <form id="productForm"
+                  th:action="@{/admin/clims}"
+                  th:method="post"
+                  th:object="${climCreate}">
+                <h1 >Ajouter un climatiseur</h1>
+                <small style="font-style: italic;">Tous les champs finissant par un (*) sont obligatoires</small>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <input th:field="*{libelle}" required type="text" placeholder="Libelle (*)">
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{prix}" required type="number" placeholder="Prix (*)">
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{promotion}" type="number" placeholder="Promotion (en %)">
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{qteStock}" required type="number" placeholder="Quantite en stock">
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{surface}" type="number" placeholder="Surface de refroidissement (en M²)">
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{capacite}" type="number" placeholder="Capacité de refroidissement (en BUT/H)">
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{image}" type="text" placeholder="Lien vers l'image">
+                    </div>
+                    <div class="form-group">
+                        <label for="photo_clim">Photo</label>
+                        <input type="file" id="photo_clim" name="photo_clim" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <select th:field="*{etat}" required name="">
+                            <option value="0"> Selectionner un etat (*)</option>
+                            <option th:each="etat:${etats}"
+                                    th:value="${etat.id}"
+                                    th:text="${etat.libelle}"
+                            ></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select th:field="*{categorie}" required name="">
+                            <option value="0"> Selectionner une categorie (*)</option>
+                            <option th:each="cat:${categories}"
+                                    th:value="${cat.id}"
+                                    th:text="${cat.libelle}"
+                            >Selectionner une marque</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select th:field="*{marque}" required name="">
+                            <option value="0"> Selectionner une marque (*)</option>
+                            <option th:each="m:${marques}"
+                                    th:value="${m.id}"
+                                    th:text="${m.libelle}"
+                            >Selectionner une categorie</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit">Enregistrer</button>
+            </form>
+            <div class="page-header">
+                <h1 >Liste des climatiseurs</h1>
+            </div>
+            <div class="items" >
+                <div class="products-list">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Référence</th>
+                            <th>Libelle</th>
+                            <th>Type</th>
+                            <th>Prix</th>
+                            <th>Marque</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                        <!-- Rempli dynamiquement -->
+                        <tr th:each="climDetails:${clims}">
+                            <td th:text="${climDetails.ref}">Référence</td>
+                            <td th:text="${climDetails.libelle}">Référence</td>
+                            <td th:text="${climDetails.type}">Type</td>
+                            <td th:text="${climDetails.prix}">Prix</td>
+                            <td th:text="${climDetails.marque}">Marque</td>
+                            <td>
+                                <a th:href="@{/admin/clims/edit/{id}(id = ${climDetails.id})}">
+                                <button class="" id="">Details</button>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Rempli dynamiquement
+                <div th:each="climDetails:${clims}" class="item">
+                    <img th:src="@{${climDetails.image}}" alt="image" srcset="">
+                    <p id="card-details-title"> <strong th:text="${climDetails.libelle}"> </strong></p>
+                    <p>Référence : <span th:text="${climDetails.ref}"></span></p>
+                    <p>Categorie : <span th:text="${climDetails.categorie}"></span></p>
+                    <p>Type : <span th:text="${climDetails.type}"></span></p>
+                    <p th:text="'Surface de refroidissement : '+${climDetails.surface}+' M²'"><strong>M²</strong></p>
+                    <p th:text="'Capacité de refroidissement : '+${climDetails.capacite}+' BTU/H'"> <strong>BTU/H</strong></p>
+                    <p th:text="'Autre caractéristiques: '+${climDetails.specs}+' BTU/H'"> <strong>BTU/H</strong></p>
+                    <p th:text="'Prix : '+${climDetails.prix}"> <strong>FCFA</strong></p>
+                    <p th:text="'Promotion : '+${climDetails.promotion}"> </p>
+                    <p >Marque : <strong th:text="${climDetails.marque}">LG</strong></p>
+                    <p>Guarantie : <span th:text="${climDetails.guarantie}"></span></p>
+                    <p>Etat : <strong th:text="${climDetails.etat}"></strong></p>
+                    <div class="buttons">
+                        <a th:href="@{/admin/clims/delete/{id}(id = ${climDetails.id})}">
+                            <button class="">Supprimer</button>
+                        </a>
+                        <a th:href="@{/admin/clims/edit/{id}(id = ${climDetails.id})}">
+                            <button class="" id="success">Modifier</button>
+                        </a>
+                    </div>
+                </div>
+                -->
+            </div>
+        </section>
+    </main>
+</html>

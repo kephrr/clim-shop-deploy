@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="sidebar">
+
+<div layout:fragment="contentForView" class="rightSide">
+    <section id="dashboard" class="page active">
+        <div class="page-header">
+            <h1>Tableau de bord</h1>
+        </div>
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3>Commandes en cours</h3>
+                <p class="stat-value">15</p>
+            </div>
+            <div class="stat-card">
+                <h3>Chiffre d'affaires mensuel</h3>
+                <p class="stat-value">2.4M FCFA</p>
+            </div>
+            <div class="stat-card">
+                <h3>Clients actifs</h3>
+                <p class="stat-value">521</p>
+            </div>
+            <div class="stat-card">
+                <h3>Stock climatiseurs</h3>
+                <p class="stat-value">89</p>
+            </div>
+        </div>
+    </section>
+</div>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="sidebar">
+
+    <main layout:fragment="contentForView" class="main-content">
+        <section class="users page">
+            <div class="page-header">
+                <h1>Gestion des Clients</h1>
+                <button onclick="showModal('userModal')">Filtrer</button>
+            </div>
+            <div class="filters">
+                <select id="user_role_filter">
+                    <option value="all">Numéro de téléphone</option>
+                </select>
+            </div>
+            <div class="items" >
+                <h1>Tous les clients</h1>
+                <div class="users-list">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Numéro Client</th>
+                            <th>Nom</th>
+                            <th>Téléphone</th>
+                            <th>Adresse</th>
+                            <th>Commentaire</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                        <tr th:each="c:${clients}">
+                            <td th:text="${c.numero}">Numéro Client</td>
+                            <td th:text="${c.nomComplet}">Nom</td>
+                            <td th:text="${c.tel}">Téléphone</td>
+                            <td th:text="${c.adresse}">Adresse</td>
+                            <td th:text="${c.comment}">Commentaire</td>
+                            <td>
+                                <div class="buttons">
+                                    <a th:href="@{/admin/clients/edit/{id}(id = ${c.id})}">
+                                        <button class="green">
+                                            Details
+                                        </button>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+</html>

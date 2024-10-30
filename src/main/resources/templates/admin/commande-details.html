@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="sidebar">
+
+<main layout:fragment="contentForView" class="main-content">
+    <section class="page active">
+        <div class="page-header">
+            <h1 th:text="'Details de la commande Numéro '+${c.id}"></h1>
+        </div>
+        <div class="items">
+            <div class="commande">
+                <p th:text="'Infos du client : '+${c.client}+' '+${c.numClient}"></p>
+                <p th:text="'Adresse : '+${c.adresse}">Adresse : Sicap Baobab</p>
+                <p th:text="'Date de commande : '+${c.date}"> </p>
+                <p th:text="'Date de paiement : '+${c.datePaiement}"> </p>
+                <p th:text="'Date de livraison : '+${c.dateLivraison}"> </p>
+                <p th:text="'Date d\'installation : '+${c.dateInstallation}"> </p>
+                <p th:text="'Accessoires d\'installation : '+${c.accInstallation}"> </p>
+                <p th:text="${c.isInstalled}+' à '+${c.installation}+' FCFA'"> </p>
+                <p th:text="'Statut : '+${c.etatCommande}"></p>
+                <p>
+                    <strong>
+                        Articles
+                    </strong>
+                </p>
+                <div class="" th:each="l:${c.ligneCommandes}">
+                    <p th:text="${l}" >1x Clim de ous 20000</p>
+                </div>
+                <p th:text="'Montant de(s) clim(s) : '+${c.montant}+' FCFA'"> </p>
+                <p th:text="'Frais de livraison : '+${c.livraison}+' FCFA'"> </p>
+                <p th:text="'Montant total : '+${c.montantFinal}+' FCFA'">Montant total : 650.000</p>
+                <p th:text="'Mode de paiement : '+${c.modePaiement}">Mode de paiement : 0range Money</p>
+                <p th:text="'Réf de paiement : #'+${c.refPaiement}"> </p>
+                <div class="buttons">
+                    <a th:href="@{/admin/commandes/validate/{id}(id = ${c.id})}">
+                        <button th:if="${c.etatCommande!='Terminer'}" class="">
+                            Marquer comme effectuée
+                        </button>
+                    </a>
+                    <a th:href="@{/admin/commandes/delete/{id}(id = ${c.id})}">
+                        <button class="">
+                            Archiver
+                        </button>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main>
+</html>

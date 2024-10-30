@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="sidebar">
+
+    <main layout:fragment="contentForView" class="main-content">
+        <section class="page active">
+            <div class="page-header">
+                <h1 >Details du client</h1>
+            </div>
+            <div class="items" >
+                <div  class="commande">
+                    <p th:text="'Client #'+${clientEdit.numero}"> </p>
+                    <p th:text="'Nom : '+${clientEdit.nomComplet}"> </p>
+                    <p th:text="'Num. Tel : '+${clientEdit.tel}"></p>
+                    <p th:text="'Adresse : '+${clientEdit.quartier}+' '+${clientEdit.ville}+' '+${clientEdit.villa}"></p>
+                    <p th:text="'Commentaire : '+${clientEdit.comment}"></p>
+                </div>
+            </div>
+
+            <form id="supplierForm" th:action="@{/admin/clients/edit}"
+                  th:method="post"
+                  th:object="${clientEdit}">
+                <h1>Modifier ce client</h1>
+                <small style="font-style: italic;">Tous les champs finissant par un (*) sont obligatoires</small>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <input readonly th:field="*{numero}" th:value="${clientEdit.numero}" type="text" >
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{nomComplet}" th:value="${clientEdit.nomComplet}" required type="text"
+                               placeholder="Nom complet (*)">
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{tel}" th:value="${clientEdit.tel}" required type="number"
+                               placeholder="Téléphone (*)">
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{quartier}" th:value="${clientEdit.quartier}" type="text"
+                               placeholder="Nom du quartier  (*)">
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{ville}" th:value="${clientEdit.ville}" required type="text"
+                               placeholder="Nom de al ville">
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{villa}" th:value="${clientEdit.villa}" type="text"
+                               placeholder="Numéro de la villa (*)">
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{comment}" th:value="${clientEdit.comment}" type="text"
+                               placeholder="Commentaire de l'administrateur">
+                    </div>
+                </div>
+                <button type="submit">Sauvegarder</button>
+            </form>
+                <style>
+                    .buttons{
+                        display: flex;
+                        gap: 10px;
+                        transition: all ease-out .3s;
+                    }
+                    .commande{
+                        display: flex;
+                        flex-direction: column;
+                        border: solid 1px #D9D9D9;
+                        background-color: #FFFFFF;
+                        width: 90%;
+                        margin-bottom: 10px;
+                        padding: 15px 0 15px 15px;
+                    }
+                    strong{
+                        font-style: italic;
+                    }
+                    .ligne{
+                        margin-left: 20px;
+                    }
+                    .red{
+                        background-color: red;
+                    }
+                    .green{
+                        background-color: lawngreen;
+                    }
+                    .orange{
+                        background-color: darkorange;
+                    }
+                    button{
+                        font-size: 1rem;
+                        color: white;
+                        padding: 7.5px 15px;
+                        border-radius: 10px;
+                        border: none;
+                    }
+                </style>
+
+        </section>
+    </main>
+</html>

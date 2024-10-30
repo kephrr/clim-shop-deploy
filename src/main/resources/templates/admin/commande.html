@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="sidebar">
+
+    <main layout:fragment="contentForView" class="main-content">
+        <section class="page active">
+            <div class="page-header">
+                <h1 >Gestion des commandes</h1>
+            </div>
+            <form id="supplierForm"
+                  th:action="@{/admin/commandes/filter}"
+                  th:method="post"
+                  th:object="${filter}">
+                <div class="">
+                    <select th:field="*{id}" required name="">
+                        <option value="-1"> Filtrer par statut</option>
+                        <option value="0">En cours</option>
+                        <option value="1">Livrée</option>
+                        <option value="2">Archivée</option>
+                        <option value="3">Annulée</option>
+                    </select>
+                    <button type="submit">Filtrer</button>
+                </div>
+            </form>
+            <div class="items">
+                <h2 th:text="${title}">Toutes les commandes</h2>
+                <div class="orders-list">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>N° Commande</th>
+                            <th>Client</th>
+                            <th>Date commande</th>
+                            <th>Montant total</th>
+                            <th>Statut</th>
+                            <th>Mode Paiement</th>
+                            <th>Adresse</th>
+                            <th>Details</th>
+
+                        </tr>
+                        </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                        <!-- Rempli dynamiquement -->
+                        <tr th:each="c:${commandes}" >
+                            <td th:text="${c.id}"></td>
+                            <td th:text="${c.client}+' '+${c.numClient}"></td>
+                            <td th:text="${c.adresse}"></td>
+                            <td th:text="${c.date}">Date commande</td>
+                            <td th:text="${c.montantFinal}">Montant total</td>
+                            <td th:text="${c.modePaiement}">Actions</td>
+                            <td th:text="${c.etatCommande}">Statut</td>
+                            <td>
+                                <a th:href="@{/admin/commandes/details/{id}(id = ${c.id})}">
+                                    <button class="">
+                                        Details
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+</html>

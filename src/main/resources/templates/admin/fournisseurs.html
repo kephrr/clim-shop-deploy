@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="sidebar">
+
+<main layout:fragment="contentForView" class="main-content">
+  <!-- Fournisseurs -->
+  <section id="suppliers" class="page">
+    <div class="page-header">
+      <h1>Gestion des Fournisseurs</h1>
+      <button onclick="showModal('supplierModal')">Nouveau Fournisseur</button>
+    </div>
+    <form id="supplierForm">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="societe">Société</label>
+          <input type="text" id="societe" name="societe" required>
+        </div>
+        <div class="form-group">
+          <label for="adresse">Adresse</label>
+          <textarea id="adresse" name="adresse" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="reference">Référence</label>
+          <input type="text" id="reference" name="reference" required>
+        </div>
+        <div class="form-group">
+          <label for="siret">SIRET</label>
+          <input type="text" id="siret" name="siret" required>
+        </div>
+
+        <!-- Contact 1 -->
+        <div class="form-group">
+          <label for="contact1_nom">Contact 1 - Nom</label>
+          <input type="text" id="contact1_nom" name="contact1_nom">
+        </div>
+        <div class="form-group">
+          <label for="contact1_tel">Contact 1 - Téléphone</label>
+          <input type="tel" id="contact1_tel" name="contact1_tel">
+        </div>
+        <div class="form-group">
+          <label for="contact1_email">Contact 1 - Email</label>
+          <input type="email" id="contact1_email" name="contact1_email">
+        </div>
+
+        <!-- Contact 2 -->
+        <div class="form-group">
+          <label for="contact2_nom">Contact 2 - Nom</label>
+          <input type="text" id="contact2_nom" name="contact2_nom">
+        </div>
+        <div class="form-group">
+          <label for="contact2_tel">Contact 2 - Téléphone</label>
+          <input type="tel" id="contact2_tel" name="contact2_tel">
+        </div>
+        <div class="form-group">
+          <label for="contact2_email">Contact 2 - Email</label>
+          <input type="email" id="contact2_email" name="contact2_email">
+        </div>
+
+        <div class="form-group">
+          <label for="mode_paiement">Mode de paiement</label>
+          <select id="mode_paiement" name="mode_paiement">
+            <option value="virement">Virement</option>
+            <option value="cheque">Chèque</option>
+            <option value="cb">Carte bancaire</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="etat_encours">État des encours</label>
+          <input type="text" id="etat_encours" name="etat_encours">
+        </div>
+        <div class="form-group">
+          <label for="etat_paiements">État des paiements</label>
+          <input type="text" id="etat_paiements" name="etat_paiements">
+        </div>
+        <div class="form-group">
+          <label for="divers">Divers</label>
+          <textarea id="divers" name="divers"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="commentaires">Commentaires</label>
+          <textarea id="commentaires" name="commentaires"></textarea>
+        </div>
+      </div>
+      <button type="submit">Enregistrer</button>
+    </form>
+    <div class="suppliers-list">
+      <table>
+        <thead>
+        <tr>
+          <th>Société</th>
+          <th>Référence</th>
+          <th>Contact principal</th>
+          <th>Téléphone</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="suppliersTableBody">
+        <!-- Rempli dynamiquement -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+</html>
