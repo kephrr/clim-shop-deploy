@@ -3,40 +3,65 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Admin</title>
-    <link rel="stylesheet" th:href="@{/css/admin/style.css}">
+    <title>Dashboard Admin - Climatisation</title>
+    <link rel="stylesheet" th:href="@{/css/admin/admin-styles.css}">
 </head>
 <body>
-    <div class="container">
-        <div class="sideBar">
-            <img th:src="@{/img/private.png}" alt="Utilisateur">
-            <ul class="sideOptions">
-                <li class="sideOp">
-                    <a th:href="@{/admin/clients}">
-                        <img th:src="@{/img/client.png}" alt="" srcset="">
-                        Clients
-                    </a>
-                </li>
-                <li class="sideOp">
-                    <a th:href="@{/admin/commandes}">
-                        <img th:src="@{/img/panier-dachat-rapide.png}" alt="" srcset="">
-                        Commandes
-                    </a>
-                </li>
-                <li class="sideOp">
-                    <a th:href="@{/admin/clims}">
-                        <img th:src="@{/img/climatiseur.png}" alt="" srcset="">
-                        Clims
-                    </a>
-                </li>
-            </ul>
-            <a th:href="@{/logout}">
-                <button>Déconnexion</button>
-            </a>        
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                Dashboard Admin
+            </div>
         </div>
-        <div layout:fragment="contentForView" class="rightSide">
-            MAIN
-        </div>
-    </div>
+        <nav class="sidebar-nav">
+            <div class="nav-item active" data-page="dashboard">
+                <a th:href="@{/admin/}">
+                    <i class="icon">📊</i>
+                    <span>Tableau de bord</span>
+                </a>
+            </div>
+            <div class="nav-item" data-page="suppliers">
+                <a href="">
+                    <i class="icon">🏭</i>
+                    <span>Fournisseurs</span>
+                </a>
+            </div>
+            <div class="nav-item" data-page="products">
+                <a th:href="@{/admin/clims}">
+                    <i class="icon">❄️</i>
+                    <span>Climatiseurs</span>
+                </a>
+            </div>
+            <div class="nav-item" data-page="clients">
+                <a th:href="@{/admin/clients}">
+                    <i class="icon">👥</i>
+                    <span>Clients</span>
+                </a>
+            </div>
+            <div class="nav-item" data-page="orders">
+                <a th:href="@{/admin/commandes}">
+                    <i class="icon">📦</i>
+                    <span>Commandes</span>
+                </a>
+            </div>
+            <!-- Dashboard
+            <div class="nav-item" data-page="users">
+                <a th:href="@{/admin/clims}">
+                    <i class="icon">👤</i>
+                    <span>Utilisateurs</span>
+                </a>
+            </div>
+            -->
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main layout:fragment="contentForView" class="main-content">
+        <!-- Dashboard -->
+
+    </main>
+</div>
 </body>
 </html>

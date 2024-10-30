@@ -4,27 +4,30 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="sidebar">
 
-    <div layout:fragment="contentForView" class="rightSide">
-        <div class="rightContent">
-            <div class="items" >
-                <form id="filter"
-                      th:action="@{/admin/commandes/filter}"
-                      th:method="post"
-                      th:object="${filter}">
-                    <div class="form-row">
-                        <select th:field="*{id}" required name="">
-                            <option value="-1"> Filtrer par statut</option>
-                            <option value="0">En cours</option>
-                            <option value="1">Livrée</option>
-                            <option value="2">Archivée</option>
-                            <option value="3">Annulée</option>
-                        </select>
-                        <button type="submit">Filtrer</button>
-                    </div>
-                </form>
-                <h1 th:text="${title}">Toutes les commandes</h1>
-                <!--- Rajouter accessoires  installation oui non 6500 fcfa  |-->
-                <div th:each="c:${commandes}" class="commande">
+    <main layout:fragment="contentForView" class="main-content">
+        <section class="page active">
+            <div class="page-header">
+                <h1 >Gestion des commandes</h1>
+            </div>
+            <form id="supplierForm"
+                  th:action="@{/admin/commandes/filter}"
+                  th:method="post"
+                  th:object="${filter}">
+                <div class="">
+                    <select th:field="*{id}" required name="">
+                        <option value="-1"> Filtrer par statut</option>
+                        <option value="0">En cours</option>
+                        <option value="1">Livrée</option>
+                        <option value="2">Archivée</option>
+                        <option value="3">Annulée</option>
+                    </select>
+                    <button type="submit">Filtrer</button>
+                </div>
+            </form>
+            <div class="items">
+                <h2 th:text="${title}">Toutes les commandes</h2>
+                <!--- Rajouter accessoires  installation oui non 6500 fcfa  |
+                <div th:each="c:${commandes}" class="">
                     <p th:text="'Infos du client : '+${c.client}+' '+${c.numClient}"></p>
                     <p th:text="'Adresse : '+${c.adresse}">Adresse : Sicap Baobab</p>
                     <p th:text="'Date de commande : '+${c.date}"> </p>
@@ -39,7 +42,7 @@
                             Articles
                         </strong>
                     </p>
-                    <div class="ligne" th:each="l:${c.ligneCommandes}">
+                    <div class="" th:each="l:${c.ligneCommandes}">
                         <p th:text="${l}" >1x Clim de ous 20000</p>
                     </div>
                     <p th:text="'Montant de(s) clim(s) : '+${c.montant}+' FCFA'"> </p>
@@ -49,58 +52,56 @@
                     <p th:text="'Réf de paiement : #'+${c.refPaiement}"> </p>
                     <div class="buttons">
                         <a th:href="@{/admin/commandes/validate/{id}(id = ${c.id})}">
-                            <button th:if="${c.etatCommande!='Terminer'}" class="green">
+                            <button th:if="${c.etatCommande!='Terminer'}" class="">
                                 Marquer comme effectuée
                             </button>
                         </a>
                         <a th:href="@{/admin/commandes/delete/{id}(id = ${c.id})}">
-                            <button class="red">
+                            <button class="">
                                 Archiver
                             </button>
                         </a>
                     </div>
                 </div>
+                -->
+                <div class="orders-list">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>N° Commande</th>
+                            <th>Client</th>
+                            <th>Date commande</th>
+                            <th>Montant total</th>
+                            <th>Statut</th>
+                            <th>Mode Paiement</th>
+                            <th>Adresse</th>
+                            <th>Details</th>
+
+                        </tr>
+                        </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                        <!-- Rempli dynamiquement -->
+                        <tr th:each="c:${commandes}" >
+                            <td th:text="${c.id}"></td>
+                            <td th:text="${c.client}+' '+${c.numClient}"></td>
+                            <td th:text="${c.adresse}"></td>
+                            <td th:text="${c.date}">Date commande</td>
+                            <td th:text="${c.montantFinal}">Montant total</td>
+                            <td th:text="${c.modePaiement}">Actions</td>
+                            <td th:text="${c.etatCommande}">Statut</td>
+                            <td>
+                                <a th:href="@{/admin/commandes/delete/{id}(id = ${c.id})}">
+                                    <button class="">
+                                        Details
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <style>
-                .buttons{
-                    display: flex;
-                    gap: 10px;
-                }
-                .commande{
-                    display: flex;
-                    flex-direction: column;
-                    border: solid 1px #D9D9D9;
-                    background-color: #FFFFFF;
-                    width: 90%;
-                    margin-bottom: 10px;
-                    padding: 15px 0 15px 15px;
-                }
-                strong{
-                    font-style: italic;
-                }
-                .ligne{
-                    margin-left: 20px;
-                }
-                .red{
-                    background-color: red;
-                }
-                .green{
-                    background-color: lawngreen;
-                }
-                .orange{
-                    background-color: darkorange;
-                }
-                button{
-                    font-size: 1rem;
-                    color: white;
-                    padding: 7.5px 15px;
-                    border-radius: 10px;
-                    border: none;
-                }
-                .disabled:hover{
-                    cursor: not-allowed;
-                }
-            </style>
-        </div>
-    </div>
+        </section>
+    </main>
 </html>

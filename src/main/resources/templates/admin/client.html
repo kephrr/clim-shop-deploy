@@ -4,17 +4,58 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="sidebar">
 
-    <div layout:fragment="contentForView" class="rightSide">
-        <div class="rightContent">
+    <main layout:fragment="contentForView" class="main-content">
+        <section class="users page">
+            <div class="page-header">
+                <h1>Gestion des Clients</h1>
+                <button onclick="showModal('userModal')">Filtrer</button>
+            </div>
+            <div class="filters">
+                <select id="user_role_filter">
+                    <option value="all">Numéro de téléphone</option>
+                </select>
+            </div>
             <div class="items" >
                 <h1>Tous les clients</h1>
+                <div class="users-list">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Numéro Client</th>
+                            <th>Nom</th>
+                            <th>Téléphone</th>
+                            <th>Adresse</th>
+                            <th>Commentaire</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                        <tr th:each="c:${clients}">
+                            <td th:text="${c.numero}">Numéro Client</td>
+                            <td th:text="${c.nomComplet}">Nom</td>
+                            <td th:text="${c.tel}">Téléphone</td>
+                            <td th:text="${c.adresse}">Adresse</td>
+                            <td th:text="${c.comment}">Commentaire</td>
+                            <td>
+                                <div class="buttons">
+                                    <a th:href="@{/admin/clients/edit/{id}(id = ${c.id})}">
+                                        <button class="green">
+                                            Details
+                                        </button>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <!--- /div
                 <div th:each="c:${clients}" class="commande">
-                    <p th:text="'Client N'+${c.numero}"> 09/03/2005</p>
-                    <p th:text="'Nom : '+${c.nomComplet}"> 09/03/2005</p>
-                    <p th:text="'Num. Tel : '+${c.tel}">Adresse : Sicap Baobab</p>
-                    <p th:text="'Adresse : '+${c.adresse}">Statut : Facturer</p>
-                    <p th:text="'Commentaire : '+${c.comment}">Statut : Facturer</p>
-
+                    <p th:text="'Client N'+${c.numero}"></p>
+                    <p th:text="'Nom : '+${c.nomComplet}"></p>
+                    <p th:text="'Num. Tel : '+${c.tel}"></p>
+                    <p th:text="'Adresse : '+${c.adresse}"></p>
+                    <p th:text="'Commentaire : '+${c.comment}"></p>
                     <div class="buttons">
                         <a>
                             <button class="orange">
@@ -33,46 +74,9 @@
                         </a>
                     </div>
                 </div>
+                --->
             </div>
-                <style>
-                    .buttons{
-                        display: flex;
-                        gap: 10px;
-                        transition: all ease-out .3s;
-                    }
-                    .commande{
-                        display: flex;
-                        flex-direction: column;
-                        border: solid 1px #D9D9D9;
-                        background-color: #FFFFFF;
-                        width: 90%;
-                        margin-bottom: 10px;
-                        padding: 15px 0 15px 15px;
-                    }
-                    strong{
-                        font-style: italic;
-                    }
-                    .ligne{
-                        margin-left: 20px;
-                    }
-                    .red{
-                        background-color: red;
-                    }
-                    .green{
-                        background-color: lawngreen;
-                    }
-                    .orange{
-                        background-color: darkorange;
-                    }
-                    button{
-                        font-size: 1rem;
-                        color: white;
-                        padding: 7.5px 15px;
-                        border-radius: 10px;
-                        border: none;
-                    }
-                </style>
 
-        </div>
-    </div>
+        </section>
+    </main>
 </html>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Climatisation</title>
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    Dashboard Admin
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-item active" data-page="dashboard">
+                    <i class="icon">📊</i>
+                    <span>Tableau de bord</span>
+                </div>
+                <div class="nav-item" data-page="suppliers">
+                    <i class="icon">🏭</i>
+                    <span>Fournisseurs</span>
+                </div>
+                <div class="nav-item" data-page="products">
+                    <i class="icon">❄️</i>
+                    <span>Climatiseurs</span>
+                </div>
+                <div class="nav-item" data-page="clients">
+                    <i class="icon">👥</i>
+                    <span>Clients</span>
+                </div>
+                <div class="nav-item" data-page="orders">
+                    <i class="icon">📦</i>
+                    <span>Commandes</span>
+                </div>
+                <div class="nav-item" data-page="users">
+                    <i class="icon">👤</i>
+                    <span>Utilisateurs</span>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard -->
+            <section id="dashboard" class="page active">
+                <div class="page-header">
+                    <h1>Tableau de bord</h1>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3>Commandes en cours</h3>
+                        <p class="stat-value">15</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Chiffre d'affaires mensuel</h3>
+                        <p class="stat-value">2.4M FCFA</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Clients actifs</h3>
+                        <p class="stat-value">521</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Stock climatiseurs</h3>
+                        <p class="stat-value">89</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fournisseurs -->
+            <section id="suppliers" class="page">
+                <div class="page-header">
+                    <h1>Gestion des Fournisseurs</h1>
+                    <button onclick="showModal('supplierModal')">Nouveau Fournisseur</button>
+                </div>
+                <form id="supplierForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="societe">Société</label>
+                            <input type="text" id="societe" name="societe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="adresse">Adresse</label>
+                            <textarea id="adresse" name="adresse" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="reference">Référence</label>
+                            <input type="text" id="reference" name="reference" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="siret">SIRET</label>
+                            <input type="text" id="siret" name="siret" required>
+                        </div>
+                        
+                        <!-- Contact 1 -->
+                        <div class="form-group">
+                            <label for="contact1_nom">Contact 1 - Nom</label>
+                            <input type="text" id="contact1_nom" name="contact1_nom">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact1_tel">Contact 1 - Téléphone</label>
+                            <input type="tel" id="contact1_tel" name="contact1_tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact1_email">Contact 1 - Email</label>
+                            <input type="email" id="contact1_email" name="contact1_email">
+                        </div>
+
+                        <!-- Contact 2 -->
+                        <div class="form-group">
+                            <label for="contact2_nom">Contact 2 - Nom</label>
+                            <input type="text" id="contact2_nom" name="contact2_nom">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact2_tel">Contact 2 - Téléphone</label>
+                            <input type="tel" id="contact2_tel" name="contact2_tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact2_email">Contact 2 - Email</label>
+                            <input type="email" id="contact2_email" name="contact2_email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mode_paiement">Mode de paiement</label>
+                            <select id="mode_paiement" name="mode_paiement">
+                                <option value="virement">Virement</option>
+                                <option value="cheque">Chèque</option>
+                                <option value="cb">Carte bancaire</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="etat_encours">État des encours</label>
+                            <input type="text" id="etat_encours" name="etat_encours">
+                        </div>
+                        <div class="form-group">
+                            <label for="etat_paiements">État des paiements</label>
+                            <input type="text" id="etat_paiements" name="etat_paiements">
+                        </div>
+                        <div class="form-group">
+                            <label for="divers">Divers</label>
+                            <textarea id="divers" name="divers"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="commentaires">Commentaires</label>
+                            <textarea id="commentaires" name="commentaires"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit">Enregistrer</button>
+                </form>
+                <div class="suppliers-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Société</th>
+                                <th>Référence</th>
+                                <th>Contact principal</th>
+                                <th>Téléphone</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="suppliersTableBody">
+                            <!-- Rempli dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Climatiseurs -->
+            <section id="products" class="page">
+                <div class="page-header">
+                    <h1>Gestion des Climatiseurs</h1>
+                    <button onclick="showModal('productModal')">Nouveau Climatiseur</button>
+                </div>
+                <form id="productForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="reference_clim">Référence Climatiseur</label>
+                            <input type="text" id="reference_clim" name="reference_clim" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="photo_clim">Photo</label>
+                            <input type="file" id="photo_clim" name="photo_clim" accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <label for="type_clim">Type</label>
+                            <select id="type_clim" name="type_clim" required>
+                                <option value="split">Split</option>
+                                <option value="window">Fenêtre</option>
+                                <option value="central">Central</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="fournisseur">Fournisseur</label>
+                            <select id="fournisseur" name="fournisseur" required>
+                                <!-- Options remplies dynamiquement -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="prix">Prix</label>
+                            <input type="number" id="prix" name="prix" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Caractéristiques supplémentaires</label>
+                            <div>
+                                <input type="checkbox" id="auto_nettoyant" name="auto_nettoyant">
+                                <label for="auto_nettoyant">Auto-nettoyant</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="sterilisation" name="sterilisation">
+                                <label for="sterilisation">Stérilisation</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Garantie</label>
+                            <div>
+                                <input type="checkbox" id="garantie_1an" name="garantie_1an" checked disabled>
+                                <label for="garantie_1an">1 an inclus</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit">Enregistrer</button>
+                </form>
+                <div class="products-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Référence</th>
+                                <th>Type</th>
+                                <th>Prix</th>
+                                <th>Fournisseur</th>
+                                <th>Caractéristiques</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <!-- Rempli dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Commandes -->
+            <section id="orders" class="page">
+                <div class="page-header">
+                    <h1>Gestion des Commandes</h1>
+                </div>
+                <div class="filters">
+                    <select id="order_status_filter">
+                        <option value="en_cours">Commandes en cours</option>
+                        <option value="livrees">Commandes livrées</option>
+                        <option value="archivees">Commandes archivées (1 mois)</option>
+                    </select>
+                </div>
+                <form id="orderForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="client_nom">Nom du client</label>
+                            <input type="text" id="client_nom" name="client_nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="client_numero">Numéro du client</label>
+                            <input type="text" id="client_numero" name="client_numero" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="date_commande">Date de commande</label>
+                            <input type="date" id="date_commande" name="date_commande" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="date_paiement">Date de paiement</label>
+                            <input type="date" id="date_paiement" name="date_paiement">
+                        </div>
+                        <div class="form-group">
+                            <label for="date_livraison">Date de livraison</label>
+                            <input type="date" id="date_livraison" name="date_livraison">
+                        </div>
+                        <div class="form-group">
+                            <label for="date_installation">Date d'installation</label>
+                            <input type="date" id="date_installation" name="date_installation">
+                        </div>
+                        <div class="form-group">
+                            <label for="prix_clim">Prix Climatiseur</label>
+                            <input type="number" id="prix_clim" name="prix_clim" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prix_livraison">Prix Livraison</label>
+                            <input type="number" id="prix_livraison" name="prix_livraison" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prix_installation">Prix Installation</label>
+                            <input type="number" id="prix_installation" name="prix_installation" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prix_total">Prix Total</label>
+                            <input type="number" id="prix_total" name="prix_total" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="reference_paiement">Référence Paiement</label>
+                            <input type="text" id="reference_paiement" name="reference_paiement">
+                        </div>
+                    </div>
+                    <button type="submit">Enregistrer</button>
+                </form>
+                <div class="orders-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>N° Commande</th>
+                                <th>Client</th>
+                                <th>Date commande</th>
+                                <th>Montant total</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Rempli dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section Utilisateurs -->
+            <section id="users" class="page">
+                <div class="page-header">
+                    <h1>Gestion des Utilisateurs</h1>
+                    <button onclick="showModal('userModal')">Nouvel Utilisateur</button>
+                </div>
+                <div class="filters">
+                    <select id="user_role_filter">
+                        <option value="all">Tous les rôles</option>
+                        <option value="admin">Administrateur</option>
+                        <option value="commercial">Commercial</option>
+                        <option value="technicien">Technicien</option>
+                        <option value="comptable">Comptable</option>
+                    </select>
+                    <select id="user_status_filter">
+                        <option value="all">Tous les statuts</option>
+                        <option value="active">Actif</option>
+                        <option value="inactive">Inactif</option>
+                    </select>
+                </div>
+                <form id="userForm">
+                    <div class="form-grid">
+                        <!-- Informations personnelles -->
+                        <div class="form-section">
+                            <h3>Informations personnelles</h3>
+                            <div class="form-group">
+                                <label for="user_nom">Nom</label>
+                                <input type="text" id="user_nom" name="user_nom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_prenom">Prénom</label>
+                                <input type="text" id="user_prenom" name="user_prenom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_email">Email professionnel</label>
+                                <input type="email" id="user_email" name="user_email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_telephone">Téléphone</label>
+                                <input type="tel" id="user_telephone" name="user_telephone" required>
+                            </div>
+                        </div>
+
+                        <!-- Accès et rôles -->
+                        <div class="form-section">
+                            <h3>Accès et rôles</h3>
+                            <div class="form-group">
+                                <label for="user_login">Identifiant de connexion</label>
+                                <input type="text" id="user_login" name="user_login" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_password">Mot de passe</label>
+                                <input type="password" id="user_password" name="user_password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_role">Rôle principal</label>
+                                <select id="user_role" name="user_role" required>
+                                    <option value="admin">Administrateur</option>
+                                    <option value="commercial">Commercial</option>
+                                    <option value="technicien">Technicien</option>
+                                    <option value="comptable">Comptable</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Permissions -->
+                        <div class="form-section">
+                            <h3>Permissions</h3>
+                            <div class="permissions-grid">
+                                <div class="permission-group">
+                                    <h4>Fournisseurs</h4>
+                                    <div class="permission-item">
+                                        <input type="checkbox" id="perm_fournisseurs_voir" name="permissions[]" value="fournisseurs_voir">
+                                        <label for="perm_fournisseurs_voir">Voir</label>
+                                    </div>
+                                    <div class="permission-item">
+                                        <input type="checkbox" id="perm_fournisseurs_modifier" name="permissions[]" value="fournisseurs_modifier">
+                                        <label for="perm_fournisseurs_modifier">Modifier</label>
+                                    </div>
+                                </div>
+                                <div class="permission-group">
+                                    <h4>Climatiseurs</h4>
+                                    <div class="permission-item">
+                                        <input type="checkbox" id="perm_clim_voir" name="permissions[]" value="clim_voir">
+                                        <label for="perm_clim_voir">Voir</label>
+                                    </div>
+                                    <div class="permission-item">
+                                        <input type="checkbox" id="perm_clim_modifier" name="permissions[]" value="clim_modifier">
+                                        <label for="perm_clim_modifier">Modifier</label>
+                                    </div>
+                                </div>
+                                <div class="permission-group">
+                                    <h4>Commandes</h4>
+                                    <div class="permission-item">
+                                        <input type="checkbox" id="perm_commandes_voir" name="permissions[]" value="commandes_voir">
+                                        <label for="perm_commandes_voir">Voir</label>
+                                    </div>
+                                    <div class="permission-item">
+                                        <input type="checkbox" id="perm_commandes_modifier" name="permissions[]" value="commandes_modifier">
+                                        <label for="perm_commandes_modifier">Modifier</label>
+                                    </div>
+                                </div>
+                                <div class="permission-group">
+                                    <h4>Clients</h4>
+                                    <div class="permission-item">
+                                        <input type="checkbox" id="perm_clients_voir" name="permissions[]" value="clients_voir">
+                                        <label for="perm_clients_voir">Voir</label>
+                                    </div>
+                                    <div class="permission-item">
+                                        <input type="checkbox" id="perm_clients_modifier" name="permissions[]" value="clients_modifier">
+                                        <label for="perm_clients_modifier">Modifier</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Paramètres additionnels -->
+                        <div class="form-section">
+                            <h3>Paramètres additionnels</h3>
+                            <div class="form-group">
+                                <label for="user_status">Statut</label>
+                                <select id="user_status" name="user_status" required>
+                                    <option value="active">Actif</option>
+                                    <option value="inactive">Inactif</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_date_creation">Date de création</label>
+                                <input type="date" id="user_date_creation" name="user_date_creation" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_derniere_connexion">Dernière connexion</label>
+                                <input type="datetime-local" id="user_derniere_connexion" name="user_derniere_connexion" readonly>
+                            </div>
+                        </div>
+
+                        <!-- Notes et commentaires -->
+                        <div class="form-section">
+                            <h3>Notes et commentaires</h3>
+                            <div class="form-group">
+                                <label for="user_notes">Notes internes</label>
+                                <textarea id="user_notes" name="user_notes" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit">Enregistrer</button>
+                        <button type="reset">Réinitialiser</button>
+                    </div>
+                </form>
+
+                <!-- Liste des utilisateurs -->
+                <div class="users-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nom complet</th>
+                                <th>Email</th>
+                                <th>Rôle</th>
+                                <th>Statut</th>
+                                <th>Dernière connexion</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- Rempli dynamiquement par JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
