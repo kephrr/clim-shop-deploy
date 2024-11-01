@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import soft_afric.clim.shop.clim_shop.web.dto.request.ClientRequestDto;
 import soft_afric.clim.shop.clim_shop.web.dto.request.ClimCreateDto;
 import soft_afric.clim.shop.clim_shop.web.dto.request.FilterDto;
+import soft_afric.clim.shop.clim_shop.web.dto.request.FournisseurCreateDto;
 
 public interface AdminController {
     // Voir toutes les clims
     @GetMapping("/")
-    String index();
+    String index(Model model);
     // Voir toutes les clims
     @GetMapping("/clims")
     String allClims(Model model);
@@ -85,4 +86,10 @@ public interface AdminController {
     // Voir les details d'une commande
     @GetMapping("/fournisseurs/details/{id}")
     String detailsFournisseurs(Model model, @PathVariable Long id);
+
+    @GetMapping("/fournisseurs/add")
+    String formFournisseurs(Model model);
+
+    @PostMapping("/fournisseurs/add")
+    String saveFournisseurs(Model model,  @ModelAttribute FournisseurCreateDto fournisseurCreateDto);
 }

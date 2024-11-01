@@ -61,10 +61,5 @@ public class ClimCreateDto {
                 .marque(c.getMarque().getId())
                 .marque(c.getCategorie().getId())
                 .build();
-
-        /*
-        private Long marque;
-        private Long categorie;
-        * */
     }
 }

@@ -40,4 +40,12 @@ public class Clim extends AbstractEntity{
 
     @ManyToOne
     private Type type;
+
+    @ManyToOne
+    private Fournisseur fournisseur;
+
+    @Override
+    public String toString() {
+        return marque.getLibelle()+" "+libelle;
+    }
 }

@@ -12,19 +12,19 @@
         <div class="dashboard-stats">
             <div class="stat-card">
                 <h3>Commandes en cours</h3>
-                <p class="stat-value">15</p>
+                <p th:text="${dashboard.commandesEnCours}" class="stat-value">15</p>
             </div>
             <div class="stat-card">
                 <h3>Chiffre d'affaires mensuel</h3>
-                <p class="stat-value">2.4M FCFA</p>
+                <p th:text="${dashboard.chiffreAffaireMensuel}+' FCFA'" class="stat-value">2.4M FCFA</p>
             </div>
             <div class="stat-card">
-                <h3>Clients actifs</h3>
-                <p class="stat-value">521</p>
+                <h3>Clients actuels</h3>
+                <p th:text="${dashboard.clientsActifs}" class="stat-value">521</p>
             </div>
             <div class="stat-card">
                 <h3>Stock climatiseurs</h3>
-                <p class="stat-value">89</p>
+                <p th:text="${dashboard.stockClims}" class="stat-value">89</p>
             </div>
         </div>
     </section>

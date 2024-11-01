@@ -13,6 +13,7 @@ import soft_afric.clim.shop.clim_shop.web.controllers.AdminController;
 import soft_afric.clim.shop.clim_shop.web.dto.request.ClientRequestDto;
 import soft_afric.clim.shop.clim_shop.web.dto.request.ClimCreateDto;
 import soft_afric.clim.shop.clim_shop.web.dto.request.FilterDto;
+import soft_afric.clim.shop.clim_shop.web.dto.request.FournisseurCreateDto;
 import soft_afric.clim.shop.clim_shop.web.dto.response.*;
 
 import java.util.*;
@@ -27,9 +28,15 @@ public class AdminControllerImpl implements AdminController {
     private final CategorieService categorieService;
     private final CommandeService commandeService;
     private final ClientService clientService;
+    private final FournisseurService fournisseurService;
 
     @Override
-    public String index() {
+    public String index(Model model) {
+        List<Clim> clims = climService.findAll();
+        List<Client> clients = clientService.findAll();
+        List<Commande> commandes = commandeService.findAll();
+        DashBoardDto dashBoard = DashBoardDto.toDto(commandes, clients, clims);
+        model.addAttribute("dashboard", dashBoard);
         return "admin/dashboard";
     }
 
@@ -144,7 +151,8 @@ public class AdminControllerImpl implements AdminController {
 
     @Override
     public String detailsCommande(Model model, Long id) {
-        Commande cmd = commandeService.show(id).orElseThrow(()-> new RuntimeException("Commande "+id+" introuvable"));cmd.setEtatCommande(EtatCommande.Livree);
+        Commande cmd = commandeService.show(id).orElseThrow(()-> new RuntimeException("Commande "+id+" introuvable"));
+        cmd.setEtatCommande(EtatCommande.Livree);
         CommandeDto commandeDto = CommandeDto.toAdminDetailsDto(cmd);
         model.addAttribute("c", commandeDto);
         return "admin/commande-details";
@@ -192,12 +200,28 @@ public class AdminControllerImpl implements AdminController {
     // GESTION DES FOURNISSEURS
     @Override
     public String allFournisseurs(Model model) {
+        List<Fournisseur> data = fournisseurService.findAll();
+        List<FournisseurDto> fournisseurs = data.stream().map(FournisseurDto::toListDto).toList();
+        model.addAttribute("fournisseurs", fournisseurs);
         return "admin/fournisseurs";
     }
 
     @Override
     public String detailsFournisseurs(Model model, Long id) {
+        Fournisseur data = fournisseurService.show(id).orElseThrow(()-> new RuntimeException("Fournisseur "+id+" introuvable"));
+        FournisseurDto fournisseur = FournisseurDto.toDetailsDto(data);
+        model.addAttribute("fournisseur", fournisseur);
         return "admin/fournisseurs-details";
+    }
+
+    @Override
+    public String formFournisseurs(Model model) {
+        return "admin/fournisseurs-form";
+    }
+
+    @Override
+    public String saveFournisseurs(Model model,  FournisseurCreateDto fournisseurCreateDto) {
+        return "admin/fournisseurs";
     }
 
     // UTILS

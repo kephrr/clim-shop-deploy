@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="sidebar">
+
+<main layout:fragment="contentForView" class="main-content">
+  <section class="page active">
+    <div class="page-header">
+      <h1 th:text="'Details du fournisseur Numéro '+${fournisseur.id}"></h1>
+    </div>
+    <div class="items">
+      <div class="commande">
+        <p th:text="'Société : '+${fournisseur.societe}"></p>
+        <p th:text="'Siret : '+${fournisseur.siret}">Adresse : Sicap Baobab</p>
+        <p th:text="'Référence : '+${fournisseur.reference}"> </p>
+        <p th:text="'Divers : '+${fournisseur.divers}"> </p>
+        <p th:text="'Mode de Paiement : '+${fournisseur.modePaiement}"> </p>
+        <p th:text="'Etat des Paiements : '+${fournisseur.etatPaiement}"> </p>
+        <p th:text="'Etat des encours : '+${fournisseur.etatEncours}"> </p>
+        <p th:text="'Commentaire : '+${fournisseur.commentaire}"> </p>
+        <p th:text="'Adresse : '+${fournisseur.adresse}"></p>
+        <p>
+          <strong>
+            Contacts
+          </strong>
+        </p>
+        <div class="" th:each="c:${fournisseur.contacts}">
+          <p th:text="${c}" ></p>
+        </div>
+        <p>
+          <strong>
+            Climatiseurs
+          </strong>
+        </p>
+        <div class="" th:each="cl:${fournisseur.clims}">
+          <p th:text="${cl}" ></p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+</html>
