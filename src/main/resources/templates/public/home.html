@@ -21,18 +21,21 @@
             <div class="hero-content">
                 <h1>Votre climatisation dès maintenant, à tout instant.</h1>
                 <p>Achetez et faites-vous livrer un de nos climatiseurs en quelques clics dès maintenant</p>
-                <button class="cta-button">Découvrir nos produits</button>
+                <a href="">
+                    <button class="cta-button"><img th:src="@{/img/WhatsApp.png}" alt=""> Nous contacter</button>
+                </a>
             </div>
         </section>
 
         <section class="brands-carousel">
-            <h2>Nos marques partenaires</h2>
-            <div class="carousel">
-                <div class="carousel-item"><img src="img/daikin.png" alt="Daikin"></div>
-                <div class="carousel-item"><img src="img/lenovo.png" alt="Lenovo"></div>
-                <div class="carousel-item"><img src="img/lg.png" alt="LG"></div>
-                <div class="carousel-item"><img src="img/mitsubishi.jpg" alt="Mitsubishi"></div>
-                <div class="carousel-item"><img src="img/samsung.png" alt="Samsung"></div>
+            <h2>Nos marques</h2>
+            <div class="brand-grid">
+                <div class="brand-item"><img th:src="@{/img/daikin.png}" alt="Daikin"></div>
+                <div class="brand-item"><img th:src="@{/img/lenovo.png}" alt="Lenovo"></div>
+                <div class="brand-item"><img th:src="@{/img/lg.png}" alt="LG"></div>
+                <div class="brand-item"><img th:src="@{/img/panasonic.png}" alt="panasonic"></div>
+                <div class="brand-item"><img th:src="@{/img/samsung.png}" alt="samsung"></div>
+                <div class="brand-item"><img th:src="@{/img/toshiba.png}" alt="toshiba"></div>
                 <!-- Ajoutez plus d'éléments si nécessaire -->
             </div>
         </section>
@@ -113,7 +116,7 @@
             <div class="promo-list">
                 <div th:each="clim:${climsPromoted}" class="promo-item">
                     <img th:src="@{${clim.image}}" alt="Climatiseur LG">
-                    <h3 th:text="${clim.libelle}+' '+${clim.libelle}"></h3>
+                    <h3 th:text="${clim.marque}+' '+${clim.libelle}"></h3>
                     <p th:text="${clim.prix}+' FCFA '"></p>
                     <span th:text="${clim.promotion}"></span>
                     <div class="product-actions">
@@ -127,10 +130,6 @@
                 </div>
                 <!-- Ajoutez d'autres éléments du carrousel ici -->
             </div>
-            <!-- Ajoutez d'autres éléments du carrousel ici
-            <button class="carousel-control prev"><i data-lucide="chevron-left"></i></button>
-            <button class="carousel-control next"><i data-lucide="chevron-right"></i></button>
-            -->
         </section>
 
         <section class="customer-reviews">
