@@ -5,96 +5,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clim Service</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="shortcut icon" th:href="@{/img/icon.svg}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/lucide.css">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/lucide.umd.js"></script>
     <script th:src="@{/js/main.js}"></script>
 </head>
 <body>
-    <div class="navbar">
-        <div class="nav-item">
-            <a class="a" th:href="@{/home}">
-                <h1>Clim <span>Service</span></h1>
-            </a>
-        </div>
-        <form class="nav-item"
-              th:method="post"
-              th:action="@{/home/search}"
-              th:object="${search}"
-        >
-            <input placeholder="Rechercher sur tout le site" th:field="*{keyword}" type="text">
-            <button type="submit">Rechercher</button>
-        </form>
-        <div class="nav-item"  id="last">
-            <a th:href="@{/home}">
-                <img th:src="@{/img/maison.png}" alt="acceuil" class="icon">
-            </a>
-            <a th:href="@{/panier}">
-                <img th:src="@{/img/panier-dachat-rapide (1).png}" alt="panier" class="icon">
-            </a>
-            <a th:if="${user}!=null" th:href="@{/client/commandes}">
-                <img th:src="@{/img/livraison-de-la-commande.png}" alt="panier" class="icon">
-            </a>
-            <a th:href="${user != null} ? @{/client/account}:@{/login}">
-                <img th:src="@{/img/utilisateur.png}" alt="utilisateur" class="icon">
-            </a>
-        </div>
-    </div>
+    <header>
+        <a class="a" th:href="@{/home}">
+            <div class="logo">Clim Service</div>
+        </a>
+        <nav>
+            <ul>
+                <li><a th:href="@{/home}"><i data-lucide="home"></i> Accueil</a></li>
+                <li><a th:href="@{/panier}"><i data-lucide="box"></i> Panier</a></li>
+                <li><a th:if="${user}!=null" th:href="@{/client/commandes}"><i data-lucide="shop"></i> Services</a></li>
+                <li><a th:href="${user != null} ? @{/client/account}:@{/login}"><i data-lucide="user"></i>Mon compte</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <section layout:fragment="contentForView" class="template-content">
 
     </section>
-
     <footer>
-        <div class="infos">
-            <ul>
-                <div class="bar"></div>
-                <h2>Liens utiles</h2>
-                <li>Conditions générales de ventes</li>
-                <li>Conditions générales de ventes des chèques</li>
-                <li>Conditions d'utilisatinos</li>
-                <li>Nos garanties</li>
-                <li>Guide électroménager</li>
-                <li>A propos</li>
-                <li>Nous contacter</li>
-                <li>Nos marques</li>
-            </ul>
-        </div>
-
-        <div class="infos">
-            <ul>
-                <div class="bar"></div>
-                <h2>Contact</h2>
-                <li>Service client : +221 78 000 00 00 ou 77 000 00 00</li>
-                <li>Email : mon-adresse@gmail.com</li>
-                <li>Conditions Le respect de votre vie privée et de vos donnés est notre priorité.</li>
-                <li>Suivez-nous sur les réseaux sociaux</li>
-            </ul>
-            <div class="socials">
-                <a href="">
-                    <img th:src="@{/img/tiktok-logo-icon-social-media-icon-free-png.png}" alt="tiktok">
-                </a>
-                <a href="">
-                    <img th:src="@{/img/Instagram_icon.png}" alt="insta">
-                </a>
-                <a href="">
-                    <img th:src="@{/img/Youtube_logo.png}" alt="youtube">
-                </a>
-                <a href="">
-                    <img th:src="@{/img/Facebook_Logo_2023.png}" alt="facebook">
-                </a>
-                <a href="">
-                    <img th:src="@{/img/LinkedIn_logo_initials.png}" alt="linkedin">
-                </a>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Liens utiles</h3>
+                <ul>
+                    <li><a href="#"><i data-lucide="file-text"></i> Conditions générales</a></li>
+                    <li><a href="#"><i data-lucide="shield"></i> Politique de confidentialité</a></li>
+                    <li><a href="#"><i data-lucide="map"></i> Plan du site</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Nos contacts</h3>
+                <ul>
+                    <li><i data-lucide="phone"></i> +221 77 777 77 77</li>
+                    <li><i data-lucide="mail"></i> contact@climservice.com</li>
+                    <li><i data-lucide="map-pin"></i> Dakar, Sénégal</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Activités récentes</h3>
+                <ul>
+                    <li><i data-lucide="check-circle"></i> 50+ installations ce mois</li>
+                    <li><i data-lucide="award"></i> Élu meilleur service client 2024</li>
+                    <li><i data-lucide="trending-up"></i> 98% de clients satisfaits</li>
+                </ul>
             </div>
         </div>
-
-        <div class="infos">
-            <ul>
-                <div class="bar"></div>
-                <h2>Activités récentes</h2>
-                <li>Conditions générales de ventes</li>
-                <li>Conditions générales de ventes des chèques</li>
-            </ul>
-        </div>
+        <p class="copyright">&copy; 2024 SOFTAFRIC Clim Service. Tous droits réservés.</p>
     </footer>
+    <script th:src="@{/js/script.js}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            lucide.createIcons();
+        });
+    </script>
 </body>
 </html>

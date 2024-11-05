@@ -16,6 +16,13 @@ public interface CommentaireRepository extends JpaRepository<Commentaire, Long> 
             "WHERE a.type = :type "+
             "GROUP BY c.id, c.title, c.content, c.date "+
             "ORDER BY like_count DESC "+
-            "LIMIT 3")
-    List<Commentaire> findThreeBetterComments(@Param("type") ActionType type);
+            "LIMIT 4")
+    List<Commentaire> findFourthBetterComments(@Param("type") ActionType type);
+
+    @Query( "SELECT DISTINCT c FROM Commentaire c "+
+            "WHERE (c.isActived = true) " +
+            "ORDER BY c.id DESC "+
+            "LIMIT 4")
+    List<Commentaire> findFourthFirstComments();
+
 }

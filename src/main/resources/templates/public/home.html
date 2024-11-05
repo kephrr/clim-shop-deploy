@@ -4,302 +4,181 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="template"
 >
-    <div layout:fragment="contentForView" class="template-content" >
-        <div class="big-title">
-            <div class="contain">
-                <p>Votre climatisation dès maintenant, à tout instant.</p>
-                <p class="sub-title">Acheter et faites vous livrer un de nos climatiseurs en quelques clics dès maintenant</p>
-            </div>
-        </div>
+<div layout:fragment="contentForView" class="template-content" >
+<div class="search-container">
+    <form class="search-form"
+          th:method="post"
+          th:action="@{/home/search}"
+          th:object="${search}"
+    >
+        <input placeholder="Rechercher sur tout le site" th:field="*{keyword}" type="search">
+        <button type="submit"><i data-lucide="search"></i></button>
+    </form>
+</div>
 
-        <div class="slider">
-            <div class="slider-content">
-                <img th:src="@{/img/lg.png}" alt="Image 1">
-                <img th:src="@{/img/lenovo.png}" alt="Image 2">
-                <img th:src="@{/img/samsung.png}" alt="Image 3">
-                <img th:src="@{/img/WhatsApp.png}" alt="Image 4">
-                <img th:src="@{/img/Wave.png}" alt="Image 1">
-                <img th:src="@{/img/orange-money.jpg}" alt="Image 2">
-                <img th:src="@{/img/toshiba.png}" alt="Image 3">
-                <img th:src="@{/img/Youtube_logo.png}" alt="Image 4">
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Votre climatisation dès maintenant, à tout instant.</h1>
+                <p>Achetez et faites-vous livrer un de nos climatiseurs en quelques clics dès maintenant</p>
+                <button class="cta-button">Découvrir nos produits</button>
             </div>
-        </div>
-        <div class="section">
-            <div class="call-to-action">
-                <div class="item">
-                    <img th:src="@{/img/boite.png}" alt="">
-                    <div class="item-text">
-                        <p class="call-title">Livraison & installation à domicile</p>
-                        <!--- <p class="call-sub">Dakar et régions</p> -->
-                    </div>
-                </div>
-                <div class="separate-bar"></div>
-                <div class="item">
-                    <img th:src="@{/img/paiement-par-carte-de-credit.png}" alt="">
-                    <div class="item-text">
-                        <p class="call-title">Paiement sécurisé</p>
-                        <p class="call-sub">Orange Money | Wave | Liquide</p>
-                    </div>
-                </div>
-                <div class="separate-bar"></div>
-                <div class="item">
-                    <img th:src="@{/img/support-technique.png}" alt="">
-                    <div class="item-text">
-                        <p class="call-title">Assistance client</p>
-                        <p class="call-sub">Disponible</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </section>
 
-        <div class="center">
-            <div class="CommentsAct whatsApp" id="whatsApp">
-                <a href="https://wa.me/221784776687">
-                    <img th:src="@{/img/WhatsApp.png}" alt="Whatsapp"><p>Nous contacter</p>
-                </a>
+        <section class="brands-carousel">
+            <h2>Nos marques partenaires</h2>
+            <div class="carousel">
+                <div class="carousel-item"><img src="img/daikin.png" alt="Daikin"></div>
+                <div class="carousel-item"><img src="img/lenovo.png" alt="Lenovo"></div>
+                <div class="carousel-item"><img src="img/lg.png" alt="LG"></div>
+                <div class="carousel-item"><img src="img/mitsubishi.jpg" alt="Mitsubishi"></div>
+                <div class="carousel-item"><img src="img/samsung.png" alt="Samsung"></div>
+                <!-- Ajoutez plus d'éléments si nécessaire -->
             </div>
-        </div>
-        
-        <div class="separator">
-            <div class="separator-item">
-                <p>Affiner ma recherche</p>
+        </section>
+
+        <section class="features">
+            <div class="feature">
+                <i data-lucide="truck" class="icon"></i>
+                <h3>Livraison & installation à domicile</h3>
+                <p>Service rapide et professionnel</p>
             </div>
-        </div>
+            <div class="feature">
+                <i data-lucide="credit-card" class="icon"></i>
+                <h3>Paiement sécurisé</h3>
+                <p>Orange Money | Wave | Liquide</p>
+            </div>
+            <div class="feature">
+                <i data-lucide="headphones" class="icon"></i>
+                <h3>Assistance client</h3>
+                <p>Disponible 7j/7</p>
+            </div>
+        </section>
 
-        <div class="filter-section">
-
-            <form class="filter-form"
-                  th:method="post"
+        <section class="filters">
+            <h2>Filtres de recherche</h2>
+            <form th:method="post"
                   th:action="@{/home/filter}"
-                  th:object="${filter}"
-                  >
+                  th:object="${filter}">
+                <select th:field="*{marqueID}" id="brand" name="brand">
+                    <option value="0">Marque</option>
+                    <option th:each="marque:${marques}"
+                            th:text="${marque.libelle}"
+                            th:value="${marque.id}"></option>
+                </select>
                 <div>
-                    <label for="categorie">Filtrer par categorie</label>
-                    <select th:field="*{categorieID}" id="categorie" name="categorie">
-                        <option value="0"></option>
-                        <option th:each="categorie:${categories}"
-                                th:text="${categorie.libelle}"
-                                th:value="${categorie.id}"></option>
-                    </select>
+                    <input placeholder="Limite de budget" th:field="*{budget}" type="number" id="budget" name="budget">
                 </div>
-                <div>
-                    <label for="marque">Filtrer par marque</label>
-                    <select th:field="*{marqueID}" id="marque" name="marque">
-                        <option value="0"></option>
-                        <option th:each="marque:${marques}"
-                                th:text="${marque.libelle}"
-                                th:value="${marque.id}"></option>
-                    </select>
-                </div>
-                <div>
-                    <label for="budget">Limite de budget <span>(FCFA)</span></label>
-                    <input th:field="*{budget}" type="number" id="budget" name="budget">
-                </div>
-                <button type="submit">Go</button>
+                <select th:field="*{categorieID}" id="category" name="category">
+                    <option value="0">Catégorie</option>
+                    <option th:each="categorie:${categories}"
+                            th:text="${categorie.libelle}"
+                            th:value="${categorie.id}"></option>
+                </select>
+                <button type="submit">Filtrer</button>
             </form>
-            <div class="search-results">
-                <h2>Résultats</h2>
-                <div class="clim-list">
-                    <div th:each="clim:${clims}" class="clim-item">
-                        <img th:src="@{${clim.image}}" alt="clim">
-                        <div>
-                            <p th:text="${clim.libelle}" class="clim-lib"></p>
-                            <p th:text="${clim.marque}"></p>
-                            <div class="price">
-                                <p th:text="${clim.prix}+' FCFA '"></p>
-                                <span th:text="${clim.promotion}"></span>
-                            </div>
-                        </div>
-                        <div class="actions">
-                            <a th:href="@{/details/{id}(id = ${clim.id})}">
-                                <button class="details">Details</button>
-                            </a>
-                            <a th:href="@{/panier/add/{id}(id = ${clim.id})}">
-                                <button class="plus">+</button>
-                            </a>
-                        </div>
+        </section>
+
+        <section class="popular-searches">
+            <h2>Recherches populaires</h2>
+            <div class="tags">
+                <span class="tag">LG Split 12000 BTU</span>
+                <span class="tag">Samsung Inverter</span>
+                <span class="tag">Daikin Économique</span>
+                <span class="tag">Climatiseur Portable</span>
+            </div>
+        </section>
+
+        <section class="promotions">
+            <h2 th:text="${search_title}">Nos produits populaires</h2>
+            <div  class="promo-list">
+                <div th:each="cl:${clims}" class="promo-item">
+                    <img th:src="@{${cl.image}}" alt="Promo Clim 1">
+                    <h3 th:text="${cl.libelle}+' '+${cl.libelle}">LG Inverter</h3>
+                    <p th:text="${cl.prix}+' FCFA '"></p>
+                    <div class="product-actions">
+                        <a th:href="@{/details/{id}(id = ${cl.id})}">
+                            <button class="view-more"><i data-lucide="plus"></i> Voir plus</button>
+                        </a>
+                        <a th:href="@{/panier/add/{id}(id = ${cl.id})}">
+                            <button class="add-to-cart"><i data-lucide="shopping-cart"></i> Ajouter au panier</button>
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="separator">
-            <div class="separtor-item">
-                <p class="text">Promotions</p>
-            </div>
-        </div>
-
-        <div class="clim-list list-alone">
-            <div th:each="clim:${climsPromoted}" class="clim-item">
-                <img th:src="@{${clim.image}}" alt="clim">
-                <div>
-                    <p th:text="${clim.libelle}" class="clim-lib"></p>
-                    <p th:text="${clim.marque}"></p>
-                    <div class="price">
-                        <p th:text="${clim.prix}+' FCFA '"></p>
-                        <span th:text="${clim.promotion}"></span>
+        <section class="brands-carousel">
+            <h2>Nous sommes en promooooo</h2>
+            <div class="promo-list">
+                <div th:each="clim:${climsPromoted}" class="promo-item">
+                    <img th:src="@{${clim.image}}" alt="Climatiseur LG">
+                    <h3 th:text="${clim.libelle}+' '+${clim.libelle}"></h3>
+                    <p th:text="${clim.prix}+' FCFA '"></p>
+                    <span th:text="${clim.promotion}"></span>
+                    <div class="product-actions">
+                        <a th:href="@{/details/{id}(id = ${clim.id})}">
+                            <button class="view-more"><i data-lucide="plus"></i> Voir plus</button>
+                        </a>
+                        <a th:href="@{/panier/add/{id}(id = ${clim.id})}">
+                            <button class="add-to-cart"><i data-lucide="shopping-cart"></i> Ajouter au panier</button>
+                        </a>
                     </div>
                 </div>
-                <div class="actions">
-                    <a th:href="@{/details/{id}(id = ${clim.id})}">
-                        <button class="details">Details</button>
-                    </a>
-                    <a th:href="@{/panier/add/{id}(id = ${clim.id})}">
-                        <button class="plus">+</button>
-                    </a>
-                </div>
+                <!-- Ajoutez d'autres éléments du carrousel ici -->
             </div>
-        </div>
+            <!-- Ajoutez d'autres éléments du carrousel ici
+            <button class="carousel-control prev"><i data-lucide="chevron-left"></i></button>
+            <button class="carousel-control next"><i data-lucide="chevron-right"></i></button>
+            -->
+        </section>
 
-        <div class="separator">
-            <div class="separator-item">
-                <p>Nos marques</p>
+        <section class="customer-reviews">
+            <h2>Avis de nos clients</h2>
+            <div class="review-grid">
+                <div th:each="com:${comments}" class="review-item">
+                    <div class="stars">★★★★★</div>
+                    <p th:text="${com.content}">"Service excellent, installation rapide !"</p>
+                    <span th:text="'Par '+${com.client}"></span>
+                </div>
+                <!-- Ajoutez d'autres avis ici -->
             </div>
-        </div>
+        </section>
 
-        <div class="center">
-            <div class="marques">
-                <div class="marque">
-                    <img th:src="@{/img/lenovo.png}" alt="Lenovo">
+        <section class="news">
+            <h2>Actualités</h2>
+            <div class="news-grid">
+                <div class="news-item">
+                    <img th:src="@{img/installation.png}" alt="Installation récente">
+                    <h3>Installation réussie chez M. Diop</h3>
+                    <p>Notre équipe a récemment installé un système de climatisation central...</p>
+                    <a href="#">Lire la suite</a>
                 </div>
-                <div class="marque">
-                    <img th:src="@{/img/lg.png}" alt="LG">
-                </div>
-                <div class="marque">
-                    <img th:src="@{/img/samsung.png}" alt="Samsung">
-                </div>
-                <div class="marque">
-                    <img th:src="@{/img/toshiba.png}" alt="Samsung">
-                </div>
-                <div class="marque">
-                    <img th:src="@{/img/panasonic.png}" alt="Samsung">
-                </div>
+                <!-- Ajoutez d'autres actualités ici -->
             </div>
+        </section>
 
-        </div>
+        <section class="faq">
+            <h2>FAQ</h2>
+            <div class="faq-item">
+                <h3>Combien de temps dure une installation ?</h3>
+                <p>En général, l'installation d'un climatiseur split prend entre 3 et 5 heures.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Proposez-vous un service de maintenance ?</h3>
+                <p>Oui, nous offrons un service de maintenance annuel pour tous nos climatiseurs.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Pourquoi vous consulter pour le choix de ma clim ?</h3>
+                <p>Oui, nous offrons un service de maintenance annuel pour tous nos climatiseurs.</p>
+            </div>
+            <!-- Ajoutez d'autres questions/réponses ici -->
+        </section>
 
-        <div class="separator">
-            <div class="separator-item">
-                <p>Retours clients</p>
-            </div>
-        </div>
-        <div class="center">
-            <div class="comments">
-                <div th:each="com:${comments}"
-                        class="comment">
-                    <div class="head">
-                        <img class="comProfile" th:src="@{/img/utilisateur (1).png}" alt="profile">
-                        <p th:text="${com.client}" class="nomUser">Therry Cousyn</p>
-                    </div>
-                    <div class="bar"></div>
-                    <div class="commentContent">
-                        <p th:text="${com.date}" class="comDate">19 Mars 2024</p>
-                        <p th:text="${com.title}" class="comTitle">Tout s'est très bien passé</p>
-                        <p th:text="${com.content}" class="comText">Tout s'est très bien passé, seul petit bémol, dommage que le service Livraison ne puisse pas donner une heure plus précise que de 8h à 18h</p>
-                    </div>
-                    <div class="bar"></div>
-                    <div class="comActions">
-                        <div class="actionLeft">
-                            <button class="comAction like" th:text="'Like '+${com.likes}">
-                                <!-- <img class="likebtn" th:src="@{/img/like.png}" alt=""> -->
-                                Utile</button>
-                            <button class="comAction dislike" th:text="'DisLike '+${com.dislikes}">
-                                <!-- <img class="dislikebtn" th:src="@{/img/dislike.png}" alt=""> -->
-                                Inutile</button>
-                        </div>
-                        <div>
-                            <button class="comAction share" th:text="'Share '+${com.shares}">
-                                <img th:src="@{/img/partager.png}" alt="" srcset="">
-                                Partager</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="center">
-            <div class="CommentsAct doCom">
-                <p>Faire un commentaire</p>
-            </div>
-            <div class="CommentsAct readComs">
-                <p>Voir tous les commentaires</p>
-            </div>
-        </div>
-        <div class="separator">
-            <div class="separator-item">
-                <p>Guide de la climatisation</p>
-            </div>
-        </div>
-        <div class="center">
-            <div th:onload="setActionnal()" class="guide-container" id="guides">
-                <div class="guide" id="top">
-                    <div class="head">
-                        <p class="g">Comment choisir son climatiseur ?</p>
-                    </div>
-                    <div class="transition content none">
-                        <p class="g">Comment choisir le climatiseur idéal pour votre maison</p>
-                        <p>Avec la chaleur estivale qui ne cesse de monter, choisir un climatiseur adapté à votre domicile devient essentiel. Voici quelques conseils pour vous aider à prendre la meilleure décision.</p>
-                        <p class="g">1. Quels sont vos besoins ?</p>
-                        <p>Chaque maison est différente. Estimez la taille de la pièce que vous souhaitez climatiser. Un petit appareil peut suffire pour une chambre, tandis qu'un salon spacieux nécessitera un modèle plus puissant.                </p>
-                        <p class="g">Types de climatiseurs</p>
-                        <p>Il existe plusieurs types de climatiseurs</p>
-                        <ul>
-                            <li>Climatiseurs fixes : Idéal pour une utilisation prolongée dans une pièce spécifique. Ils nécessitent une installation professionnelle.</li>
-                            <li>Climatiseurs portatifs : Parfaits pour les espaces limités ou si vous avez besoin de flexibilité. Faciles à installer, mais moins efficaces que les modèles fixes.</li>
-                            <li>Climatiseurs armoire : Idéal pour une utilisation prolongée dans une pièce spécifique. Ils nécessitent une installation professionnelle.</li>
-                            <li>Climatiseurs cassettes : Parfaits pour les espaces limités ou si vous avez besoin de flexibilité. Faciles à installer, mais moins efficaces que les modèles fixes.</li>
-                        </ul>
-                        <p class="g">3. Consommation énergétique Optez pour un modèle économe en énergie.</p>
-                        <p>Les climatiseurs avec une certification énergétique élevée peuvent réduire considérablement vos factures d'électricité.</p>
+    </main>
 
-                        <p class="g">4. Niveau sonore Personne n'aime un climatiseur bruyant.</p>
-                        <p>Vérifiez le niveau sonore indiqué en décibels (dB) sur l'appareil. Un modèle silencieux garantit un meilleur confort.</p>
+    <!-- Inclure le footer commun -->
+    <!--#include virtual="footer.html" -->
 
-                        <p class="g">5. Fonctions supplémentaires Certaines fonctionnalités peuvent améliorer votre confort :</p>
-
-                        <ul>
-                            <li>Mode éco : pour économiser de l'énergie.</li>
-                            <li>Programmation : pour définir des horaires de fonctionnement.</li>
-                            <li>Déshumidification : utile dans les environnements humides.</li>
-                        </ul>
-                        <p class="g">6. Prix et garanties Comparaison des prix et des garanties offertes.</p>
-                        <p>Un investissement initial plus élevé peut se traduire par des économies à long terme grâce à une meilleure efficacité énergétique et une durabilité accrue.</p>
-
-                        <p class="g">Conclusion</p>
-                        <p>Choisir un climatiseur n'est pas une mince affaire. Prenez le temps de considérer ces aspects pour assurer votre confort durant les mois les plus chauds de l'année.</p>
-                    </div>
-                </div>
-                <div class="guide" id="bot">
-                    <div class="head">
-                        <p class="g">Comment entretenir efficacement son climatiseur ?</p>
-                    </div>
-                    <div class="transition content none">
-                        <p>Un climatiseur bien entretenu assure non seulement un confort optimal, mais prolonge également sa durée de vie et améliore son efficacité énergétique. Voici quelques étapes clés pour maintenir votre appareil en bon état.</p>
-                        <ul>
-                            <li>
-                                Nettoyez les filtres régulièrement Les filtres à air doivent être nettoyés ou remplacés toutes les deux semaines pendant les périodes d'utilisation intensive. Les filtres obstrués peuvent réduire l'efficacité du climatiseur et augmenter la consommation d'énergie.
-                            </li>
-                            <li>Vérifiez les serpentins de l'évaporateur et du condenseur Avec le temps, les serpentins de l'évaporateur et du condenseur accumulent de la saleté, réduisant leur capacité à absorber la chaleur. Un nettoyage annuel est recommandé pour éviter les dysfonctionnements.</li>
-                            <li>Nettoyez les ailettes Les ailettes de l'évaporateur et du condenseur peuvent se salir ou se tordre. Utilisez une brosse douce ou un peigne pour les nettoyer et les redresser, garantissant ainsi un flux d'air optimal.</li>
-                            <li>
-                                Débarrassez les débris autour de l'unité extérieure Les feuilles, la poussière et les autres débris peuvent obstruer le flux d'air autour de l'unité extérieure. Assurez-vous qu'il y ait un espace dégagé d'au moins 60 centimètres autour de l'unité.
-                            </li>
-                            <li>
-                                Contrôlez les niveaux de réfrigérant Un niveau de réfrigérant inapproprié peut entraîner une surchauffe et une inefficacité énergétique. Si vous soupçonnez une fuite ou un niveau bas, faites appel à un professionnel pour vérifier et remplir le réfrigérant.
-                            </li>
-                            <li>
-                                Inspectez les tuyaux de drainage Un tuyau de drainage obstrué peut provoquer des fuites d'eau à l'intérieur de la maison. Assurez-vous que l'eau s'écoule correctement et nettoyez les tuyaux si nécessaire.
-                            </li>
-                            <li>
-                                Programmez un entretien professionnel Même si vous pouvez effectuer une grande partie de l'entretien vous-même, il est recommandé de faire vérifier votre climatiseur par un professionnel au moins une fois par an. Ils pourront repérer et réparer les problèmes que vous pourriez ne pas remarquer.
-                            </li>
-                        </ul>
-                        <p class="g">Conclusion</p>
-                        <p>
-                            Entretenir votre climatiseur régulièrement vous assure non seulement un confort optimal, mais vous permet également d'économiser de l'énergie et de prolonger la durée de vie de votre appareil. En suivant ces conseils simples, vous pouvez garantir le bon fonctionnement de votre climatiseur pour les années à venir.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 </html>

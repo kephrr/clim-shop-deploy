@@ -48,7 +48,7 @@ public class ClimServiceImpl implements ClimService {
     }
 
     @Override
-    public List<Clim> findAllBySearchedKEyword(String keyword) {
-        return climRepository.findAllBySearchedKEyword(keyword);
+    public List<Clim> findAllBySearchedKeyword(String keyword) {
+        return climRepository.findAllBySearchedKeyword(keyword);
     }
 }

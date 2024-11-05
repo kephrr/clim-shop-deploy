@@ -5,59 +5,64 @@
       layout:decorate="template"
 >
 <div layout:fragment="contentForView" class="template-content">
-    <main>
-        <div class="aside cart">
-            <div class="banner">
-                <button class="return" id="return" onclick="history.back()">
-                    <img id="returnImg" th:src="@{/img/fleche-petite-gauche.png}" alt="">
-                </button>
-                <h2>Details du produit</h2>
-            </div>
-            <div class="cart-content" id="product-cart">
-                <div class="li">
-                    <div class="card">
-                        <img id="img-details"
-                             th:src="@{${climDetails.image}}" alt="">
-                        <div id="card-details">
-                            <p id="card-details-title"> <strong th:text="${climDetails.libelle}"> </strong></p>
-                            <p>Categorie : <span th:text="${climDetails.categorie}"></span></p>
-                            <p th:text="'Prix : '+${climDetails.prix}"> <span>FCFA</span></p>
-                            <p th:text="'Prix (promotion incluse) : '+${climDetails.prixFinal}"> <span>FCFA</span></p>
-                            <p th:text="'Surface de refroidissement : '+${climDetails.surface}+' M²'"><span>M²</span></p>
-                            <p th:text="'Capacité de refroidissement : '+${climDetails.capacite}+' BTU/H'"> <span>BTU/H</span></p>
-                            <p >Marque : <span th:text="${climDetails.marque}">LG</span></p>
-                            <p>Etat : <span th:text="${climDetails.etat}"></span></p>
-                        </div>
-                    </div>
+    <main class="cart-container">
+        <div class="cart-grid">
+            <section class="product-details cart-summary">
+                <h1>Détails du Produit</h1>
+                <div class="product-info">
+                    <img th:src="@{${climDetails.image}}" alt="Climatiseur" id="productImage">
+                    <h2 id="productName" th:text="${climDetails.libelle}"></h2>
+                    <p><strong>Marque:</strong> <span th:text="${climDetails.marque}" id="productReference">REF12345</span></p>
+                    <p><strong>Etat:</strong> <span th:text="${climDetails.etat}" id="productType">Split</span></p>
+                    <p><strong>Catégorie:</strong> <span id="productCategory" th:text="${climDetails.categorie}">Climatiseur</span></p>
+                    <p>Surface de refroidissemet : <strong th:text="${climDetails.surface}+' M²'"></strong></p>
+                    <p>Capacité de refroidissement :  <strong th:text="${climDetails.capacite}+' BTU/H'"></strong></p>
+                    <p><strong>Caractéristiques:</strong> <span th:text="${climDetails.specs}" id="productFeatures">Auto nettoyant, Stérilisation</span></p>
+                    <p><strong>Garantie:</strong> <span id="productWarranty">1 an</span></p>
+                    <p><strong>Prix:</strong> <span th:text="${climDetails.prix}" id="productPrice">299 000 FCFA</span></p>
+                    <p><strong>Prix (promotion incluse):</strong> <span th:text="${climDetails.prixFinal}" id="productPromo">299 000 FCFA</span></p>
                 </div>
-            </div>
+                <button type="submit" onclick="history.back()" class="add-to-cart">Retour</button>
+            </section>
+            <form class="aside payment cart-form"
+                  id="orderForm"
+                  th:method="post"
+                  th:action="@{/panier/add}"
+                  th:object="${climPanierDto}">
+                <div class="summary" id="addClim">
+                    <h2>Résumé du produit</h2>
+                    <div class="form-group">
+                        <label for="libelle" >Libelle </label>
+                        <input readonly="readonly" th:field="*{libelle}" th:value="${climDetails.libelle}" type="text" id="libelle">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prix">Prix </label>
+                        <input readonly="readonly" th:field="*{prix}" value="" type="text" name="prix" id="prix">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantite">Quantité</label>
+                        <input required onchange="calcMontant()" th:field="*{quantite}" type="number" name="quantite" id="quantite">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="montant">Montant total </label>
+                        <input readonly="readonly" th:field="*{montant}" type="text" name="montant" id="montant">
+                    </div>
+
+                    <div class="form-group">
+                        <input th:field="*{id}" th:value="${climDetails.id}" type="text" id="id">
+                    </div>
+                    <style>
+                        #id{
+                            display: none;
+                        }
+                    </style>
+                    <button type="submit" class="add-to-cart">Ajouter à la commande</button>
+                </div>
+            </form>
         </div>
-        <form class="aside payment"
-              th:method="post"
-              th:action="@{/panier/add}"
-              th:object="${climPanierDto}">
-            <div class="summary" id="addClim">
-                <h2>Résumé du produit</h2>
-                <label for="libelle" >Libelle </label>
-                <input readonly="readonly" th:field="*{libelle}" th:value="${climDetails.libelle}" type="text" id="libelle">
-
-                <label for="prix">Prix </label>
-                <input readonly="readonly" th:field="*{prix}" value="" type="text" name="prix" id="prix">
-
-                <label for="quantite">Quantité</label>
-                <input required onchange="calcMontant()" th:field="*{quantite}" type="number" name="quantite" id="quantite">
-
-                <label for="montant">Montant total </label>
-                <input readonly="readonly" th:field="*{montant}" type="text" name="montant" id="montant">
-                <input th:field="*{id}" th:value="${climDetails.id}" type="text" id="id">
-                <style>
-                    #id{
-                        display: none;
-                    }
-                </style>
-                <button type="submit">Ajouter à la commande</button>
-            </div>
-        </form>
     </main>
 </div>
 <script>

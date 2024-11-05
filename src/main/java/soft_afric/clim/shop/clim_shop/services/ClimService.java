@@ -9,5 +9,5 @@ import java.util.List;
 public interface ClimService extends IService<Clim, Long> {
     List<Clim> findAllPromotedClims();
     List<Clim> findAllByCategorieAndMarqueAndBudget(Categorie categorie, Marque marque, int budget);
-    List<Clim> findAllBySearchedKEyword(String keyword);
+    List<Clim> findAllBySearchedKeyword(String keyword);
 }

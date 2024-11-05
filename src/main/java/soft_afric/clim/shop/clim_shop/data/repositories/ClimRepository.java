@@ -24,8 +24,10 @@ public interface ClimRepository extends JpaRepository<Clim, Long> {
 
     @Query("SELECT DISTINCT c FROM Clim  c "+
             "WHERE c.isActived = true "+
-            "AND (:keyword IS NULL OR c.libelle LIKE %:keyword%) ")
-    List<Clim> findAllBySearchedKEyword(
+            "AND (:keyword IS NULL OR c.libelle LIKE %:keyword%) "+
+            "AND (:keyword IS NULL OR c.marque.libelle LIKE %:keyword%) "+
+            "AND (:keyword IS NULL OR c.categorie.libelle LIKE %:keyword%) ")
+    List<Clim> findAllBySearchedKeyword(
             @Param("keyword") String keyword);
 
     List<Clim> findAllByIsActivedTrue();

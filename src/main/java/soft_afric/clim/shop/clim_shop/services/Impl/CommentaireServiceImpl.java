@@ -37,7 +37,7 @@ public class CommentaireServiceImpl implements CommentaireService {
     }
 
     @Override
-    public List<Commentaire> findThreeBetterComments() {
-        return commentaireRepository.findThreeBetterComments(ActionType.Like);
+    public List<Commentaire> findFourthBetterComments() {
+        return commentaireRepository.findFourthFirstComments();
     }
 }

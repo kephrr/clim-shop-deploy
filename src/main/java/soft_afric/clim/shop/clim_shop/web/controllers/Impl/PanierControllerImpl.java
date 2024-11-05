@@ -22,6 +22,7 @@ import soft_afric.clim.shop.clim_shop.web.dto.response.ClientDto;
 import soft_afric.clim.shop.clim_shop.web.dto.response.ClimDto;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 @Controller
@@ -80,13 +81,13 @@ public class PanierControllerImpl implements PanierController {
         model.addAttribute("lignes", panier.getArticles());
         model.addAttribute("client", panier.getClient());
         model.addAttribute("user",getCurrentUsername());
-        setSearchBarDto(model);
         return "public/shopping-cart";
     }
 
     public void setSearchBarDto(Model model){
         model.addAttribute("search", new RechercheDto());
     }
+
     @ModelAttribute("panier")
     public PanierRequestDto panier(){
         return  new PanierRequestDto(
@@ -95,13 +96,15 @@ public class PanierControllerImpl implements PanierController {
                 ClientDto.toDto(Client.builder()
                         .nomComplet("")
                         .tel("")
-                        .adresse(new Adresse("Dakar","quartier","000"))
+                        .adresse(new Adresse("Dakar","quartier","Num-Villa"))
                         .build()),
                 false,
+                new Date(),
                 0,
                 0
         );
     }
+
     public String getCurrentUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {

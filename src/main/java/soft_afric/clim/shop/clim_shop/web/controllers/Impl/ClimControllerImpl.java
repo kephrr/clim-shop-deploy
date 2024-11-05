@@ -20,6 +20,7 @@ import soft_afric.clim.shop.clim_shop.web.dto.request.RechercheDto;
 import soft_afric.clim.shop.clim_shop.web.dto.response.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -37,11 +38,7 @@ public class ClimControllerImpl implements ClimController {
         List<ClimDto> allClims = climService.findAll()
                 .stream().
                 map(ClimDto::toCardDto).toList();
-        List<CommentaireDto> commentaires = commentaireService.findAll()
-                .stream()
-                .map(CommentaireDto::toDto).toList();
-        firstPageData(model, allClims);
-        model.addAttribute("comments", commentaires);
+        firstPageData(model, allClims, "Nos produits populaires");
         model.addAttribute("filter", new FilterDto());
         setSearchBarDto(model);
         return "public/home";
@@ -70,7 +67,7 @@ public class ClimControllerImpl implements ClimController {
                 .findAllByCategorieAndMarqueAndBudget(categorie, marque, filterDto.getBudget())
                 .stream().map(ClimDto::toCardDto).toList();
         model.addAttribute("filter", filterDto);
-        firstPageData(model, allClims);
+        firstPageData(model, allClims, "Vos recherches");
         model.addAttribute("user",getCurrentUsername());
         setSearchBarDto(model);
         return "public/home";
@@ -78,26 +75,32 @@ public class ClimControllerImpl implements ClimController {
 
     @Override
     public String homeFilterClims(Model model, RechercheDto rechercheDto) {
-        List<ClimDto> allClims = climService.findAllBySearchedKEyword(rechercheDto.getKeyword()).stream().map(ClimDto::toCardDto).toList();
+        List<ClimDto> allClims = climService.findAllBySearchedKeyword(rechercheDto.getKeyword()).stream().map(ClimDto::toCardDto).toList();
 
         model.addAttribute("user",getCurrentUsername());
         model.addAttribute("filter", new FilterDto());
-        firstPageData(model, allClims);
+        firstPageData(model, allClims, "Vos recherches");
         model.addAttribute("search", rechercheDto);
         return "public/home";
     }
 
-    public void firstPageData(Model model, List<ClimDto> allClims) {
+    public void firstPageData(Model model, List<ClimDto> allClims, String search_title) {
         List<ClimDto> promotedClims = climService.findAllPromotedClims().stream().map(ClimDto::toCardDto).toList();
         List<CategorieDto> categories = categorieService.findAll().stream().map(CategorieDto::toDto).toList();
         List<MarqueDto> marques = marqueService.findAll().stream().map(MarqueDto::toDto).toList();
+        List<CommentaireDto> commentaires = commentaireService.findFourthBetterComments()
+                .stream()
+                .map(CommentaireDto::toDto).toList();
 
+        model.addAttribute("comments", commentaires);
         model.addAttribute("user",getCurrentUsername());
         model.addAttribute("marques", marques);
         model.addAttribute("categories", categories);
         model.addAttribute("climsPromoted", promotedClims);
         model.addAttribute("clims", allClims);
+        model.addAttribute("search_title", search_title);
     }
+
     public void setSearchBarDto(Model model){
         model.addAttribute("search", new RechercheDto());
     }
@@ -113,6 +116,7 @@ public class ClimControllerImpl implements ClimController {
                             .adresse(new Adresse("Dakar","quartier","000"))
                             .build()),
                 false,
+                    new Date(),
                     0, 0);
     }
 

@@ -1,6 +1,7 @@
 package soft_afric.clim.shop.clim_shop.web.dto.request;
 
 import lombok.*;
+import soft_afric.clim.shop.clim_shop.data.entities.Adresse;
 import soft_afric.clim.shop.clim_shop.data.entities.Fournisseur;
 import soft_afric.clim.shop.clim_shop.data.enums.EtatEncours;
 import soft_afric.clim.shop.clim_shop.data.enums.EtatPaiement;
@@ -33,10 +34,15 @@ public class FournisseurCreateDto {
     private EtatPaiement etatPaiement;
     private EtatEncours etatEncours;
     private String commentaire;
-    private String adresse;
+    private String ville;
+    private String quartier;
+    private String numVilla;
 
+    // FINIR LE DTO PUIS FAIRE LA GESTION DE FORMULAIRE + TESTS
 
     private static Fournisseur toEntity(FournisseurCreateDto dto){
-        return new Fournisseur();
+        return Fournisseur.builder()
+                .adresse(new Adresse(dto.getVille(), dto.getQuartier(), dto.getNumVilla()))
+                .build();
     }
 }

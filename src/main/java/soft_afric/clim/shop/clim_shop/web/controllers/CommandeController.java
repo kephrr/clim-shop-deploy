@@ -10,4 +10,8 @@ public interface CommandeController {
     @PostMapping("/panier/commander")
     String Commander(Model model,
                      @ModelAttribute("panier") PanierRequestDto panier);
+
+    @GetMapping("/panier/commander")
+    String RecapCommande(Model model,
+                     @ModelAttribute("panier") PanierRequestDto panier);
 }

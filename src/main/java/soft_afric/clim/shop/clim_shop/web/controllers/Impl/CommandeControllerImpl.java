@@ -64,16 +64,20 @@ public class CommandeControllerImpl implements CommandeController {
         commande.setEtatCommande(EtatCommande.Encour);
         commande.setClient(client);
         commande.setModePaiement(ModePaiement.values()[panier.getModePaiement()]);
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String dateString = formatter.format(date);
         Date parsedDate = null;
+        Date parsedDateInstallation = null;
         try {
             parsedDate = formatter.parse(dateString);
+            parsedDateInstallation = formatter.parse(dateString);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         commande.setDateCommmande(parsedDate);
+        commande.setDateInstallation(parsedDateInstallation);
 
         List<LigneCommande> lignes = new ArrayList<>();
         int montant = 0;
@@ -106,6 +110,16 @@ public class CommandeControllerImpl implements CommandeController {
         setSearchBarDto(model);
         model.addAttribute("user",getCurrentUsername());
         return "public/commandes";
+    }
+
+    @Override
+    public String RecapCommande(Model model, PanierRequestDto panier) {
+        model.addAttribute("totalProd", panier.getTotal());
+        model.addAttribute("panier", panier);
+        model.addAttribute("lignes", panier.getArticles());
+        model.addAttribute("client", panier.getClient());
+        model.addAttribute("user",getCurrentUsername());
+        return "public/recap-command";
     }
 
     public void setSearchBarDto(Model model){

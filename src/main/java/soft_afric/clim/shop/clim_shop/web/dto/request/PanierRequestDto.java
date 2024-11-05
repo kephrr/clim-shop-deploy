@@ -3,6 +3,7 @@ package soft_afric.clim.shop.clim_shop.web.dto.request;
 import lombok.*;
 import soft_afric.clim.shop.clim_shop.web.dto.response.ClientDto;
 
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -15,6 +16,7 @@ public class PanierRequestDto {
     private int total = 0;
     private ClientDto client;
     private Boolean frais;
+    private Date dateInstallation;
     private int modePaiement;
     private int nbre=0;
     public void addClimToPanier(ClimPanierDto article){

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+>
+<div layout:fragment="contentForView" class="template-content" >
+    <div class="cart-container">
+        <h1>Mon Panier</h1>
+        <div class="cart-grid">
+            <div class="cart-form">
+                <h2>Informations de livraison</h2>
+                <form id="orderForm"
+                      th:action="@{/panier/commander}"
+                      th:method="post"
+                      th:object="${panier}"
+                >
+                    <div class="form-group">
+                        <label for="firstName">Nom & Prénom</label>
+                        <input type="text" id="firstName" th:field="*{client.nomComplet}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Numéro de téléphone</label>
+                        <input type="number" id="phone" th:field="*{client.tel}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Adresse</label>
+                        <input type="email" id="email"  required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="locationInput">Adresse de livraison</label>
+                        <input type="text" id="locationInput" name="location"
+                               th:field="*{client.adresse}">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Ne pas inclure les frais d'installation (35.000 FCFA)</label>
+                        <input onclick="calcMontantInstall()" id="checkFrais" type="checkbox"
+                               th:field="*{frais}" th:value="${panier.frais}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="installationDate">Date d'installation souhaitée</label>
+                        <input type="date" id="installationDate" required
+                               th:field="*{dateInstallation}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Montant à payer <span> (FCFA)</span> :</label>
+                        <input readonly type="number" id="pMontant"
+                               th:value="${panier.total}">
+                    </div>
+
+                    <div class="form-group">
+                        <fieldset>
+                            <legend>Nous acceptons</legend>
+                            <div class="payment-methods">
+                                <div class="payment-method" data-method="orange-money">
+                                    <img th:src="@{/img/om.png}" alt="Orange Money">
+                                    <span>Orange Money</span>
+                                </div>
+                                <div class="payment-method" data-method="wave">
+                                    <img th:src="@{/img/wave.png}" alt="Wave">
+                                    <span>Wave</span>
+                                </div>
+                                <div class="payment-method" data-method="card">
+                                    <img th:src="@{/img/card.webp}" alt="Carte bancaire">
+                                    <span>Carte bancaire</span>
+                                </div>
+                                <div class="payment-method" data-method="cash">
+                                    <img th:src="@{/img/espece.avif}" alt="Espèces">
+                                    <span>Espèces</span>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <button type="submit" class="btn-primary" id="confirmOrder">Confirmer la commande</button>
+                </form>
+            </div>
+
+            <div class="cart-summary">
+                <h2>Récapitulatif</h2>
+                <div class="order-details" id="cartItems">
+                    <!-- Les éléments du panier seront ajoutés ici dynamiquement -->
+                </div>
+                <div class="order-details">
+                    <p th:text="'Prix des clims : '+${totalProd}">Total des climatiseurs: <span id="climPriceDisplay">299 000 FCFA</span></p>
+                    <p>Installation: <span id="installPrice">Oui (20 000 FCFA)</span></p>
+                    <p>Accessoires: <span id="accessoriesPrice">Oui (6 500 FCFA)</span></p>
+                    <p >Livraison: <span>Oui (4 000 FCFA)</span></p>
+                    <hr>
+                    <p>Total :<strong th:text="' '+${panier.total}+' FCFA'"> <span id="totalPrice"></span></strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
