@@ -15,8 +15,8 @@ public class PanierRequestDto {
     private List<ClimPanierDto> articles;
     private int total = 0;
     private ClientDto client;
-    private Boolean frais;
-    private Date dateInstallation;
+    private Boolean isFraisNotIncluded = false;
+    private String dateInstallation;
     private int modePaiement;
     private int nbre=0;
     public void addClimToPanier(ClimPanierDto article){
@@ -46,9 +46,9 @@ public class PanierRequestDto {
 
     public void resetTotal(){
         int count = 0;
-        if (frais) count = 25000;
+        if (!isFraisNotIncluded) count = 30500;
         for (ClimPanierDto article : articles) {
-            count = count + article.getMontant();
+            count += article.getMontant();
         }
         total = count;
     }

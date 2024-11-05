@@ -116,7 +116,7 @@ public class ClimControllerImpl implements ClimController {
                             .adresse(new Adresse("Dakar","quartier","000"))
                             .build()),
                 false,
-                    new Date(),
+                    "",
                     0, 0);
     }
 

@@ -60,6 +60,7 @@ public class CommandeControllerImpl implements CommandeController {
                 clientService.save(client);
                 securityService.addRoleToUser(client.getLogin(), "Client");
         }
+
         Commande commande = new Commande();
         commande.setEtatCommande(EtatCommande.Encour);
         commande.setClient(client);
@@ -72,7 +73,7 @@ public class CommandeControllerImpl implements CommandeController {
         Date parsedDateInstallation = null;
         try {
             parsedDate = formatter.parse(dateString);
-            parsedDateInstallation = formatter.parse(dateString);
+            parsedDateInstallation = formatter.parse(panier.getDateInstallation());
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -81,9 +82,7 @@ public class CommandeControllerImpl implements CommandeController {
 
         List<LigneCommande> lignes = new ArrayList<>();
         int montant = 0;
-        if(panier.getFrais()){
-            montant += 35000;
-        }
+
         for(ClimPanierDto ligne : panier.getArticles()){
             LigneCommande l = LigneCommande.builder()
                             .clim(climService.show(ligne.getId()).orElseThrow(()->new RuntimeException("Clim"+ligne.getId()+" not found in the service")))
@@ -94,6 +93,9 @@ public class CommandeControllerImpl implements CommandeController {
             l.setCommande(commande);
             montant += l.getMontant();
             lignes.add(l);
+        }
+        if(!panier.getIsFraisNotIncluded()){
+            montant += 30500;
         }
         commande.setMontant(montant);
         commandeService.save(commande);

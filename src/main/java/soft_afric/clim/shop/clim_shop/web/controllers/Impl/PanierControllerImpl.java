@@ -84,22 +84,19 @@ public class PanierControllerImpl implements PanierController {
         return "public/shopping-cart";
     }
 
-    public void setSearchBarDto(Model model){
-        model.addAttribute("search", new RechercheDto());
-    }
 
     @ModelAttribute("panier")
     public PanierRequestDto panier(){
         return  new PanierRequestDto(
                 new ArrayList<>(),
-                35000,
+                30500,
                 ClientDto.toDto(Client.builder()
                         .nomComplet("")
                         .tel("")
                         .adresse(new Adresse("Dakar","quartier","Num-Villa"))
                         .build()),
                 false,
-                new Date(),
+                "",
                 0,
                 0
         );

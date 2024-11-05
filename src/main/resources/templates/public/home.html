@@ -15,13 +15,12 @@
         <button type="submit"><i data-lucide="search"></i></button>
     </form>
 </div>
-
     <main>
         <section class="hero">
             <div class="hero-content">
                 <h1>Votre climatisation dès maintenant, à tout instant.</h1>
                 <p>Achetez et faites-vous livrer un de nos climatiseurs en quelques clics dès maintenant</p>
-                <a href="">
+                <a href="https://wa.me/221771758895">
                     <button class="cta-button"><img th:src="@{/img/WhatsApp.png}" alt=""> Nous contacter</button>
                 </a>
             </div>
@@ -36,7 +35,6 @@
                 <div class="brand-item"><img th:src="@{/img/panasonic.png}" alt="panasonic"></div>
                 <div class="brand-item"><img th:src="@{/img/samsung.png}" alt="samsung"></div>
                 <div class="brand-item"><img th:src="@{/img/toshiba.png}" alt="toshiba"></div>
-                <!-- Ajoutez plus d'éléments si nécessaire -->
             </div>
         </section>
 
@@ -69,15 +67,15 @@
                             th:text="${marque.libelle}"
                             th:value="${marque.id}"></option>
                 </select>
-                <div>
-                    <input placeholder="Limite de budget" th:field="*{budget}" type="number" id="budget" name="budget">
-                </div>
                 <select th:field="*{categorieID}" id="category" name="category">
                     <option value="0">Catégorie</option>
                     <option th:each="categorie:${categories}"
                             th:text="${categorie.libelle}"
                             th:value="${categorie.id}"></option>
                 </select>
+                <div>
+                    <input placeholder="Limite de budget" th:field="*{budget}" type="number" id="budget" name="budget">
+                </div>
                 <button type="submit">Filtrer</button>
             </form>
         </section>
@@ -93,11 +91,11 @@
         </section>
 
         <section class="promotions">
-            <h2 th:text="${search_title}">Nos produits populaires</h2>
+            <h2 th:text="${search_title}"></h2>
             <div  class="promo-list">
                 <div th:each="cl:${clims}" class="promo-item">
                     <img th:src="@{${cl.image}}" alt="Promo Clim 1">
-                    <h3 th:text="${cl.libelle}+' '+${cl.libelle}">LG Inverter</h3>
+                    <h3 th:text="${cl.marque}+' '+${cl.libelle}"></h3>
                     <p th:text="${cl.prix}+' FCFA '"></p>
                     <div class="product-actions">
                         <a th:href="@{/details/{id}(id = ${cl.id})}">
@@ -169,15 +167,10 @@
             </div>
             <div class="faq-item">
                 <h3>Pourquoi vous consulter pour le choix de ma clim ?</h3>
-                <p>Oui, nous offrons un service de maintenance annuel pour tous nos climatiseurs.</p>
+                <p>Le choix de votre climatiseur est très important. Il est impératif de prendre en compte tous vos besoins avant d'en choisir un!</p>
             </div>
-            <!-- Ajoutez d'autres questions/réponses ici -->
         </section>
 
     </main>
-
-    <!-- Inclure le footer commun -->
-    <!--#include virtual="footer.html" -->
-
 </div>
 </html>

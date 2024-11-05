@@ -25,35 +25,11 @@ function calcMontantInstall(){
     const check = document.querySelector("#checkFrais");
     let price = parseInt(montant.value);
     if (check.checked){
-        montant.value = price - 35000
+        montant.value = price - 30500
     }else{
-        montant.value = price + 35000
+        montant.value = price + 30500
     }
 }
-
-function handleLikeDislike(){
-    const likeBtnAll = document.querySelectorAll(".likebtn");
-    const dislikeBtnAll = document.querySelectorAll(".dislikebtn");
-
-    likeBtnAll.forEach((likeBtn) => {
-        likeBtn.addEventListener("mouseover", () =>{
-            likeBtn.src = '/img/likew.png';
-        })
-        likeBtn.addEventListener("mouseleave", () =>{
-            likeBtn.src = '/img/like.png';
-        })
-    })
-
-    dislikeBtnAll.forEach((dislikeBtn) => {
-        dislikeBtn.addEventListener("mouseover", () =>{
-            dislikeBtn.src = '../../static/img/dislikew.png';
-        })
-        dislikeBtn.addEventListener("mouseleave", () =>{
-            dislikeBtn.src = '../../static/img/dislike.png';
-        })
-    })
-}
-
 
 function handleGuideCard() {
     const cards = document.querySelectorAll(".guide");

@@ -15,19 +15,19 @@
     </style>
         <small th:text="${msg}" class="cmd-msg"></small>
         <div th:each="c:${commandes}" class="commande">
-            <p th:text="'Date : '+${c.date}"> 09/03/2005</p>
-            <p th:text="'Adresse : '+${c.adresse}">Adresse : Sicap Baobab</p>
-            <p th:text="'Statut : '+${c.etatCommande}">Statut : Facturer</p>
+            <p th:text="'Date : '+${c.date}"></p>
+            <p th:text="'Adresse : '+${c.adresse}"></p>
+            <p th:text="'Statut : '+${c.etatCommande}"></p>
             <p>
                 <strong>
                     Articles
                 </strong>
             </p>
             <div class="ligne" th:each="l:${c.ligneCommandes}">
-                <p th:text="${l}" >1x Clim de ous 20000</p>
+                <p th:text="${l}" ></p>
             </div>
-            <p th:text="'Montant total : '+${c.montant}">Montant total : 650.000</p>
-            <p th:text="'Mode de paiement : '+${c.modePaiement}">Mode de paiement : 0range Money</p>
+            <p th:text="'Montant total : '+${c.montant}"></p>
+            <p th:text="'Mode de paiement : '+${c.modePaiement}"></p>
 
             <a th:if="${c.etatCommande=='Terminer'}">
                 <button class="disabled">
@@ -49,6 +49,7 @@
             flex-direction: column;
             border: solid 1px #D9D9D9;
             background-color: #FFFFFF;
+            border-radius: 10px;
             width: 90%;
             margin-bottom: 10px;
             padding: 15px 0 15px 15px;

@@ -36,9 +36,9 @@
 
 
                     <div class="form-group">
-                        <label>Ne pas inclure les frais d'installation (35.000 FCFA)</label>
+                        <label>Ne pas inclure les frais d'installation (30.500 FCFA)</label>
                         <input onclick="calcMontantInstall()" id="checkFrais" type="checkbox"
-                               th:field="*{frais}" th:value="${panier.frais}">
+                               th:field="*{isFraisNotIncluded}" th:value="${panier.isFraisNotIncluded}">
                     </div>
 
                     <div class="form-group">
@@ -53,6 +53,15 @@
                                th:value="${panier.total}">
                     </div>
 
+                    <div class="form-group">
+                        <label for="installationDate">Date d'installation souhaitée</label>
+                        <select th:field="*{modePaiement}" name="modePaiement" id="modPaiement">
+                            <option value="0">Liquide</option>
+                            <option value="1">Orange Money</option>
+                            <option value="2">Wave</option>
+                        </select>
+                    </div>
+                    
                     <div class="form-group">
                         <fieldset>
                             <legend>Nous acceptons</legend>
@@ -87,9 +96,9 @@
                 </div>
                 <div class="order-details">
                     <p th:text="'Prix des clims : '+${totalProd}">Total des climatiseurs: <span id="climPriceDisplay">299 000 FCFA</span></p>
-                    <p>Installation: <span id="installPrice">Oui (20 000 FCFA)</span></p>
-                    <p>Accessoires: <span id="accessoriesPrice">Oui (6 500 FCFA)</span></p>
-                    <p >Livraison: <span>Oui (4 000 FCFA)</span></p>
+                    <p>Installation: <span id="installPrice">20 000 FCFA</span></p>
+                    <p>Accessoires: <span id="accessoriesPrice">6 500 FCFA</span></p>
+                    <p >Livraison: <span>4 000 FCFA</span></p>
                     <hr>
                     <p>Total :<strong th:text="' '+${panier.total}+' FCFA'"> <span id="totalPrice"></span></strong></p>
                 </div>

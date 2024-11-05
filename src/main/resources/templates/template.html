@@ -22,8 +22,8 @@
         <nav>
             <ul>
                 <li><a th:href="@{/home}"><i data-lucide="home"></i> Accueil</a></li>
-                <li><a th:href="@{/panier}"><i data-lucide="box"></i> Panier</a></li>
-                <li><a th:if="${user}!=null" th:href="@{/client/commandes}"><i data-lucide="shop"></i> Services</a></li>
+                <li><a th:href="@{/panier}"><i data-lucide="shopping-bag"></i> Panier</a></li>
+                <li><a th:if="${user}!=null" th:href="@{/client/commandes}"><i data-lucide="box"></i> Commandes</a></li>
                 <li><a th:href="${user != null} ? @{/client/account}:@{/login}"><i data-lucide="user"></i>Mon compte</a></li>
             </ul>
         </nav>
