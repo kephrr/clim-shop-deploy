@@ -36,6 +36,10 @@
         <div class="" th:each="cl:${fournisseur.clims}">
           <p th:text="${cl}" ></p>
         </div>
+
+        <a th:href="@{/admin/fournisseurs/edit/{id}(id = ${fournisseur.id})}">
+          <button>Modifier</button>
+        </a>
       </div>
 
     </div>

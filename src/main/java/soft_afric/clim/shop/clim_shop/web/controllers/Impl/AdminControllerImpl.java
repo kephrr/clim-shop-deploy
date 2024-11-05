@@ -6,8 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import soft_afric.clim.shop.clim_shop.data.entities.*;
-import soft_afric.clim.shop.clim_shop.data.enums.EtatClim;
-import soft_afric.clim.shop.clim_shop.data.enums.EtatCommande;
+import soft_afric.clim.shop.clim_shop.data.enums.*;
 import soft_afric.clim.shop.clim_shop.services.*;
 import soft_afric.clim.shop.clim_shop.web.controllers.AdminController;
 import soft_afric.clim.shop.clim_shop.web.dto.request.ClientRequestDto;
@@ -27,6 +26,8 @@ public class AdminControllerImpl implements AdminController {
     private final MarqueService marqueService;
     private final CategorieService categorieService;
     private final CommandeService commandeService;
+    CommentaireService commentaireService;
+    private final ContactService contactService;
     private final ClientService clientService;
     private final FournisseurService fournisseurService;
 
@@ -215,12 +216,70 @@ public class AdminControllerImpl implements AdminController {
     }
 
     @Override
+    public String editFournisseurs(Model model, Long id) {
+        Fournisseur data = fournisseurService.show(id).orElseThrow(()-> new RuntimeException("Fournisseur "+id+" introuvable"));
+        FournisseurCreateDto dto = FournisseurCreateDto.toDto(data);
+        model.addAttribute("fournisseur", dto);
+        return "admin/fournisseurs-edit";
+    }
+
+    @Override
+    public String editFournisseurs(Model model, FournisseurCreateDto dto) {
+        Long id = dto.getId();
+        Fournisseur data = fournisseurService.show(id).orElseThrow(()-> new RuntimeException("Fournisseur "+id+" introuvable"));
+        // MODIFICATION DE FOURNISSEUR
+        data.setSiret(dto.getSiret());
+        data.setDivers(dto.getDivers());
+        data.setSociete(dto.getSociete());
+        data.setReference(dto.getReference());
+        data.setEtatEncours(EtatEncours.values()[dto.getEtatEncours()]);
+        data.setModePaiement(ModePaiement.values()[dto.getModePaiement()]);
+        data.setEtatPaiement(EtatPaiement.values()[dto.getEtatPaiement()]);
+
+        // AJOUTER LES CONTACTS
+
+        // AJOUTER LE COMMENTAIRE
+
+        fournisseurService.save(data);
+        return "redirect:/admin/fournisseurs";
+    }
+
+    @Override
     public String formFournisseurs(Model model) {
+        model.addAttribute("fournisseur", new FournisseurCreateDto());
+        model.addAttribute("error", "");
         return "admin/fournisseurs-form";
     }
 
     @Override
-    public String saveFournisseurs(Model model,  FournisseurCreateDto fournisseurCreateDto) {
+    public String saveFournisseurs(Model model,  FournisseurCreateDto dto) {
+        Fournisseur fournisseur = dto.toEntity();
+            try{
+                fournisseurService.save(fournisseur);
+            }catch (Exception e){
+                model.addAttribute("error", "Ce fournisseur existe déjà");
+                return "redirect:/admin/fournisseurs/add";
+            }
+            List<Contact> contacts = new ArrayList<>();
+            Contact contact1 = new Contact(dto.getNom1(), dto.getEmail1(), dto.getTelephone1(), fournisseur);
+            contacts.add(contact1);
+            contactService.save(contact1);
+            if( dto.getNom2()!=null && dto.getEmail2()!=null && dto.getTelephone2()!=null ) {
+                Contact contact2 = new Contact(dto.getNom2(), dto.getEmail2(), dto.getTelephone2(), fournisseur);
+                contactService.save(contact2);
+                contacts.add(contact2);
+            }
+            fournisseur.setContacts(contacts);
+            if(dto.getCommentaire()!=null){
+                Commentaire commentaire = Commentaire.builder()
+                        .title("Avis sur "+dto.getSociete())
+                        .content(dto.getCommentaire())
+                        .build();
+
+                fournisseur.setCommentaire(commentaire);
+                commentaireService.save(commentaire);
+            }
+            fournisseurService.save(fournisseur);
         return "admin/fournisseurs";
     }
 

@@ -6,6 +6,7 @@ import soft_afric.clim.shop.clim_shop.data.entities.Fournisseur;
 import soft_afric.clim.shop.clim_shop.data.enums.EtatEncours;
 import soft_afric.clim.shop.clim_shop.data.enums.EtatPaiement;
 import soft_afric.clim.shop.clim_shop.data.enums.ModePaiement;
+import soft_afric.clim.shop.clim_shop.web.dto.response.FournisseurDto;
 
 import java.util.List;
 
@@ -27,12 +28,11 @@ public class FournisseurCreateDto {
     private String telephone2;
     private String email2;
     // Details
-    List<String> clims;
     private String siret;
     private String divers;
-    private ModePaiement modePaiement;
-    private EtatPaiement etatPaiement;
-    private EtatEncours etatEncours;
+    private int modePaiement;
+    private int etatPaiement;
+    private int etatEncours;
     private String commentaire;
     private String ville;
     private String quartier;
@@ -40,9 +40,38 @@ public class FournisseurCreateDto {
 
     // FINIR LE DTO PUIS FAIRE LA GESTION DE FORMULAIRE + TESTS
 
-    private static Fournisseur toEntity(FournisseurCreateDto dto){
+    public Fournisseur toEntity(){
         return Fournisseur.builder()
-                .adresse(new Adresse(dto.getVille(), dto.getQuartier(), dto.getNumVilla()))
+                .societe(this.societe)
+                .reference(this.reference)
+                .siret(this.siret)
+                .divers(this.divers)
+                .etatEncours(EtatEncours.values()[this.etatEncours])
+                .etatPaiement(EtatPaiement.values()[this.etatPaiement])
+                .modePaiement(ModePaiement.values()[this.modePaiement])
+                .adresse(new Adresse(this.ville, this.quartier, this.numVilla))
+                .build();
+    }
+    public static FournisseurCreateDto toDto(Fournisseur f){
+        return FournisseurCreateDto.builder()
+                .id(f.getId())
+                .societe(f.getSociete())
+                .reference(f.getReference())
+                .siret(f.getSiret())
+                .divers(f.getDivers())
+                .etatEncours(f.getEtatEncours().getIndex())
+                .etatPaiement(f.getEtatPaiement().getIndex())
+                .modePaiement(f.getModePaiement().getIndex())
+                .ville(f.getAdresse().getVille())
+                .quartier(f.getAdresse().getQuartier())
+                .numVilla(f.getAdresse().getNumVilla())
+                .commentaire(f.getCommentaire().toString())
+                .nom1(f.getContacts().get(0).getNom())
+                .nom2(f.getContacts().get(1).getNom())
+                .telephone1(f.getContacts().get(0).getTelephone())
+                .telephone2(f.getContacts().get(1).getTelephone())
+                .email1(f.getContacts().get(0).getEmail())
+                .email2(f.getContacts().get(1).getEmail())
                 .build();
     }
 }

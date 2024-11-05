@@ -78,18 +78,26 @@ public interface AdminController {
     @GetMapping("/commandes/delete/{id}")
     String deleteCommande(Model model, @PathVariable Long id);
 
-    // GESTION DES COMMANDES
-    // Voir toutes les dommandes
+    // GESTION DES FOURNISSEURS
+    // Voir tous les fournisseurs
     @GetMapping("/fournisseurs")
     String allFournisseurs(Model model);
 
-    // Voir les details d'une commande
+    // Voir les details d'un fournisseur
     @GetMapping("/fournisseurs/details/{id}")
     String detailsFournisseurs(Model model, @PathVariable Long id);
+
+    // Editer un fournisseur
+    @GetMapping("/fournisseurs/edit/{id}")
+    String editFournisseurs(Model model, @PathVariable Long id);
+
+    @PostMapping("/fournisseurs/edit/")
+    String editFournisseurs(Model model, @ModelAttribute FournisseurCreateDto fournisseurCreateDto);
 
     @GetMapping("/fournisseurs/add")
     String formFournisseurs(Model model);
 
     @PostMapping("/fournisseurs/add")
     String saveFournisseurs(Model model,  @ModelAttribute FournisseurCreateDto fournisseurCreateDto);
+
 }

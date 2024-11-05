@@ -1,9 +1,6 @@
 package soft_afric.clim.shop.clim_shop.web.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import soft_afric.clim.shop.clim_shop.data.entities.*;
 import soft_afric.clim.shop.clim_shop.data.enums.EtatEncours;
 import soft_afric.clim.shop.clim_shop.data.enums.EtatPaiement;
@@ -11,6 +8,7 @@ import soft_afric.clim.shop.clim_shop.data.enums.ModePaiement;
 
 import java.util.List;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -37,15 +35,25 @@ public class FournisseurDto {
 
 
     public static FournisseurDto toListDto(Fournisseur f){
-        Contact contact = f.getContacts().getFirst();
-        return FournisseurDto.builder()
-                .id(f.getId())
-                .societe(f.getSociete())
-                .reference(f.getReference())
-                .contactPrincipal(contact.getNom())
-                .telephone(contact.getTelephone())
-                .email(contact.getEmail())
-                .build();
+        FournisseurDto dto = new FournisseurDto();
+        Contact contact;
+        if(!f.getContacts().isEmpty()){
+            contact = f.getContacts().getFirst();
+        }else{
+            contact = Contact.builder()
+                    .nom("Aucun")
+                    .email("Aucun")
+                    .telephone("Aucun")
+                    .build();
+        }
+        dto.setId(f.getId());
+        dto.setSociete(f.getSociete());
+        dto.setReference(f.getReference());
+        dto.setContactPrincipal(contact.getNom());
+        dto.setTelephone(contact.getTelephone());
+        dto.setEmail(contact.getEmail());
+
+        return dto;
     }
 
     public static FournisseurDto toDetailsDto(Fournisseur f){

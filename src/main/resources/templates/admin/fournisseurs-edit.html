@@ -8,72 +8,71 @@
   <!-- Fournisseurs -->
   <section id="suppliers" class="page">
     <div class="page-header">
-      <h1>Création d'un Fournisseur</h1>
+      <h1>Modifier un Fournisseur</h1>
     </div>
     <form
-            th:action="@{/admin/fournisseurs/add}"
+            th:action="@{/admin/fournisseurs/edit}"
             th:method="post"
             th:object="${fournisseur}"
             id="supplierForm">
-      <small th:text="${error}"></small>
       <div class="form-grid">
         <div class="form-group">
           <label for="societe">Société</label>
-          <input th:field="*{societe}" type="text" id="societe" name="societe" required>
+          <input th:field="*{societe}" th:value="${fournisseur.societe}" type="text" id="societe" name="societe" required>
         </div>
         <div class="form-group">
           <label for="reference">Référence</label>
-          <input th:field="*{reference}" type="text" id="reference" name="reference" required>
+          <input th:field="*{reference}" th:value="${fournisseur.reference}" type="text" id="reference" name="reference" required>
         </div>
         <div class="form-group">
           <label for="siret">SIRET</label>
-          <input th:field="*{siret}" type="text" id="siret" name="siret" required>
+          <input th:field="*{siret}" th:value="${fournisseur.siret}" type="text" id="siret" name="siret" required>
         </div>
         <!-- Adresse -->
         <div class="form-group">
           <label for="ville">Ville</label>
-          <input th:field="*{ville}" id="ville" name="ville" required>
+          <input th:field="*{ville}" th:value="${fournisseur.ville}" id="ville" name="ville" required>
         </div>
         <div class="form-group">
           <label for="Quartier">Quartier</label>
-          <input th:field="*{quartier}" id="Quartier" name="Quartier" required>
+          <input th:field="*{quartier}" th:value="${fournisseur.quartier}" id="Quartier" name="Quartier" required>
         </div>
         <div class="form-group">
           <label for="Num">Nuémro de villa</label>
-          <input th:field="*{numVilla}" id="Num" name="Num" required>
+          <input th:field="*{numVilla}" th:value="${fournisseur.numVilla}" id="Num" name="Num" required>
         </div>
 
         <!-- Contact 1 -->
         <div class="form-group">
           <label for="contact1_nom">Contact 1 - Nom</label>
-          <input th:field="*{nom1}" type="text" id="contact1_nom" name="contact1_nom" required>
+          <input th:field="*{nom1}" th:value="${fournisseur.nom1}" type="text" id="contact1_nom" name="contact1_nom" required>
         </div>
         <div class="form-group">
           <label for="contact1_tel">Contact 1 - Téléphone</label>
-          <input th:field="*{telephone1}" type="text" id="contact1_tel" name="contact1_tel">
+          <input th:field="*{telephone1}" th:value="${fournisseur.telephone1}" type="text" id="contact1_tel" name="contact1_tel">
         </div>
         <div class="form-group">
           <label for="contact1_email">Contact 1 - Email</label>
-          <input th:field="*{email1}" type="email" id="contact1_email" name="contact1_email">
+          <input th:field="*{email1}" th:value="${fournisseur.email1}" type="email" id="contact1_email" name="contact1_email">
         </div>
 
         <!-- Contact 2 -->
         <div class="form-group">
           <label for="contact2_nom">Contact 2 - Nom</label>
-          <input th:field="*{nom2}" type="text" id="contact2_nom" name="contact2_nom">
+          <input th:field="*{nom2}" th:value="${fournisseur.nom2}" type="text" id="contact2_nom" name="contact2_nom">
         </div>
         <div class="form-group">
           <label for="contact2_tel">Contact 2 - Téléphone</label>
-          <input th:field="*{telephone2}" type="text" id="contact2_tel" name="contact2_tel">
+          <input th:field="*{telephone2}" th:value="${fournisseur.telephone2}" type="text" id="contact2_tel" name="contact2_tel">
         </div>
         <div class="form-group">
           <label for="contact2_email">Contact 2 - Email</label>
-          <input th:field="*{email2}" type="email" id="contact2_email" name="contact2_email">
+          <input th:field="*{email2}" th:value="${fournisseur.email2}" type="email" id="contact2_email" name="contact2_email">
         </div>
 
         <div class="form-group">
           <label for="mode_paiement">Mode de paiement</label>
-          <select th:field="*{modePaiement}" id="mode_paiement" name="mode_paiement">
+          <select th:field="*{modePaiement}" th:value="${fournisseur.modePaiement}" id="mode_paiement" name="mode_paiement">
             <option value="0">Liquide</option>
             <option value="4">Chèque</option>
             <option value="3">Virement bancaire</option>
@@ -81,28 +80,36 @@
         </div>
         <div class="form-group">
           <label for="etat_encours">État des encours</label>
-          <select th:field="*{etatEncours}" id="etat_encours" name="etat_encours">
+          <select th:field="*{etatEncours}" th:value="${fournisseur.etatEncours}" id="etat_encours" name="etat_encours">
             <option value="0">En cours</option>
             <option value="1">Validé</option>
           </select>
         </div>
         <div class="form-group">
           <label for="etat_paiements">État des paiements</label>
-          <select th:field="*{etatPaiement}" id="etat_paiements" name="etat_paiements">
+          <select th:field="*{etatPaiement}" th:value="${fournisseur.etatPaiement}" id="etat_paiements" name="etat_paiements">
             <option value="0">Payé</option>
             <option value="1">Impayé</option>
           </select>
         </div>
         <div class="form-group">
           <label for="divers">Divers</label>
-          <textarea th:field="*{divers}" id="divers" name="divers"></textarea>
+          <textarea th:field="*{divers}" th:value="${fournisseur.divers}" id="divers" name="divers"></textarea>
         </div>
         <div class="form-group">
           <label for="commentaires">Commentaires</label>
-          <textarea th:field="*{commentaire}" id="commentaires" name="commentaires"></textarea>
+          <textarea th:field="*{commentaire}" th:value="${fournisseur.commentaire}" id="commentaires" name="commentaires"></textarea>
+        </div>
+        <div class="form-group">
+          <input hidden="" th:field="*{id}" th:value="${fournisseur.id}" type="text" id="id" name="id" required>
+          <style>
+            input#id{
+              display: none;
+            }
+          </style>
         </div>
       </div>
-      <button type="submit">Enregistrer</button>
+      <button type="submit">Sauvegarder</button>
     </form>
 
   </section>
