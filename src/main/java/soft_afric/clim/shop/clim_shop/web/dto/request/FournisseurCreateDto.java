@@ -65,13 +65,13 @@ public class FournisseurCreateDto {
                 .ville(f.getAdresse().getVille())
                 .quartier(f.getAdresse().getQuartier())
                 .numVilla(f.getAdresse().getNumVilla())
-                .commentaire(f.getCommentaire().toString())
-                .nom1(f.getContacts().get(0).getNom())
-                .nom2(f.getContacts().get(1).getNom())
-                .telephone1(f.getContacts().get(0).getTelephone())
-                .telephone2(f.getContacts().get(1).getTelephone())
-                .email1(f.getContacts().get(0).getEmail())
-                .email2(f.getContacts().get(1).getEmail())
+                .commentaire((f.getCommentaire()==null)?"":f.getCommentaire().toString())
+                .nom1((f.getContacts().isEmpty())?"":f.getContacts().get(0).getNom())
+                .nom2((f.getContacts().size()<=1)?"":f.getContacts().get(1).getNom())
+                .telephone1((f.getContacts().isEmpty())?"":f.getContacts().get(0).getTelephone())
+                .telephone2((f.getContacts().size()<=1)?"":f.getContacts().get(1).getTelephone())
+                .email1((f.getContacts().isEmpty())?"":f.getContacts().get(0).getEmail())
+                .email2((f.getContacts().size()<=1)?"":f.getContacts().get(1).getEmail())
                 .build();
     }
 }

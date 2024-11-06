@@ -91,7 +91,7 @@ public interface AdminController {
     @GetMapping("/fournisseurs/edit/{id}")
     String editFournisseurs(Model model, @PathVariable Long id);
 
-    @PostMapping("/fournisseurs/edit/")
+    @PostMapping("/fournisseurs/edit")
     String editFournisseurs(Model model, @ModelAttribute FournisseurCreateDto fournisseurCreateDto);
 
     @GetMapping("/fournisseurs/add")

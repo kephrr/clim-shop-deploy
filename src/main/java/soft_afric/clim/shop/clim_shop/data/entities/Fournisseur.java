@@ -32,7 +32,7 @@ public class Fournisseur extends AbstractEntity{
     @Embedded
     private Adresse adresse;
 
-    @OneToMany
+    @OneToMany(mappedBy = "fournisseur", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contact> contacts;
 
     @OneToMany(mappedBy = "fournisseur")

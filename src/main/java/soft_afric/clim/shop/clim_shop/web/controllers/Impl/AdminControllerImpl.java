@@ -199,6 +199,7 @@ public class AdminControllerImpl implements AdminController {
     }
 
     // GESTION DES FOURNISSEURS
+    
     @Override
     public String allFournisseurs(Model model) {
         List<Fournisseur> data = fournisseurService.findAll();
@@ -225,23 +226,48 @@ public class AdminControllerImpl implements AdminController {
 
     @Override
     public String editFournisseurs(Model model, FournisseurCreateDto dto) {
-        Long id = dto.getId();
-        Fournisseur data = fournisseurService.show(id).orElseThrow(()-> new RuntimeException("Fournisseur "+id+" introuvable"));
-        // MODIFICATION DE FOURNISSEUR
-        data.setSiret(dto.getSiret());
-        data.setDivers(dto.getDivers());
-        data.setSociete(dto.getSociete());
-        data.setReference(dto.getReference());
-        data.setEtatEncours(EtatEncours.values()[dto.getEtatEncours()]);
-        data.setModePaiement(ModePaiement.values()[dto.getModePaiement()]);
-        data.setEtatPaiement(EtatPaiement.values()[dto.getEtatPaiement()]);
+            Long id = dto.getId();
+            Fournisseur data = fournisseurService.show(id).orElseThrow(() -> new RuntimeException("Fournisseur " + id + " introuvable"));
 
-        // AJOUTER LES CONTACTS
+            // Mise à jour des informations du fournisseur
+            data.setSiret(dto.getSiret());
+            data.setDivers(dto.getDivers());
+            data.setSociete(dto.getSociete());
+            data.setReference(dto.getReference());
+            data.setEtatEncours(EtatEncours.values()[dto.getEtatEncours()]);
+            data.setModePaiement(ModePaiement.values()[dto.getModePaiement()]);
+            data.setEtatPaiement(EtatPaiement.values()[dto.getEtatPaiement()]);
+            data.setAdresse(new Adresse(dto.getVille(), dto.getQuartier(), dto.getNumVilla()));
 
-        // AJOUTER LE COMMENTAIRE
+            // Mise à jour de la liste de contacts
+            data.getContacts().clear(); // Efface les anciens contacts
 
-        fournisseurService.save(data);
-        return "redirect:/admin/fournisseurs";
+            List<Contact> contacts = new ArrayList<>();
+            contacts.add(Contact.builder()
+                            .nom(dto.getNom1())
+                            .email(dto.getEmail1())
+                            .telephone(dto.getTelephone1())
+                    .build());
+
+            // Ajout d'un second contact si les informations sont présentes
+            if (dto.getNom2() != null && dto.getEmail2() != null && dto.getTelephone2() != null) {
+                contacts.add(Contact.builder()
+                        .nom(dto.getNom2())
+                        .email(dto.getEmail2())
+                        .telephone(dto.getTelephone2())
+                        .build());
+            }
+
+            // Associe chaque contact au fournisseur
+            contacts.forEach(contact -> contact.setFournisseur(data));
+            data.setContacts(contacts); // Assigne la nouvelle liste de contacts
+            try {
+                fournisseurService.save(data); // Sauvegarde le fournisseur avec les contacts
+            } catch (Exception e) {
+                model.addAttribute("error", "Impossible de modifier ce fournisseur");
+                return "redirect:/admin/fournisseurs";
+            }
+            return "redirect:/admin/fournisseurs/details/" + id;
     }
 
     @Override
@@ -253,34 +279,45 @@ public class AdminControllerImpl implements AdminController {
 
     @Override
     public String saveFournisseurs(Model model,  FournisseurCreateDto dto) {
-        Fournisseur fournisseur = dto.toEntity();
-            try{
-                fournisseurService.save(fournisseur);
-            }catch (Exception e){
-                model.addAttribute("error", "Ce fournisseur existe déjà");
-                return "redirect:/admin/fournisseurs/add";
-            }
-            List<Contact> contacts = new ArrayList<>();
-            Contact contact1 = new Contact(dto.getNom1(), dto.getEmail1(), dto.getTelephone1(), fournisseur);
-            contacts.add(contact1);
-            contactService.save(contact1);
-            if( dto.getNom2()!=null && dto.getEmail2()!=null && dto.getTelephone2()!=null ) {
-                Contact contact2 = new Contact(dto.getNom2(), dto.getEmail2(), dto.getTelephone2(), fournisseur);
-                contactService.save(contact2);
-                contacts.add(contact2);
-            }
-            fournisseur.setContacts(contacts);
-            if(dto.getCommentaire()!=null){
-                Commentaire commentaire = Commentaire.builder()
-                        .title("Avis sur "+dto.getSociete())
-                        .content(dto.getCommentaire())
-                        .build();
+        List<Contact> contacts = new ArrayList<>();
+        Fournisseur fournisseur = Fournisseur.builder()
+                .societe(dto.getSociete())
+                .reference(dto.getReference())
+                .siret(dto.getSiret())
+                .divers(dto.getDivers())
+                .modePaiement(ModePaiement.values()[dto.getModePaiement()])
+                .etatEncours(EtatEncours.values()[dto.getEtatEncours()])
+                .etatPaiement(EtatPaiement.values()[dto.getEtatPaiement()])
+                .adresse(new Adresse(dto.getVille(),dto.getQuartier(),dto.getNumVilla()))
+                .build();
 
-                fournisseur.setCommentaire(commentaire);
-                commentaireService.save(commentaire);
-            }
+        String comment = "";
+        if(dto.getCommentaire()!=null){
+            comment = dto.getCommentaire();
+        }
+        fournisseur.setCommentaire(Commentaire.builder()
+                .title("Avis sur"+dto.getSociete())
+                .content(comment)
+                .build());
+
+        if(dto.getNom2()==null || dto.getEmail2()==null || dto.getTelephone2()==null) contacts.add(
+                Contact.builder()
+                        .nom(dto.getNom2())
+                        .email(dto.getEmail2())
+                        .telephone(dto.getTelephone2())
+                        .build());
+
+        try{
             fournisseurService.save(fournisseur);
-        return "admin/fournisseurs";
+            contacts.forEach(c-> c.setFournisseur(fournisseur));
+            contactService.saveAll(contacts);
+            fournisseur.setContacts(contacts);
+            fournisseurService.save(fournisseur);
+        }catch (Exception e){
+            model.addAttribute("error", "Impossible de créer ce fournisseur");
+            return "redirect:/admin/fournisseurs/add";
+        }
+        return "redirect:/admin/fournisseurs/details/"+dto.getId();
     }
 
     // UTILS
@@ -294,7 +331,6 @@ public class AdminControllerImpl implements AdminController {
         model.addAttribute("categories", categories);
         model.addAttribute("etats", etats);
     }
-
 
     public List<CommandeDto> reverseList(List<CommandeDto> list) {
         return list.stream()

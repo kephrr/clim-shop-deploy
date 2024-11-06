@@ -34,4 +34,9 @@ public class ContactServiceImpl implements ContactService {
     public Optional<Contact> show(Long dataID) {
         return contactRepository.findById(dataID);
     }
+
+    @Override
+    public List<Contact> saveAll(List<Contact> contacts) {
+        return contactRepository.saveAll(contacts);
+    }
 }

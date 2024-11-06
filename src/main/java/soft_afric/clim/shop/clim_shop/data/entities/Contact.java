@@ -12,8 +12,8 @@ import lombok.*;
 @Table(name="contact")
 public class Contact extends AbstractEntity{
     private String nom;
-    @Column(unique=true)
     private String email;
+    @Column(unique=true)
     private String telephone;
 
     @Override
