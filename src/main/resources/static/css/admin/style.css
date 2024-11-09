@@ -183,56 +183,6 @@ button:hover {
   width: auto;
 }
 
-/* Media Queries pour la responsive */
-@media screen and (max-width: 1200px) {
-  .dashboard-stats {
-      grid-template-columns: repeat(2, 1fr);
-  }
-
-  .form-grid {
-      grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media screen and (max-width: 992px) {
-  .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      z-index: 1000;
-      transform: translateX(-100%);
-  }
-
-  .sidebar.active {
-      transform: translateX(0);
-  }
-
-  .main-content {
-      margin-left: 0;
-  }
-
-  .dashboard-stats {
-      grid-template-columns: 1fr;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .form-grid {
-      grid-template-columns: 1fr;
-  }
-
-  .page-header {
-      flex-direction: column;
-      gap: var(--spacing-md);
-  }
-
-  table {
-      display: block;
-      overflow-x: auto;
-  }
-}
-
 /* Styles pour les permissions */
 .permissions-grid {
   display: grid;
@@ -271,24 +221,88 @@ button:hover {
   margin-bottom: var(--spacing-lg);
 }
 
+
+/* Media Queries pour la responsive */
+@media screen and (max-width: 1200px) {
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media screen and (max-width: 1024px){
+  .dashboard-container{
+    flex-direction: column;
+    font-size: 1.5rem;
+    overflow-y: scroll;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar{
+    flex-direction: row;
+    width: 100vw;
+  }
+
+  .sidebar-nav{
+    display: flex;
+  }
+
+  .sidebar-nav span{
+    font-size: 1.5rem;
+  }
+
+  .sidebar-nav .icon{
+    display: none;
+  }
+
+  .nav-item{
+    flex: 1;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    max-width: 90vw;
+  }
+}
+
 @media screen and (max-width: 576px) {
   .filters {
-      flex-direction: column;
+    flex-direction: column;
   }
 
   .permissions-grid {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
-  
+
   .stat-card {
-      padding: var(--spacing-md);
+    padding: var(--spacing-md);
   }
 
   .form-actions {
-      flex-direction: column;
+    flex-direction: column;
   }
 
   button {
-      width: 100%;
+    width: 100%;
   }
 }
