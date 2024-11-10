@@ -34,9 +34,9 @@
                             <th>Client</th>
                             <th>Date commande</th>
                             <th>Montant total</th>
-                            <th>Statut</th>
                             <th>Mode Paiement</th>
                             <th>Adresse</th>
+                            <th>Statut</th>
                             <th>Details</th>
 
                         </tr>
@@ -47,10 +47,10 @@
                         <tr th:each="c:${commandes}" >
                             <td th:text="${c.id}"></td>
                             <td th:text="${c.client}+' '+${c.numClient}"></td>
-                            <td th:text="${c.adresse}"></td>
-                            <td th:text="${c.date}">Date commande</td>
+                            <td th:text="${c.date}"></td>
                             <td th:text="${c.montantFinal}">Montant total</td>
                             <td th:text="${c.modePaiement}">Actions</td>
+                            <td th:text="${c.adresse}"></td>
                             <td th:text="${c.etatCommande}">Statut</td>
                             <td>
                                 <a th:href="@{/admin/commandes/details/{id}(id = ${c.id})}">

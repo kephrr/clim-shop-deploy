@@ -241,8 +241,17 @@ button:hover {
     overflow-y: scroll;
   }
 
-  .dashboard-stats {
+  .dashboard-stats, .form-grid{
     grid-template-columns: 1fr;
+  }
+
+  .form-group *, .filters *, #supplierForm *{
+    font-size: 2rem;
+    padding: var(--spacing-md);
+  }
+
+  table{
+    font-size: 2rem;
   }
 
   .sidebar{
@@ -269,8 +278,8 @@ button:hover {
 
 
 @media screen and (max-width: 768px) {
-  .form-grid {
-    grid-template-columns: 1fr;
+  form{
+    font-size: 1.2rem;
   }
 
   .page-header {

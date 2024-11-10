@@ -69,6 +69,7 @@ public class CommandeDto {
                 .adresse(c.getClient().getAdresse().toString())
                 .date(c.getDateCommmande().toString())
                 .etatCommande(c.getEtatCommande())
+                .modePaiement(c.getModePaiement())
                 .livraison(c.getLivraison())
                 .montantFinal(c.getLivraison() + c.getInstallation() + c.getMontant())
                 .build();
