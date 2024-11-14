@@ -68,6 +68,15 @@
                 </div>
                 <button type="submit">Enregistrer</button>
             </form>
+            <form th:action="@{/admin/clims}" th:method="get">
+                <div class="page-header">
+                    <h1>Rechercher</h1>
+                    <button type="submit">Filtrer</button>
+                </div>
+                <div class="filters">
+                    <input placeholder="Rechercher dans les clims" type="text" name="keyword" id="keyword">
+                </div>
+            </form>
             <div class="page-header">
                 <h1 >Liste des climatiseurs</h1>
             </div>
@@ -101,31 +110,6 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- Rempli dynamiquement
-                <div th:each="climDetails:${clims}" class="item">
-                    <img th:src="@{${climDetails.image}}" alt="image" srcset="">
-                    <p id="card-details-title"> <strong th:text="${climDetails.libelle}"> </strong></p>
-                    <p>Référence : <span th:text="${climDetails.ref}"></span></p>
-                    <p>Categorie : <span th:text="${climDetails.categorie}"></span></p>
-                    <p>Type : <span th:text="${climDetails.type}"></span></p>
-                    <p th:text="'Surface de refroidissement : '+${climDetails.surface}+' M²'"><strong>M²</strong></p>
-                    <p th:text="'Capacité de refroidissement : '+${climDetails.capacite}+' BTU/H'"> <strong>BTU/H</strong></p>
-                    <p th:text="'Autre caractéristiques: '+${climDetails.specs}+' BTU/H'"> <strong>BTU/H</strong></p>
-                    <p th:text="'Prix : '+${climDetails.prix}"> <strong>FCFA</strong></p>
-                    <p th:text="'Promotion : '+${climDetails.promotion}"> </p>
-                    <p >Marque : <strong th:text="${climDetails.marque}">LG</strong></p>
-                    <p>Guarantie : <span th:text="${climDetails.guarantie}"></span></p>
-                    <p>Etat : <strong th:text="${climDetails.etat}"></strong></p>
-                    <div class="buttons">
-                        <a th:href="@{/admin/clims/delete/{id}(id = ${climDetails.id})}">
-                            <button class="">Supprimer</button>
-                        </a>
-                        <a th:href="@{/admin/clims/edit/{id}(id = ${climDetails.id})}">
-                            <button class="" id="success">Modifier</button>
-                        </a>
-                    </div>
-                </div>
-                -->
             </div>
         </section>
     </main>

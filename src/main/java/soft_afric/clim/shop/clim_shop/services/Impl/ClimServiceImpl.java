@@ -38,6 +38,11 @@ public class ClimServiceImpl implements ClimService {
     }
 
     @Override
+    public List<Clim> findAll(String keyword) {
+        return climRepository.findAll(keyword);
+    }
+
+    @Override
     public List<Clim> findAllPromotedClims() {
         return climRepository.findAllByIsActivedTrueAndPromotionGreaterThan(0);
     }

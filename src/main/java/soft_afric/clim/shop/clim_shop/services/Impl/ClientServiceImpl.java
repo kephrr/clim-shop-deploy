@@ -54,4 +54,9 @@ public class ClientServiceImpl implements ClientService {
     public int getClientsCount() {
         return clientRepository.countByIsActived(true);
     }
+
+    @Override
+    public List<Client> findAll(String tel) {
+        return clientRepository.findAllByTelephone(tel);
+    }
 }

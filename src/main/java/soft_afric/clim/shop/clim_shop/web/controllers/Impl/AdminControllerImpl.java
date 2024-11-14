@@ -101,8 +101,8 @@ public class AdminControllerImpl implements AdminController {
     // GESTION DES CLIENTS
 
     @Override
-    public String allClients(Model model) {
-        List<ClientDto> clients = clientService.findAll().stream().map(ClientDto::toDto).toList();
+    public String allClients(Model model, String tel) {
+        List<ClientDto> clients = clientService.findAll(tel).stream().map(ClientDto::toDto).toList();
         model.addAttribute("clients", clients);
         return "admin/client";
     }

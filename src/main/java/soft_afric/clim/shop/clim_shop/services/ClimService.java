@@ -7,6 +7,7 @@ import soft_afric.clim.shop.clim_shop.data.entities.Marque;
 import java.util.List;
 
 public interface ClimService extends IService<Clim, Long> {
+    List<Clim> findAll(String keyword);
     List<Clim> findAllPromotedClims();
     List<Clim> findAllByCategorieAndMarqueAndBudget(Categorie categorie, Marque marque, int budget);
     List<Clim> findAllBySearchedKeyword(String keyword);

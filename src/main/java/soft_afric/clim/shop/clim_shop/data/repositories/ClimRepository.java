@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import soft_afric.clim.shop.clim_shop.data.entities.Categorie;
+import soft_afric.clim.shop.clim_shop.data.entities.Client;
 import soft_afric.clim.shop.clim_shop.data.entities.Clim;
 import soft_afric.clim.shop.clim_shop.data.entities.Marque;
 
@@ -31,4 +32,12 @@ public interface ClimRepository extends JpaRepository<Clim, Long> {
             @Param("keyword") String keyword);
 
     List<Clim> findAllByIsActivedTrue();
+
+    @Query("SELECT DISTINCT c FROM Clim  c "+
+            "WHERE c.isActived = true "+
+            "AND (:key IS NULL OR c.libelle LIKE %:key%) "+
+            "AND (:key IS NULL OR c.marque.libelle LIKE %:key%) "+
+            "AND (:key IS NULL OR c.categorie.libelle LIKE %:key%) ")
+    List<Clim> findAll(
+            @Param("key") String key);
 }

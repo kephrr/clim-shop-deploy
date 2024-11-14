@@ -6,15 +6,15 @@
 
     <main layout:fragment="contentForView" class="main-content">
         <section class="users page">
-            <div class="page-header">
-                <h1>Gestion des Clients</h1>
-                <button onclick="showModal('userModal')">Filtrer</button>
-            </div>
-            <div class="filters">
-                <select id="user_role_filter">
-                    <option value="all">Numéro de téléphone</option>
-                </select>
-            </div>
+            <form th:action="@{/admin/clients}" th:method="get">
+                <div class="page-header">
+                    <h1>Gestion des Clients</h1>
+                    <button type="submit">Filtrer</button>
+                </div>
+                <div class="filters">
+                    <input placeholder="Numéro de Téléphone" type="number" name="tel" id="tel">
+                </div>
+            </form>
             <div class="items" >
                 <h1>Tous les clients</h1>
                 <div class="users-list">

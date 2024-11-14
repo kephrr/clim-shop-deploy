@@ -1,10 +1,7 @@
 package soft_afric.clim.shop.clim_shop.web.controllers;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import soft_afric.clim.shop.clim_shop.web.dto.request.ClientRequestDto;
 import soft_afric.clim.shop.clim_shop.web.dto.request.ClimCreateDto;
 import soft_afric.clim.shop.clim_shop.web.dto.request.FilterDto;
@@ -38,7 +35,8 @@ public interface AdminController {
     // GESTION DES CLIENTS
     // Voir tous les clients
     @GetMapping("/clients")
-    String allClients(Model model);
+    String allClients(Model model,
+                      @RequestParam(defaultValue = "") String tel);
 
     // Modifier un client form
     @GetMapping("/clients/edit/{id}")
