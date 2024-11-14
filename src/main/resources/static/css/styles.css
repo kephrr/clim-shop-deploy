@@ -419,6 +419,24 @@ footer {
     border-top: 1px solid rgba(255,255,255,0.3);
 }
 
+.card-actions{
+    display: flex;
+    justify-content: space-between;
+}
+.card-actions a, .normal-button{
+    padding: .5rem 1rem;
+    background-color: #4a90e2;
+    border-radius: .5rem;
+}
+.normal-button{
+    margin: 2rem;
+    border: none;
+    color: white;
+}
+.normal-button:hover{
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
     header, .search-container, .filters form {
         flex-direction: column;
@@ -544,6 +562,7 @@ footer {
 .btn-primary:hover {
     opacity: 0.9;
 }
+
 
 @media (max-width: 768px) {
     .cart-grid {

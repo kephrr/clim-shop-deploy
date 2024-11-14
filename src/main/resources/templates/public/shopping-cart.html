@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panier</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
 </body>
@@ -19,19 +19,13 @@
     <main>
         <div class="aside cart">
             <div class="banner">
-                <!--
-                <input onclick="selectAll()" type="button" name="all" id="all" value="X">
-                -->
                 <h2 th:text="'Tout sélectionner ('+${panier.nbre}+')'"></h2>
             </div>
-            <div class="cart-content">
-                <div class="li" th:each="ligne:${lignes}">
-                    <!--
-                    <input type="radio" name="" class="select">
-                    -->
+            <div class="cart-summary">
+                <div class="li " th:each="ligne:${lignes}">
                     <div class="card">
                         <img th:src="@{${ligne.image}}" alt="image">
-                        <div class="card-content">
+                        <div class="card-grid">
                             <p class="card-content-title" th:text="${ligne.quantite}+'x '+${ligne.libelle}"></p>
                             <p th:text="'Montant : '+${ligne.montant}"><span>FCFA</span></p>
                             <div class="card-actions">
@@ -43,57 +37,13 @@
                 </div>
             </div>
         </div>
-        <form class="aside payment"
-              th:action="@{/panier/commander}"
-              th:method="get"
-        >
-            <!--*
-            <div class="summary" id="summary">
-                <h2>Résumé de la commande</h2>
-                <div class="cmd-item">
-                    <label for="nom">Client</label>
-                    <input id="nom" type="text" th:field="*{client.nomComplet}"></input>
-                </div>
-                <div class="cmd-item">
-                    <label for="tel">Telephone </label>
-                    <input id="tel" required type="number" th:field="*{client.tel}"></input>
-                </div>
-                <div class="cmd-item">
-                    <label for="adress">Adresse </label>
-                    <input id="adress" required type="text" th:field="*{client.adresse}"></input>
-                </div>
-                <div class="cmd-item">
-                    <p>Ne pas inclure les frais d'installation (35.000 FCFA)</p>
-                    <input onclick="calcMontantInstall()" id="checkFrais" type="checkbox"
-                           th:field="*{frais}"
-                           th:value="${panier.frais}"></input>
-                </div>
-                <div class="cmd-item">
-                    <p>Montant à payer <span> (FCFA)</span> :</p>
-                    <input readonly type="number" id="pMontant"
-                           th:value="${panier.total}">
-                    </input>
-                </div>
-                <h3>Nous acceptons</h3>
-                <select th:field="*{modePaiement}" name="modePaiement" id="modPaiement">
-                    <option value="0">Liquide</option>
-                    <option value="1">Orange Money</option>
-                    <option value="2">Wave</option>
-                </select>
-                <div class="pay-mode">
-                    <img th:src="@{/img/paiement-par-carte-de-credit.png}" alt="">
-                    <img th:src="@{/img/orange-money.jpg}" alt="">
-                    <img th:src="@{/img/wave.png}" alt="">
-                </div>
-                <button>Commander</button>
-            </div>
-            -->
+        <div class="aside payment">
             <div class="summary">
                 <a th:href="@{/panier/commander}">
-                    <button>Passer commande</button>
+                    <button class="normal-button">Passer commande</button>
                 </a>
             </div>
-        </form>
+        </div>
     </main>
 </div>
 <script>

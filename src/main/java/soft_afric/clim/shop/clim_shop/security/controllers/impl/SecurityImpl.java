@@ -17,11 +17,10 @@ public class SecurityImpl implements Security {
     public String login(UserDetails user) {
         if(user!=null){
             if(user.getAuthorities().stream().anyMatch(c->c.getAuthority().compareTo("Admin")==0)){
-                return "redirect:/client/details/1";
+                return "redirect:/admin/";
             }
             if(user.getAuthorities().stream().anyMatch(c->c.getAuthority().compareTo("Client")==0)){
-                AppUser appUser = securityService.getUserByUsername(user.getUsername());
-                return "redirect:/client/home";
+                return "redirect:/client/account";
             }
         }
         return "security/login";
